@@ -1,3 +1,5 @@
+require 'bookingsync_portal/mash_serializer'
+
 class BookingsyncPortal::RemoteRental < ActiveRecord::Base
   self.table_name = 'remote_rentals'
 
@@ -6,7 +8,7 @@ class BookingsyncPortal::RemoteRental < ActiveRecord::Base
   has_one :connection, class_name: '::Connection'
   has_one :rental, through: :connection, class_name: '::Rental'
 
-  serialize :remote_data, MashSerializer
+  serialize :remote_data, BookingsyncPortal::MashSerializer
 
   validates :uid, presence: true, uniqueness: true
   validates :remote_account, presence: true
