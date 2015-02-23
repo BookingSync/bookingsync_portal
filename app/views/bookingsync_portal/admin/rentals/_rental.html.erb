@@ -1,0 +1,17 @@
+<div class="panel panel-bookingsync bookingsync-rental"
+  id="<%= dom_id rental %>"
+  data-connect-url="<%= connect_admin_rental_url(rental) %>">
+  <div class="panel-heading">
+    <%= rental.name.presence || "Unnamed rental" %>
+  </div>
+  <div class="panel-body-grid">
+    <div class="panel-body-grid-photo">
+      <%- if rental.ordered_photos.first -%>
+        <%= image_tag rental.ordered_photos.first.thumb_url, class: "img-responsive" %>
+      <%- end -%>
+    </div>
+    <div class="panel-body-grid-text">
+      <%= rental_details rental %>
+    </div>
+  </div>
+</div>
