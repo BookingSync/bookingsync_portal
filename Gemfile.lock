@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     bookingsync_portal (0.0.1)
-      bookingsync_application
+      bookingsync_application (= 0.1.4)
       rails
 
 GEM
@@ -44,11 +44,11 @@ GEM
       bookingsync-api (>= 0.0.23)
       omniauth-bookingsync (~> 0.2.0)
       rails (>= 4.0.0)
-    bookingsync_application (0.1.3)
+    bookingsync_application (0.1.4)
       bookingsync-engine (~> 0.4.6)
       dotenv-rails
       factory_girl_rails
-      jsonapi-resources
+      jsonapi-resources (~> 0.0.16)
       rails (~> 4.1.0)
       rspec-rails
       synced
@@ -71,7 +71,7 @@ GEM
     hike (1.2.3)
     i18n (0.7.0)
     json (1.8.2)
-    jsonapi-resources (0.1.1)
+    jsonapi-resources (0.0.16)
     jwt (1.2.1)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
