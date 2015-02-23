@@ -1,0 +1,4 @@
+en:
+  errors:
+    messages:
+      not_matching_accounts: "Different ownership of rental and remote_rental"
