@@ -7,14 +7,15 @@ class BookingsyncPortal::Connection < ActiveRecord::Base
   validates :remote_rental, presence: true
   validates :rental, presence: true
 
-  validate :ensure_same_ownership_for_rental_and_remote_rental
+  validate :matching_accounts, if: -> { rental && remote_rental }
 
   private
 
-  def ensure_same_ownership_for_rental_and_remote_rental
-    return unless rental && remote_rental
-    unless rental.account_id == remote_rental.account.id
-      errors.add(:base, I18n.t("errors.messages.different_owner_on_rental_associations"))
-    end
+  def matching_accounts?
+    rental.account_id == remote_rental.account.id
+  end
+
+  def matching_accounts
+    errors.add(:base, :not_matching_accounts) unless matching_accounts?
   end
 end

@@ -1,4 +1,4 @@
 en:
   errors:
     messages:
-      different_owner_on_rental_associations: "Different ownership of rental and remote_rental"
+      not_matching_accounts: "Different ownership of rental and remote_rental"
