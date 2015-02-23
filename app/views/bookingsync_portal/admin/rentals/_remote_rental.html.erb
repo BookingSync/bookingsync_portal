@@ -1,0 +1,9 @@
+<div class="panel panel-remote remote-disconnected-rental" id="<%= dom_id remote_rental %>"
+  data-uid="<%= remote_rental.uid %>">
+  <div class="panel-heading" title="<%=t 'admin.remote_rentals.show.listing_id',
+    id: remote_rental.uid %>">
+    <%= remote_rental.name.presence || "Unnamed rental" %><br/>
+  </div>
+  <div class="panel-body">
+  </div>
+</div>
