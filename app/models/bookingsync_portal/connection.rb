@@ -1,8 +1,8 @@
 class BookingsyncPortal::Connection < ActiveRecord::Base
   self.table_name = 'connections'
 
-  belongs_to :remote_rental, class_name: '::RemoteRental'
-  belongs_to :rental, class_name: '::Rental'
+  belongs_to :remote_rental, class_name: BookingsyncPortal.remote_rental_model
+  belongs_to :rental, class_name: BookingsyncPortal.rental_model
 
   validates :remote_rental, presence: true
   validates :rental, presence: true

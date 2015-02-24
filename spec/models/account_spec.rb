@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Account, type: :model do
+RSpec.describe BookingsyncPortal.account_model.constantize do
   describe 'included_modules' do
     subject { described_class.included_modules }
 

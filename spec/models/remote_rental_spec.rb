@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe RemoteRental, type: :model do
+RSpec.describe BookingsyncPortal.remote_rental_model.constantize do
   let(:remote_rental) { create :remote_rental }
 
   it { is_expected.to serialize(:remote_data).as(BookingsyncPortal::MashSerializer) }
