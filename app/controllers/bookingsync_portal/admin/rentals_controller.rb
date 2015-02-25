@@ -2,7 +2,7 @@ module BookingsyncPortal
   module Admin
     class RentalsController < Admin::BaseHTMLController
       before_action :synchronize_rentals, only: :index
-      before_action :synchronize_remote_rentals, only: :index
+      before_action :fetch_remote_rentals, only: :index
 
       def index
         @disconnected_bookingsync_rentals = current_account.rentals.ordered.disconnected
@@ -17,22 +17,23 @@ module BookingsyncPortal
 
       def connect
         remote_rental = current_account.remote_rentals.find(params[:remote_rental_id])
-        rental.remote_rental = remote_rental
-        rental.save
+        connection = rental.build_connection(remote_rental: remote_rental)
+        connection.save
 
-        ::SynchronizeRentalWorker.perform_async(rental.id)
+        BookingsyncPortal::Callbacks.connection_created(connection)
         redirect_or_js_response
       end
 
       def disconnect
+        connection = rental.connection
         if rental.remote_rental.uid.blank? # was not yet created on HolidayLettings
           rental.remote_rental.destroy
         else
           rental.remote_rental.update_attribute(:synchronized_at, nil)
-          rental.connection.destroy
+          connection.destroy
         end
 
-        ::SynchronizeRentalWorker.perform_async(rental.id)
+        BookingsyncPortal::Callbacks.connection_destroyed(connection)
         redirect_or_js_response
       end
 
@@ -42,10 +43,10 @@ module BookingsyncPortal
         ::Rental.synchronize(scope: current_account)
       end
 
-      def synchronize_remote_rentals
-        ::Read::RemoteRental.synchronize(scope: current_account)
-      rescue ::HolidayLettings::API::NotRegistered
-        @remote_account_not_registered = true
+      def fetch_remote_rentals
+        unless BookingsyncPortal::Callbacks.fetch_remote_rentals(current_account)
+          @remote_account_not_registered = true
+        end
       end
 
       def rental

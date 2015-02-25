@@ -1,7 +1,9 @@
 module BookingsyncPortal
   module Admin
     class RemoteRentalResource < JSONAPI::Resource
-      attributes :id, :name, :active_yn
+      model_name BookingsyncPortal.remote_rental_model
+
+      attributes :id
 
       def self.records(options = {})
         context = options[:context]

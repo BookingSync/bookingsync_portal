@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  mount BookingsyncPortal::Engine => '/bookingsync_portal'
+  scope path: 'en' do
+    mount BookingsyncPortal::Engine => '/'
+  end
 end

@@ -2,7 +2,7 @@ module BookingsyncPortal
   module Admin
     module RentalsHelper
       def rental_details(rental)
-        scope = 'admin.rentals.rental'
+        scope = 'bookingsync_portal.admin.rentals.rental'
 
         details = Array.new
         if rental.sleeps.to_i > 0
