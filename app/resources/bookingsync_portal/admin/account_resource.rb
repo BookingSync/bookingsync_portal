@@ -1,13 +1,13 @@
 module BookingsyncPortal
   module Admin
-    class ConnectionResource < JSONAPI::Resource
-      model_name BookingsyncPortal.connection_model
+    class AccountResource < JSONAPI::Resource
+      model_name BookingsyncPortal.account_model
 
-      attributes :id, :rental_id, :remote_rental_id
+      attributes :id
 
       def self.records(options = {})
         context = options[:context]
-        context[:current_account].connections
+        context[:current_account]
       end
 
       def save

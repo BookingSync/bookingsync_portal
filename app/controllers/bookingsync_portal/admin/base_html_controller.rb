@@ -1,4 +1,4 @@
-require 'bookingsync_application/common_base_controller'
+require 'bookingsync_application/admin/common_base_controller'
 
 module BookingsyncPortal
   module Admin
@@ -6,7 +6,7 @@ module BookingsyncPortal
       layout 'admin'
       respond_to :html
 
-      include BookingsyncApplication::CommonBaseController
+      include BookingsyncApplication::Admin::CommonBaseController
 
       private
 

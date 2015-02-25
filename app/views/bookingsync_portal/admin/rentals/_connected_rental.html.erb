@@ -1,11 +1,11 @@
 <div
   class="panel panel-connected <%= "pending" unless remote_rental.synchronized? %>"
   id="<%= dom_id rental %>">
-  <div class="panel-heading" title="<%=t 'admin.remote_rentals.show.listing_id',
-    id: remote_rental.uid %>">
+  <div class="panel-heading" title="<%= RemoteRental.human_attribute_name(:uid) %>
+    <%= remote_rental.uid %>">
     <%= rental.name %>
     <%= link_to "Remove connection",
-          disconnect_bookingsync_portal.admin_rental_path(rental),
+          bookingsync_portal.disconnect_admin_rental_path(rental),
           class: "btn btn-default btn-xs remove-connection",
           data: {disable_with: "Removing..."},
           method: :put %>
@@ -18,7 +18,7 @@
         <%- end -%>
       </div>
       <div class="panel-body-grid-text">
-        <%= render partial: 'rental_details', rental %>
+        <%= rental_details(rental) %>
       </div>
     </div>
   <% else %>

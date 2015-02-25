@@ -1,5 +1,6 @@
 require 'bookingsync_application'
 require 'bookingsync_portal/engine'
+require 'bookingsync_portal/callbacks'
 
 module BookingsyncPortal
   #customizeable classes with accessor name and default class, simplifies extending engine functionality
@@ -8,7 +9,12 @@ module BookingsyncPortal
     remote_account_model: 'BookingsyncPortal::RemoteAccount',
     rental_model: 'BookingsyncPortal::Rental',
     remote_rental_model: 'BookingsyncPortal::RemoteRental',
-    connection_model: 'BookingsyncPortal::Connection'
+    connection_model: 'BookingsyncPortal::Connection',
+    account_resource: 'BookingsyncPortal::Admin::AccountResource',
+    remote_account_resource: 'BookingsyncPortal::Admin::RemoteAccountResource',
+    rental_resource: 'BookingsyncPortal::Admin::RentalResource',
+    remote_rental_resource: 'BookingsyncPortal::Admin::RemoteRentalResource',
+    connection_resource: 'BookingsyncPortal::Admin::ConnectionResource',
   }
 
   CUSTOMIZEABLE_CLASSES.each do |method_name, default_value|

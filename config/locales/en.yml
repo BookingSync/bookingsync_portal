@@ -1,4 +1,52 @@
 en:
+  activerecord:
+    attributes:
+      remote_account:
+        uid: Owner ID
   errors:
     messages:
-      not_matching_accounts: "Different ownership of rental and remote_rental"
+      not_matching_accounts: Different ownership of rental and remote_rental
+
+  bookingsync_portal:
+    admin:
+      remote_accounts:
+        new:
+          title: Connect A New External Portal Account
+        register:
+          register_html: To synchronize with External Portal, you previously need to %{email_link}
+          email_link_title: contact them using this email
+        form:
+          submit_new: Connect This External Portal Account
+
+      remote_rentals:
+        show:
+          listing_id: "Listing #%{id}"
+
+      rentals:
+        index:
+          all_synchronized: Perfect! All your rentals are synchronized.
+          create_listings_first: You must create your listings on External Portal before you can synchronize them automatically.
+          connect_accounts: Add External Portal Account
+        rental:
+          bedrooms_html:
+            one: '<strong>1</strong> Bedroom'
+            other: '<strong>%{count}</strong> Bedrooms'
+          bathrooms_html:
+            one: '<strong>1</strong> Bathroom'
+            other: '<strong>%{count}</strong> Bathrooms'
+          sleeps_html:
+            one: '<strong>%{count}</strong> Person'
+            other: '<strong>%{count}</strong> People'
+          surface_html:
+            zero: ''
+            other: '<span>Surface</span> <strong>%{count}m²</strong>'
+
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+    required:
+      text: 'required'
+      mark: '*'
+    error_notification:
+      default_message: "Please review the problems below:"
+
