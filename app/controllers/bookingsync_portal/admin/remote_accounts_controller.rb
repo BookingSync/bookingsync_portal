@@ -1,18 +1,18 @@
 module BookingsyncPortal
   module Admin
-    class RemoteAccountsController < Admin::BaseHTMLController
+    class RemoteAccountsController < Admin::BaseController
       def new
-        @new_remote_account = objects.build
+        @remote_account = scope.build
       end
 
       def create
-        respond_with @new_remote_account = objects.create(params_remote_account),
-          location: admin_rentals_url
+        @remote_account = scope.create(params_remote_account)
+        respond_with @remote_account, location: admin_rentals_url
       end
 
       private
 
-      def objects
+      def scope
         current_account.remote_accounts
       end
 

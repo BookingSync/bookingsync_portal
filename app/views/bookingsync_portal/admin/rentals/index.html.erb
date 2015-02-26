@@ -4,8 +4,8 @@
       <legend>BookingSync: <%= current_account.name %></legend>
     </div>
     <div class="rentals-list-scroll">
-     <%- if @disconnected_bookingsync_rentals.length > 0 -%>
-        <% @disconnected_bookingsync_rentals.each do |rental| %>
+     <%- if @not_connected_rentals.length > 0 -%>
+        <% @not_connected_rentals.each do |rental| %>
           <%= render rental %>
         <% end %>
       <%- else -%>
@@ -28,7 +28,7 @@
           <%- if @remote_account_not_registered %>
             <div class="lead text-center well">
               <p class=""><%= icon 'warning fa-lg' %></p>
-              <%= render '/admin/remote_accounts/register' %>
+              <%= render '/admin/remote_accounts/how_to_connect' %>
             </div>
           <%- elsif Array(@remote_rentals_by_account[remote_account]).length > 0 -%>
             <% Array(@remote_rentals_by_account[remote_account]).each do |remote_rental| %>

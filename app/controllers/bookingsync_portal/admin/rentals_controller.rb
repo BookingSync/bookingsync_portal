@@ -1,11 +1,11 @@
 module BookingsyncPortal
   module Admin
-    class RentalsController < Admin::BaseHTMLController
+    class RentalsController < Admin::BaseController
       before_action :synchronize_rentals, only: :index
       before_action :fetch_remote_rentals, only: :index
 
       def index
-        @disconnected_bookingsync_rentals = current_account.rentals.ordered.disconnected
+        @not_connected_rentals = current_account.rentals.ordered.not_connected
         @remote_accounts = current_account.remote_accounts
         @remote_rentals_by_account = current_account.remote_rentals.ordered
           .includes(:remote_account).group_by(&:remote_account)
@@ -40,7 +40,7 @@ module BookingsyncPortal
       private
 
       def synchronize_rentals
-        ::Rental.synchronize(scope: current_account)
+        BookingsyncPortal.rental_model.constantize.synchronize(scope: current_account)
       end
 
       def fetch_remote_rentals

@@ -1,7 +1,12 @@
+require 'bookingsync_application/admin/common_base_controller'
+
 module BookingsyncPortal
   module Admin
-    class BaseController < BookingsyncApplication::Admin::BaseController
-      layout 'admin'
+    class BaseController < ApplicationController
+      layout 'bookingsync_portal/admin'
+      respond_to :html
+
+      include BookingsyncApplication::Admin::CommonBaseController
 
       private
 

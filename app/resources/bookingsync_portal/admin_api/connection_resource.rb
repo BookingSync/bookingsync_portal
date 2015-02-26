@@ -1,5 +1,5 @@
 module BookingsyncPortal
-  module Admin
+  module AdminApi
     class ConnectionResource < JSONAPI::Resource
       model_name BookingsyncPortal.connection_model
 
