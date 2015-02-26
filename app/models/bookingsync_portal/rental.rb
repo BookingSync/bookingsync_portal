@@ -6,7 +6,8 @@ class BookingsyncPortal::Rental < ActiveRecord::Base
   has_one :remote_rental, class_name: BookingsyncPortal.remote_rental_model, through: :connection
 
   scope :ordered, -> { order(position: :asc) }
-  scope :disconnected, -> { includes(:connection).where(connections: { rental_id: nil }) }
+  scope :connected, -> { joins(:remote_rental) }
+  scope :disconnected, -> { includes(:connection).where(connections: { remote_rental_id: nil }) }
 
   def connected?
     remote_rental.present?

@@ -14,7 +14,7 @@ class BookingsyncPortal::RemoteRental < ActiveRecord::Base
   validates :remote_account, presence: true
 
   scope :ordered, -> { includes(:rental).order("rentals.position ASC") }
-  scope :connected, -> { includes(:rental).where.not(rentals: { id: nil }) }
+  scope :connected, -> { joins(:rental) }
   scope :disconnected, -> { includes(:rental).where(rentals: { id: nil }) }
 
   def connected?
