@@ -13,7 +13,7 @@
 # BookingsyncPortal.remote_rental_resource = '::Admin::RemoteRentalResource'
 # BookingsyncPortal.connection_resource = '::Admin::ConnectionResource'
 
-module BookingsyncPortal::Callbacks
+module BookingsyncPortal
   def self.connection_created(connection)
     # handle connection created here
   end

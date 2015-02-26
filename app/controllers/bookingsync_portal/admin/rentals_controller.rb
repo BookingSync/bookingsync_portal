@@ -20,7 +20,7 @@ module BookingsyncPortal
         connection = rental.build_connection(remote_rental: remote_rental)
         connection.save
 
-        BookingsyncPortal::Callbacks.connection_created(connection)
+        BookingsyncPortal.connection_created(connection)
         redirect_or_js_response
       end
 
@@ -33,7 +33,7 @@ module BookingsyncPortal
           connection.destroy
         end
 
-        BookingsyncPortal::Callbacks.connection_destroyed(connection)
+        BookingsyncPortal.connection_destroyed(connection)
         redirect_or_js_response
       end
 
@@ -44,7 +44,7 @@ module BookingsyncPortal
       end
 
       def fetch_remote_rentals
-        unless BookingsyncPortal::Callbacks.fetch_remote_rentals(current_account)
+        unless BookingsyncPortal.fetch_remote_rentals(current_account)
           @remote_account_not_registered = true
         end
       end

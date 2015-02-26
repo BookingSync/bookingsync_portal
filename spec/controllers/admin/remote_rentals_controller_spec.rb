@@ -15,7 +15,7 @@ describe BookingsyncPortal::Admin::RemoteRentalsController do
 
   describe 'GET index' do
     before do
-      BookingsyncPortal::Callbacks.stub(:fetch_remote_rentals) do
+      BookingsyncPortal.stub(:fetch_remote_rentals) do
         create :remote_rental_with_data, remote_account: remote_account
       end
     end
