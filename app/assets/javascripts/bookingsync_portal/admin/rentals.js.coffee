@@ -12,7 +12,7 @@ $ ->
     start: (e, ui) ->
       $(ui.helper).addClass "ui-draggable-helper"
 
-  $(".remote-disconnected-rental").droppable
+  $(".not-connected-remote-rental").droppable
     accept: ".bookingsync-rental"
     activeClass: "dropzone-active"
     hoverClass: "dropzone-hover"

@@ -1,5 +1,5 @@
 module BookingsyncPortal
-  module Admin
+  module AdminApi
     class RemoteRentalResource < JSONAPI::Resource
       model_name BookingsyncPortal.remote_rental_model
 

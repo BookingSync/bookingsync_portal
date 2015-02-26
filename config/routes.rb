@@ -1,15 +1,19 @@
 BookingsyncPortal::Engine.routes.draw do
   namespace :admin do
-    resource :home, only: :show, controller: :home
     resources :rentals, only: [:index, :show] do
       put :disconnect, on: :member
       put :connect, on: :member
     end
-
     resources :remote_accounts, only: [:new, :create]
+    root to: 'rentals#index'
+  end
 
-    resources :remote_rentals, only: :index
-    resources :connections, only: [:create, :destroy]
-    root to: 'home#show'
+  namespace :admin_api do
+    # FIXME properly handle cuurent account resource
+    # jsonapi_resource :account
+    jsonapi_resources :remote_accounts
+    jsonapi_resources :rentals, only: [:index, :show]
+    jsonapi_resources :remote_rentals, only: [:index, :show]
+    jsonapi_resources :connections
   end
 end

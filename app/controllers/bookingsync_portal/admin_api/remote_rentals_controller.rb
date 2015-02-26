@@ -1,8 +1,10 @@
 module BookingsyncPortal
-  module Admin
-    class RemoteRentalsController < Admin::BaseController
+  module AdminApi
+    class RemoteRentalsController < BookingsyncPortal::AdminApi::BaseController
       prepend_before_action :set_resource_klass_name
-      before_action :fetch_remote_rentals
+      before_action :fetch_remote_rentals, only: :index
+
+      private
 
       def fetch_remote_rentals
         BookingsyncPortal.fetch_remote_rentals(current_account)

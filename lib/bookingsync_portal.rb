@@ -38,23 +38,23 @@ module BookingsyncPortal
 
   # account resource class
   mattr_accessor :account_resource
-  @@account_resource = 'BookingsyncPortal::Admin::AccountResource'
+  @@account_resource = 'BookingsyncPortal::AdminApi::AccountResource'
 
   # remote account resource class
   mattr_accessor :remote_account_resource
-  @@remote_account_resource = 'BookingsyncPortal::Admin::RemoteAccountResource'
+  @@remote_account_resource = 'BookingsyncPortal::AdminApi::RemoteAccountResource'
 
   # rental resource class
   mattr_accessor :rental_resource
-  @@rental_resource = 'BookingsyncPortal::Admin::RentalResource'
+  @@rental_resource = 'BookingsyncPortal::AdminApi::RentalResource'
 
   # remote rental resource class
   mattr_accessor :remote_rental_resource
-  @@remote_rental_resource = 'BookingsyncPortal::Admin::RemoteRentalResource'
+  @@remote_rental_resource = 'BookingsyncPortal::AdminApi::RemoteRentalResource'
 
   # connection resource class
   mattr_accessor :connection_resource
-  @@connection_resource = 'BookingsyncPortal::Admin::ConnectionResource'
+  @@connection_resource = 'BookingsyncPortal::AdminApi::ConnectionResource'
 
   # handle synchronization of rentals after connection is made
   def self.connection_created(connection)
