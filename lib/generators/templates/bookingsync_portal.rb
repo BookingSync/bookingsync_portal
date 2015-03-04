@@ -13,7 +13,7 @@ BookingsyncPortal.setup do |config|
   # config.remote_rental_model = '::RemoteRental'
 
   # customize connection model class, can extend BookingsyncPortal::Connection
-  # config.connection_model = '::RemoteAccount'
+  # config.connection_model = '::Connection'
 
   # customize account resource class, can extend BookingsyncPortal::Admin::AccountResource
   # config.account_resource = '::Admin::AccountResource'
