@@ -7,7 +7,7 @@ RSpec.describe BookingsyncPortal.remote_rental_model.constantize do
 
   it { is_expected.to belong_to :remote_account }
   it { is_expected.to have_one(:account).through(:remote_account) }
-  it { is_expected.to have_one :connection }
+  it { is_expected.to have_one(:connection).dependent(:destroy) }
   it { is_expected.to have_one(:rental).through(:connection) }
 
   it { is_expected.to validate_presence_of :uid }

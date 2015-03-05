@@ -5,7 +5,7 @@ class BookingsyncPortal::RemoteRental < ActiveRecord::Base
 
   belongs_to :remote_account, class_name: BookingsyncPortal.remote_account_model
   has_one :account, through: :remote_account, class_name: BookingsyncPortal.account_model
-  has_one :connection, class_name: BookingsyncPortal.connection_model
+  has_one :connection, class_name: BookingsyncPortal.connection_model, dependent: :destroy
   has_one :rental, through: :connection, class_name: BookingsyncPortal.rental_model
 
   serialize :remote_data, BookingsyncPortal::MashSerializer
