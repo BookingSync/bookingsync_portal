@@ -1,7 +1,6 @@
 module BookingsyncPortal
   module AdminApi
     class BaseController < BookingsyncApplication::Admin::BaseController
-      layout 'admin'
 
       private
 
