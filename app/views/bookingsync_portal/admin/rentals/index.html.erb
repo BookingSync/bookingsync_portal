@@ -1,0 +1,58 @@
+<div class="rentals-container row-fluid">
+  <div class="bookingsync-rentals-list rentals-list col-xs-4">
+    <div class="rentals-list-header">
+      <legend>BookingSync: <%= current_account.name %></legend>
+    </div>
+    <div class="rentals-list-scroll">
+     <%- if @not_connected_rentals.length > 0 -%>
+        <% @not_connected_rentals.each do |rental| %>
+          <%= render rental %>
+        <% end %>
+      <%- else -%>
+        <div class="lead text-center well">
+          <p class=""><%= icon 'thumbs-up fa-lg' %></p>
+          <p><%=t '.all_synchronized' %></p>
+        </div>
+      <%- end -%>
+    </div>
+  </div>
+
+  <% if @remote_accounts.any? %>
+    <% @remote_accounts.each do |remote_account| %>
+      <div class="remote-rentals-list rentals-list col-xs-4">
+        <div class="rentals-list-header">
+          <legend>HolidayLettings: <%= remote_account.name %></legend>
+        </div>
+
+        <div class="rentals-list-scroll">
+          <%- if @remote_account_not_registered %>
+            <div class="lead text-center well">
+              <p class=""><%= icon 'warning fa-lg' %></p>
+              <%= render '/admin/remote_accounts/how_to_connect' %>
+            </div>
+          <%- elsif Array(@remote_rentals_by_account[remote_account]).length > 0 -%>
+            <% Array(@remote_rentals_by_account[remote_account]).each do |remote_rental| %>
+              <% if remote_rental.connected? %>
+                <%= render "connected_rental", remote_rental: remote_rental, rental: remote_rental.rental %>
+              <% else %>
+                <%= render "remote_rental", remote_rental: remote_rental %>
+              <% end %>
+            <% end %>
+          <%- else -%>
+            <div class="lead text-center well">
+              <p class=""><%= icon 'info fa-lg' %></p>
+              <p><%=t '.create_listings_first' %></p>
+            </div>
+          <%- end -%>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="rentals-list col-xs-4">
+      <legend>Connect</legend>
+      <%= link_to new_admin_remote_account_path, class: "btn btn-primary btn-lg btn-block" do %>
+        <%= icon "plus-circle" %> <%= t '.connect_accounts' %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

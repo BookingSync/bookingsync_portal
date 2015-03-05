@@ -1,0 +1,27 @@
+<div
+  class="panel panel-connected <%= "pending" unless remote_rental.synchronized? %>"
+  id="<%= dom_id rental %>">
+  <div class="panel-heading" title="<%= RemoteRental.human_attribute_name(:uid) %>
+    <%= remote_rental.uid %>">
+    <%= rental.name %>
+    <%= link_to "Remove connection",
+          bookingsync_portal.disconnect_admin_rental_path(rental),
+          class: "btn btn-default btn-xs remove-connection",
+          data: {disable_with: "Removing..."},
+          method: :put %>
+  </div>
+  <% if rental.remote_rental.synchronized? %>
+    <div class="panel-body-grid">
+      <div class="panel-body-grid-photo">
+        <%- if rental.ordered_photos.first -%>
+          <%= image_tag rental.ordered_photos.first.thumb_url, class: "img-responsive" %>
+        <%- end -%>
+      </div>
+      <div class="panel-body-grid-text">
+        <%= rental_details(rental) %>
+      </div>
+    </div>
+  <% else %>
+    <div class="panel-body"><i class="fa fa-spinner fa-spin"></i> Synchronizing...</div>
+  <% end %>
+</div>

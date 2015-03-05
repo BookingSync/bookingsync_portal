@@ -1,0 +1,116 @@
+$dropzone-active-bg: #fbf9ee;
+
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "utils";
+
+html, body {
+  height: 100%;
+  height: 100vh;
+}
+
+.rentals-container {
+  height: 100%;
+}
+
+.rentals-list {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.rentals-list-header, .rentals-list-footer {
+  flex: 0 0 auto;
+}
+
+.rentals-list-scroll {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+.remote-rentals-list {
+  border: 1px solid transparent;
+
+  &.dropzone-active {
+    border: 1px dashed darken($dropzone-active-bg, 7%);
+    background-color: lighten($dropzone-active-bg, 2%);
+  }
+
+  &.dropzone-hover {
+    border: 1px solid darken($dropzone-active-bg, 7%);
+    background-color: $dropzone-active-bg;
+
+    .remote-new-rental {
+      border: 1px solid $btn-success-border;
+    }
+  }
+
+  .dropzone-active {
+    border: 1px dashed $btn-success-border;
+  }
+
+  .dropzone-hover {
+    border: 1px solid $btn-success-border;
+  }
+}
+
+.ui-draggable-helper {
+  opacity: 0.6;
+}
+
+.panel-body-grid {
+  display: flex;
+}
+
+.panel-body-grid-photo {
+  min-width: 96px;
+  flex-grow: 0;
+}
+
+.panel-body-grid-text {
+  padding: $padding-base-vertical $padding-base-horizontal;
+  flex-grow: 1;
+}
+
+.panel-bookingsync {
+  @extend .panel-info;
+}
+
+.panel-connected {
+  @extend .panel-success;
+
+  &.pending {
+    border-color: darken($dropzone-active-bg, 7%);
+
+    .panel-heading {
+      background-color: $dropzone-active-bg;
+      color: darken($dropzone-active-bg, 50%);
+    }
+  }
+
+  .panel-heading {
+    position: relative;
+  }
+
+  .remove-connection {
+    position: absolute;
+    right: 3px;
+    top: 8px;
+  }
+}
+
+.panel-remote {
+  @extend .panel-default;
+}
+
+.panel.ui-draggable {
+  &:hover {
+    cursor: move;
+  }
+}
+
+#synchronize {
+  margin-top: 50px;
+}

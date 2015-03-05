@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :connection do
+  factory :connection, class: BookingsyncPortal.connection_model do
     after(:build) do |connection, _evaluator|
       account = create(:account)
       connection.rental ||= build(:rental, account: account)

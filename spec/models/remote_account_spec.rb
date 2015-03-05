@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe RemoteAccount, type: :model do
+RSpec.describe BookingsyncPortal.remote_account_model.constantize do
   it { is_expected.to belong_to :account }
   it { is_expected.to have_many(:remote_rentals).dependent(:destroy) }
 

@@ -1,0 +1,11 @@
+<%= simple_form_for [:admin, remote_account] do |f| -%>
+  <div class="col-sm-offset-3 col-sm-6 push-xl-top">
+    <div class="row">
+      <%= f.input :uid, input_html: { class: 'input-lg col-xs-12' } -%>
+    </div>
+
+    <div class="row push-xl-top">
+      <%= f.submit t('.submit_new'), class: "btn btn-primary btn-lg btn-block" %>
+    </div>
+  </div>
+<%- end -%>
