@@ -2,11 +2,11 @@
 <html>
 <head>
   <title>BookingSync - HolidayLettings integration</title>
-  <%= stylesheet_link_tag 'bookingsync_portal/admin/application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body data-messagebus-channel="<%= messagebus_channel %>">
 <%= yield %>
-<%= javascript_include_tag 'bookingsync_portal/admin/application', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </body>
 </html>
