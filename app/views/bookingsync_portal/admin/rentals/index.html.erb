@@ -1,7 +1,7 @@
 <div class="rentals-container row-fluid">
   <div class="bookingsync-rentals-list rentals-list col-xs-4">
     <div class="rentals-list-header">
-      <legend>BookingSync: <%= current_account.name %></legend>
+      <legend><%=t '.bookingsync_header', account_name: current_account.name %></legend>
     </div>
     <div class="rentals-list-scroll">
      <%- if @not_connected_rentals.length > 0 -%>
@@ -21,7 +21,7 @@
     <% @remote_accounts.each do |remote_account| %>
       <div class="remote-rentals-list rentals-list col-xs-4">
         <div class="rentals-list-header">
-          <legend>HolidayLettings: <%= remote_account.name %></legend>
+          <legend><%=t '.remote_header', account_name: remote_account.name %></legend>
         </div>
 
         <div class="rentals-list-scroll">
@@ -49,7 +49,7 @@
     <% end %>
   <% else %>
     <div class="rentals-list col-xs-4">
-      <legend>Connect</legend>
+      <legend><%=t '.connect' %></legend>
       <%= link_to new_admin_remote_account_path, class: "btn btn-primary btn-lg btn-block" do %>
         <%= icon "plus-circle" %> <%= t '.connect_accounts' %>
       <% end %>

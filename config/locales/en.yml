@@ -2,7 +2,7 @@ en:
   activerecord:
     attributes:
       remote_account:
-        uid: Owner ID
+        uid: Remote account ID
   errors:
     messages:
       not_matching_accounts: Different ownership of rental and remote_rental
@@ -11,9 +11,9 @@ en:
     admin:
       remote_accounts:
         new:
-          title: Connect A New External Portal Account
+          title: Connect A New Remote Account
         form:
-          submit_new: Connect This External Portal Account
+          submit_new: Connect This Remote Account
 
       remote_rentals:
         show:
@@ -21,10 +21,12 @@ en:
 
       rentals:
         index:
-          rentals:
-            all_synchronized: Perfect! All your rentals are synchronized.
-          create_listings_first: You must create your listings on External Portal before you can synchronize them automatically.
+          connect: Connect
+          bookingsync_header: "BookingSync: %{account_name}"
+          all_synchronized: Perfect! All your rentals are synchronized.
+          create_listings_first: You must create your rentals on Remote Account before you can synchronize them automatically.
           connect_accounts: Add External Portal Account
+          remote_header: "Remote Account: %{account_name}"
         rental:
           bedrooms_html:
             one: '<strong>1</strong> Bedroom'
@@ -38,6 +40,13 @@ en:
           surface_html:
             zero: ''
             other: '<span>Surface</span> <strong>%{count}m²</strong>'
+          no_name: Unnamed rental
+        remote_rental:
+          no_name: Unnamed remote rental
+        connected_rental:
+          disconnect_rental: 'Disconnect'
+          disconnecting_rental: 'Disconnecting...'
+          synchronizing: 'Synchronizing...'
 
   simple_form:
     "yes": 'Yes'

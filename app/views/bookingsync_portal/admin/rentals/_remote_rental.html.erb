@@ -2,7 +2,7 @@
   data-uid="<%= remote_rental.uid %>">
   <div class="panel-heading" title="<%= RemoteRental.human_attribute_name(:uid) %>
     <%= remote_rental.uid %>">
-    <%= remote_rental.name.presence || "Unnamed rental" %><br/>
+    <%= remote_rental.name.presence || t('.no_name') %><br/>
   </div>
   <div class="panel-body">
   </div>

@@ -4,11 +4,19 @@ $dropzone-active-bg: #fbf9ee;
 @import "font-awesome";
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "utils";
 
 html, body {
   height: 100%;
   height: 100vh;
+}
+
+body > .footer {
+  padding-bottom: 20px;
+  clear: both;
+}
+
+#remote_account_uid {
+  text-align: center;
 }
 
 .rentals-container {
@@ -109,8 +117,4 @@ html, body {
   &:hover {
     cursor: move;
   }
-}
-
-#synchronize {
-  margin-top: 50px;
 }

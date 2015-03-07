@@ -2,7 +2,7 @@
   id="<%= dom_id rental %>"
   data-connect-url="<%= connect_admin_rental_url(rental) %>">
   <div class="panel-heading">
-    <%= rental.name.presence || "Unnamed rental" %>
+    <%= rental.name.presence || t('.no_name') %>
   </div>
   <div class="panel-body-grid">
     <div class="panel-body-grid-photo">
