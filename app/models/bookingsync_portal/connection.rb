@@ -12,7 +12,7 @@ class BookingsyncPortal::Connection < ActiveRecord::Base
   private
 
   def matching_accounts?
-    rental.account_id == remote_rental.account.id
+    rental.account == remote_rental.remote_account.account
   end
 
   def matching_accounts
