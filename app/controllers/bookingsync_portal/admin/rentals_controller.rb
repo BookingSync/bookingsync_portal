@@ -26,12 +26,8 @@ module BookingsyncPortal
 
       def disconnect
         connection = rental.connection
-        if rental.remote_rental.uid.blank? # was not yet created on HolidayLettings
-          rental.remote_rental.destroy
-        else
-          rental.remote_rental.update_attribute(:synchronized_at, nil)
-          connection.destroy
-        end
+        rental.remote_rental.update_attribute(:synchronized_at, nil)
+        connection.destroy
 
         BookingsyncPortal.connection_destroyed(connection)
         redirect_or_js_response

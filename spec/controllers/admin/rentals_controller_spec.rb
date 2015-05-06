@@ -3,8 +3,9 @@ require 'rails_helper'
 describe BookingsyncPortal::Admin::RentalsController do
   routes { BookingsyncPortal::Engine.routes }
 
-  let(:account) { create :account }
-  let(:rental) { create :rental }
+  let!(:account) { create(:account) }
+  let!(:remote_account) { create(:remote_account, account: account) }
+  let(:rental) { create(:rental, account: account) }
 
   before do
     request.env['HTTPS'] = 'on'
@@ -64,6 +65,8 @@ describe BookingsyncPortal::Admin::RentalsController do
   end
 
   describe 'PUT #disconnect' do
+    let!(:rental) { create(:rental, account: account) }
+    let!(:remote_rental) { create(:remote_rental, remote_account: remote_account) }
     let!(:connection) { create :connection }
     let(:action) do
       put :disconnect, id: connection.rental.id
@@ -78,8 +81,11 @@ describe BookingsyncPortal::Admin::RentalsController do
     end
 
     context 'when current_account is not owner' do
-      let(:account) { create :account }
+      let(:another_account) { create(:remote_account).account }
 
+      before do
+        allow(controller).to receive(:current_account).and_return(another_account)
+      end
       it 'does not allow to destroy connection' do
         expect { action }.to raise_error(ActiveRecord::RecordNotFound)
       end

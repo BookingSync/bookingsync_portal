@@ -1,6 +1,8 @@
 module BookingsyncPortal
   module Admin
     class RemoteAccountsController < Admin::BaseController
+      skip_before_action :enforce_remote_account!
+
       def new
         @remote_account = scope.build
       end
