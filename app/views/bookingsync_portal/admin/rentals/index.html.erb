@@ -17,42 +17,34 @@
     </div>
   </div>
 
-  <% if @remote_accounts.any? %>
-    <% @remote_accounts.each do |remote_account| %>
-      <div class="remote-rentals-list rentals-list col-xs-4">
-        <div class="rentals-list-header">
-          <legend><%=t '.remote_header', account_name: remote_account.name %></legend>
-        </div>
-
-        <div class="rentals-list-scroll">
-          <%- if @remote_account_not_registered %>
-            <div class="lead text-center well">
-              <p class=""><%= icon 'warning fa-lg' %></p>
-              <%= render 'bookingsync_portal/admin/remote_accounts/how_to_connect' %>
-            </div>
-          <%- elsif Array(@remote_rentals_by_account[remote_account]).length > 0 -%>
-            <% Array(@remote_rentals_by_account[remote_account]).each do |remote_rental| %>
-              <% if remote_rental.connected? %>
-                <%= render "connected_rental", remote_rental: remote_rental, rental: remote_rental.rental %>
-              <% else %>
-                <%= render "remote_rental", remote_rental: remote_rental %>
-              <% end %>
-            <% end %>
-          <%- else -%>
-            <div class="lead text-center well">
-              <p class=""><%= icon 'info fa-lg' %></p>
-              <p><%=t '.create_listings_first' %></p>
-            </div>
-          <%- end -%>
-        </div>
+  <% @remote_accounts.each do |remote_account| %>
+    <div class="remote-rentals-list rentals-list col-xs-4">
+      <div class="rentals-list-header">
+        <legend><%=t '.remote_header', account_name: remote_account.name %></legend>
       </div>
-    <% end %>
-  <% else %>
-    <div class="rentals-list col-xs-4">
-      <legend><%=t '.connect' %></legend>
-      <%= link_to new_admin_remote_account_path, class: "btn btn-primary btn-lg btn-block" do %>
-        <%= icon "plus-circle" %> <%= t '.connect_accounts' %>
-      <% end %>
+
+      <div class="rentals-list-scroll">
+        <%- if @remote_account_not_registered %>
+          <div class="lead text-center well">
+            <p class=""><%= icon 'warning fa-lg' %></p>
+            <%= render 'bookingsync_portal/admin/remote_accounts/how_to_connect' %>
+          </div>
+        <%- elsif Array(@remote_rentals_by_account[remote_account]).length > 0 -%>
+          <% Array(@remote_rentals_by_account[remote_account]).each do |remote_rental| %>
+            <% if remote_rental.connected? %>
+              <%= render "connected_rental", remote_rental: remote_rental, rental: remote_rental.rental %>
+            <% else %>
+              <%= render "remote_rental", remote_rental: remote_rental %>
+            <% end %>
+          <% end %>
+        <%- else -%>
+          <div class="lead text-center well">
+            <p class=""><%= icon 'info fa-lg' %></p>
+            <p><%=t '.create_listings_first' %></p>
+          </div>
+        <%- end -%>
+      </div>
     </div>
   <% end %>
+  <%= render partial: 'how_to' %>
 </div>

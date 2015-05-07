@@ -1,3 +1,4 @@
+* Add admin/rentals/_how_to.html.erb template to allow easy howto customizations.
 * Fixed filtering selectors to be less affected by customizations.
 
 # 0.0.2
