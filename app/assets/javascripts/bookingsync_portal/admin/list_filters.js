@@ -61,7 +61,7 @@
 
   //ondomready
   $(function () {
-    listFilter($(".rentals-list:first-child .rentals-list-header legend"), $(".rentals-list:first-child .rentals-list-scroll"));
-    listFilter($(".rentals-list:last-child .rentals-list-header legend"), $(".rentals-list:last-child .rentals-list-scroll"));
+    listFilter($(".bookingsync-rentals-list .rentals-list-header legend"), $(".bookingsync-rentals-list .rentals-list-scroll"));
+    listFilter($(".remote-rentals-list .rentals-list-header legend"), $(".remote-rentals-list .rentals-list-scroll"));
   });
 }(jQuery));
