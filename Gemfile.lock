@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bookingsync_portal (0.0.1)
+    bookingsync_portal (0.0.2)
       bookingsync_application (~> 0.1.6)
       bootstrap-sass
       coffee-rails
@@ -99,12 +99,13 @@ GEM
       multipart-post (>= 1.2, < 3)
     font-awesome-sass (4.3.2.1)
       sass (~> 3.2)
-    handlebars_assets (0.19.1)
-      execjs (>= 1.2.9)
-      multi_json
-      sprockets (>= 2.0.3)
-      tilt
+    handlebars_assets (0.20.1)
+      execjs (~> 2.0)
+      multi_json (~> 1.0)
+      sprockets (~> 2.0)
+      tilt (~> 1.2)
     hashie (3.4.1)
+    hike (1.2.3)
     i18n (0.7.0)
     jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
@@ -215,8 +216,11 @@ GEM
       actionpack (~> 4.0)
       activemodel (~> 4.0)
     slop (3.6.0)
-    sprockets (3.0.1)
+    sprockets (2.12.3)
+      hike (~> 1.2)
+      multi_json (~> 1.0)
       rack (~> 1.0)
+      tilt (~> 1.1, != 1.3.0)
     sprockets-rails (2.2.4)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
