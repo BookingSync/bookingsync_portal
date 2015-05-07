@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bookingsync_portal (0.0.2)
+    bookingsync_portal (0.0.3)
       bookingsync_application (~> 0.1.6)
       bootstrap-sass
       coffee-rails
@@ -50,7 +50,7 @@ GEM
     ast (2.0.0)
     astrolabe (1.3.0)
       parser (>= 2.2.0.pre.3, < 3.0)
-    autoprefixer-rails (5.1.9)
+    autoprefixer-rails (5.1.11)
       execjs
       json
     bookingsync-api (0.0.25)
@@ -61,12 +61,12 @@ GEM
       bookingsync-api (>= 0.0.23)
       omniauth-bookingsync (~> 0.2.0)
       rails (>= 4.0.0)
-    bookingsync_application (0.1.6)
+    bookingsync_application (0.1.7)
       bookingsync-engine (~> 0.5.0)
       dotenv-rails
       factory_girl_rails
       jsonapi-resources (~> 0.0.16)
-      rails (~> 4.1.0)
+      rails (~> 4.1)
       rspec-rails
       synced
     bootstrap-sass (3.3.4.1)
@@ -88,7 +88,6 @@ GEM
     dotenv-rails (2.0.1)
       dotenv (= 2.0.1)
     erubis (2.7.0)
-    eventmachine (1.0.7)
     execjs (2.5.2)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -117,12 +116,11 @@ GEM
     jwt (1.4.1)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    message_bus (1.0.9)
-      eventmachine
+    message_bus (1.0.11)
       rack (>= 1.1.3)
       redis
     method_source (0.8.2)
-    mime-types (2.4.3)
+    mime-types (2.5)
     minitest (5.6.0)
     multi_json (1.11.0)
     multi_xml (0.5.5)
@@ -139,9 +137,7 @@ GEM
     omniauth-bookingsync (0.2.0)
       omniauth (~> 1.1)
       omniauth-oauth2 (~> 1.1)
-    omniauth-oauth2 (1.2.0)
-      faraday (>= 0.8, < 0.10)
-      multi_json (~> 1.3)
+    omniauth-oauth2 (1.3.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     parser (2.2.0.3)
