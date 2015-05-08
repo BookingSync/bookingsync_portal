@@ -42,14 +42,10 @@
     $(input)
       .change( function () {
         var filter = $(this).val();
-        if(filter) {
-          // this finds all links in a list that contain the input,
-          // and hide the ones not containing the input while showing the ones that do
-          $(list).find("> div .panel-heading:not(:Contains(" + filter + "))").parent().slideUp();
-          $(list).find("> div .panel-heading:Contains(" + filter + ")").parent().slideDown();
-        } else {
-          $(list).find("li").slideDown();
-        }
+        // this finds all links in a list that contain the input,
+        // and hide the ones not containing the input while showing the ones that do
+        $(list).find("> div .panel-heading:not(:Contains(" + filter + "))").parent().slideUp();
+        $(list).find("> div .panel-heading:Contains(" + filter + ")").parent().slideDown();
         return false;
       })
     .keyup( function () {

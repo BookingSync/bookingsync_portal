@@ -1,3 +1,5 @@
+* Fix filtering of rentlas when query was blank 
+
 # 0.0.3
 
 * Add admin/rentals/_how_to.html.erb template to allow easy howto customizations.
