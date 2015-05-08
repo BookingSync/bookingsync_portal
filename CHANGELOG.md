@@ -1,3 +1,5 @@
+# 0.0.4
+
 * Fix filtering of rentlas when query was blank 
 
 # 0.0.3

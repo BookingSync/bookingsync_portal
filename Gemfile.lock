@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bookingsync_portal (0.0.3)
+    bookingsync_portal (0.0.4)
       bookingsync_application (~> 0.1.6)
       bootstrap-sass
       coffee-rails
