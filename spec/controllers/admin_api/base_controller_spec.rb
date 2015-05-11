@@ -46,7 +46,7 @@ describe BookingsyncPortal::AdminApi::BaseController do
     end
 
     it "has context set with current_account" do
-      expect(controller.context[:current_account]).to eq account
+      expect(controller.send(:context)).to eq(current_account: account)
     end
   end
 
