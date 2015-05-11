@@ -1,3 +1,7 @@
+# 0.0.5
+
+* Fix all synchronized message when there are no rentals
+
 # 0.0.4
 
 * Fix filtering of rentlas when query was blank 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bookingsync_portal (0.0.4)
+    bookingsync_portal (0.0.5)
       bookingsync_application (~> 0.1.6)
       bootstrap-sass
       coffee-rails
@@ -217,7 +217,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.2.4)
+    sprockets-rails (2.3.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
