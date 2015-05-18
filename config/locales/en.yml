@@ -20,6 +20,8 @@ en:
           listing_id: "Listing #%{id}"
 
       rentals:
+        new_remote_account:
+          connect_accounts: Connect additional accounts
         index:
           connect: Connect
           bookingsync_header: "BookingSync: %{account_name}"

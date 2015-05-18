@@ -21,19 +21,14 @@
     </div>
   </div>
 
-  <% @remote_accounts.each do |remote_account| %>
-    <div class="remote-rentals-list rentals-list col-xs-4">
+  <div class="remote-rentals-list rentals-list col-xs-4">
+    <% @remote_accounts.each do |remote_account| %>
       <div class="rentals-list-header">
         <legend><%=t '.remote_header', account_name: remote_account.name %></legend>
       </div>
 
       <div class="rentals-list-scroll">
-        <%- if @remote_account_not_registered %>
-          <div class="lead text-center well">
-            <p class=""><%= icon 'warning fa-lg' %></p>
-            <%= render 'bookingsync_portal/admin/remote_accounts/how_to_connect' %>
-          </div>
-        <%- elsif Array(@remote_rentals_by_account[remote_account]).length > 0 -%>
+        <%- if Array(@remote_rentals_by_account[remote_account]).length > 0 -%>
           <% Array(@remote_rentals_by_account[remote_account]).each do |remote_rental| %>
             <% if remote_rental.connected? %>
               <%= render "connected_rental", remote_rental: remote_rental, rental: remote_rental.rental %>
@@ -48,7 +43,8 @@
           </div>
         <%- end -%>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+    <%= render partial: 'new_remote_account' %>
+  </div>
   <%= render partial: 'how_to' %>
 </div>

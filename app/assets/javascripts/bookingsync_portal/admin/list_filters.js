@@ -58,6 +58,8 @@
   //ondomready
   $(function () {
     listFilter($(".bookingsync-rentals-list .rentals-list-header legend"), $(".bookingsync-rentals-list .rentals-list-scroll"));
-    listFilter($(".remote-rentals-list .rentals-list-header legend"), $(".remote-rentals-list .rentals-list-scroll"));
+    $(".remote-rentals-list .rentals-list-header").each(function(index, element) {
+      listFilter($(element).find("legend"), $(element).next());
+    });
   });
 }(jQuery));
