@@ -1,3 +1,5 @@
+# 0.0.6
+
 * Allow to create multiple remote accounts and display all the remote rentals nicely
 
 # 0.0.5
