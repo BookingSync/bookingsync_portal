@@ -14,6 +14,7 @@ require 'font-awesome-sass'
 require 'handlebars_assets'
 require 'simple_form'
 require 'turbolinks'
+require 'responders'
 
 module BookingsyncPortal
 

@@ -1,3 +1,7 @@
+# 0.1.0
+
+* Update bookingsync_application
+
 # 0.0.6
 
 * Allow to create multiple remote accounts and display all the remote rentals nicely
