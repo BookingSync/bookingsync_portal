@@ -1,3 +1,7 @@
+# 0.1.1
+
+* Order rentals by position to keep order from bookingsync.
+
 # 0.1.0
 
 * Update bookingsync_application
