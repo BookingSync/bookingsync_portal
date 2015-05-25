@@ -5,7 +5,7 @@ class BookingsyncPortal::Rental < ActiveRecord::Base
   has_one :connection, class_name: BookingsyncPortal.connection_model, dependent: :destroy
   has_one :remote_rental, class_name: BookingsyncPortal.remote_rental_model, through: :connection
 
-  scope :ordered, -> { order(created_at: :desc) }
+  scope :ordered, -> { order(position: :asc) }
   scope :connected, -> { joins(:remote_rental) }
   scope :not_connected, -> { includes(:connection).where(connections: { remote_rental_id: nil }) }
 
