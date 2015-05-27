@@ -32,12 +32,13 @@
   };
 
 
-  function listFilter(header, list) { // header is any element, list is an unordered list
+  function listFilter(header, list, input_id) { // header is any element, list is an unordered list
     // create and add the filter form to the header
-    var form = $("<form>").attr({"class":"filterform","action":"#"}),
-        label = $("<label>Filter by name:</label>"),
-        input = $("<input>").attr({"class":"filterinput","type":"text"});
-    $(form).append(label).append(input).appendTo(header);
+    var form = $("<form>").attr({"class":"filterform form-inline","action":"#"}),
+        form_group = $("<div>").attr({"class":"form-group form-group-sm"}),
+        label = $("<label>Filter by name:</label>").attr({"class":"control-label","for":input_id}),
+        input = $("<input>").attr({"class":"filterinput form-control","type":"text","id":input_id});
+    $(form).append(form_group.append(label).append(input)).appendTo(header);
 
     $(input)
       .change( function () {
@@ -57,9 +58,10 @@
 
   //ondomready
   $(function () {
-    listFilter($(".bookingsync-rentals-list .rentals-list-header legend"), $(".bookingsync-rentals-list .rentals-list-scroll"));
+    listFilter($(".bookingsync-rentals-list .rentals-list-header legend"),
+      $(".bookingsync-rentals-list .rentals-list-scroll"), "bookingsync_filter");
     $(".remote-rentals-list .rentals-list-header").each(function(index, element) {
-      listFilter($(element).find("legend"), $(element).next());
+      listFilter($(element).find("legend"), $(element).next(), "remote_filter_" + index);
     });
   });
 }(jQuery));

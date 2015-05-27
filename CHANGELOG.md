@@ -1,3 +1,7 @@
+* Remove validation of uid presence for remote_rental to allow remote creation.
+* Add visible scope to allow filtering, add synced_id validations for rental.
+* Improve filter input styling with bootstrap.
+
 # 0.1.1
 
 * Order rentals by position to keep order from bookingsync.
@@ -16,7 +20,7 @@
 
 # 0.0.4
 
-* Fix filtering of rentlas when query was blank 
+* Fix filtering of rentlas when query was blank
 
 # 0.0.3
 

@@ -4,6 +4,8 @@ RSpec.describe BookingsyncPortal.rental_model.constantize do
   it { is_expected.to belong_to(:account) }
   it { is_expected.to have_one(:connection).dependent(:destroy) }
   it { is_expected.to have_one(:remote_rental).through(:connection) }
+  it { is_expected.to validate_presence_of(:synced_id) }
+  it { is_expected.to validate_uniqueness_of(:synced_id) }
 
   describe '#connected?' do
     subject { rental.connected? }
