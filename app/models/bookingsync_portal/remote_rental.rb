@@ -10,7 +10,7 @@ class BookingsyncPortal::RemoteRental < ActiveRecord::Base
 
   serialize :remote_data, BookingsyncPortal::MashSerializer
 
-  validates :uid, presence: true, uniqueness: true
+  validates :uid, uniqueness: { allow_nil: true }
   validates :remote_account, presence: true
 
   scope :ordered, -> { order(created_at: :desc) }
