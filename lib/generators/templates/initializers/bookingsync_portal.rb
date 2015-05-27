@@ -1,19 +1,28 @@
 # Use this to customize the behaviour of BookingsyncPortal engine and hook up custom synchronization
 BookingsyncPortal.setup do |config|
   # customize account model class, can extend BookingsyncPortal::Account
-  # config.account_model = '::Account'
+  config.account_model = '::Account'
 
   # customize remote account model class, can extend BookingsyncPortal::RemoteAccount
-  # config.remote_account_model = '::RemoteAccount'
+  config.remote_account_model = '::RemoteAccount'
 
   # customize rental model class, can extend BookingsyncPortal::Rental
-  # config.rental_model = '::Rental'
+  config.rental_model = '::Rental'
 
   # customize remote_rental model class, can extend BookingsyncPortal::RemoteRental
-  # config.remote_rental_model = '::RemoteRental'
+  config.remote_rental_model = '::RemoteRental'
 
   # customize connection model class, can extend BookingsyncPortal::Connection
-  # config.connection_model = '::Connection'
+  config.connection_model = '::Connection'
+
+  # customize photo model class, can extend BookingsyncPortal::Photo
+  config.photo_model = '::Photo'
+
+  # customize availability model class, can extend BookingsyncPortal::Availability
+  config.availability_model = '::Availability'
+
+  # customize rate model class, can extend BookingsyncPortal::Rate
+  config.rate_model = '::Rate'
 
   # customize account resource class, can extend BookingsyncPortal::AdminApi::AccountResource
   # config.account_resource = '::AdminApi::AccountResource'
@@ -43,4 +52,3 @@ BookingsyncPortal.setup do |config|
     # return false if remote account is not present or not valid
   end
 end
-

@@ -4,7 +4,7 @@ class CreateRemoteAccounts < ActiveRecord::Migration
       t.belongs_to :account, index: true
       t.integer :uid
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

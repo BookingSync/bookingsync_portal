@@ -7,7 +7,8 @@ class CreateAccounts < ActiveRecord::Migration
       t.string :oauth_access_token
       t.string :oauth_refresh_token
       t.datetime :oauth_expires_at
-      t.timestamps
+
+      t.timestamps null: false
     end
   end
 end

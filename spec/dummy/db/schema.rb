@@ -11,20 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222174234) do
+ActiveRecord::Schema.define(version: 20150521091056) do
 
   create_table "accounts", force: :cascade do |t|
-    t.string   "provider"
+    t.string   "provider",            limit: 255
     t.integer  "uid"
-    t.string   "name"
-    t.string   "oauth_access_token"
-    t.string   "oauth_refresh_token"
+    t.string   "name",                limit: 255
+    t.string   "oauth_access_token",  limit: 255
+    t.string   "oauth_refresh_token", limit: 255
     t.datetime "oauth_expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "accounts", ["uid"], name: "index_accounts_on_uid"
+  create_table "availabilities", force: :cascade do |t|
+    t.integer  "rental_id"
+    t.integer  "synced_id"
+    t.datetime "synced_all_at"
+    t.string   "map",           limit: 255
+    t.date     "start_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "availabilities", ["rental_id"], name: "index_availabilities_on_rental_id"
 
   create_table "connections", force: :cascade do |t|
     t.integer  "remote_rental_id"
@@ -35,6 +45,29 @@ ActiveRecord::Schema.define(version: 20150222174234) do
 
   add_index "connections", ["remote_rental_id"], name: "index_connections_on_remote_rental_id"
   add_index "connections", ["rental_id"], name: "index_connections_on_rental_id"
+
+  create_table "photos", force: :cascade do |t|
+    t.integer  "rental_id"
+    t.integer  "synced_id"
+    t.text     "synced_data"
+    t.datetime "synced_all_at"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "photos", ["rental_id"], name: "index_photos_on_rental_id"
+
+  create_table "rates", force: :cascade do |t|
+    t.integer  "rental_id"
+    t.integer  "synced_id"
+    t.text     "synced_data"
+    t.datetime "synced_all_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rates", ["rental_id"], name: "index_rates_on_rental_id"
 
   create_table "remote_accounts", force: :cascade do |t|
     t.integer  "account_id"
@@ -68,6 +101,5 @@ ActiveRecord::Schema.define(version: 20150222174234) do
   end
 
   add_index "rentals", ["account_id"], name: "index_rentals_on_account_id"
-  add_index "rentals", ["synced_id"], name: "index_rentals_on_synced_id"
 
 end

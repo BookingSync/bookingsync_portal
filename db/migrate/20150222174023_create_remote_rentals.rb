@@ -6,7 +6,7 @@ class CreateRemoteRentals < ActiveRecord::Migration
       t.text :remote_data
       t.datetime :synchronized_at
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

@@ -3,7 +3,8 @@ class CreateConnections < ActiveRecord::Migration
     create_table :connections do |t|
       t.belongs_to :remote_rental, index: true
       t.belongs_to :rental, index: true
-      t.timestamps
+
+      t.timestamps null: false
     end
   end
 end

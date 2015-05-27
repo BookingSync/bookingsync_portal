@@ -7,11 +7,11 @@ require 'bookingsync_portal/version'
 Gem::Specification.new do |s|
   s.name        = 'bookingsync_portal'
   s.version     = BookingsyncPortal::VERSION
-  s.authors     = ['Piotr Marciniak']
-  s.email       = ['mandaryyyn@gmail.com']
+  s.authors     = ['Piotr Marciniak', 'Sebastien Grosjean']
+  s.email       = ['mandaryyyn@gmail.com', 'dev@bookingsync.com']
   s.homepage    = 'https://github.com/BookingSync/bookingsync_portal'
   s.summary     = 'A common base for creating BookingSync portal applications.'
-  s.description = ''
+  s.description = 'A common base for creating BookingSync portal applications.'
   s.license     = 'MIT'
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
