@@ -4,7 +4,7 @@
       <legend><%=t '.bookingsync_header', account_name: current_account.name %></legend>
     </div>
     <div class="rentals-list-scroll">
-      <%- if @rentals.count == 0 -%>
+      <%- if @visible_rentals_count == 0 -%>
         <div class="lead text-center well">
           <p><%= t('.no_published_rentals_html', id: current_account.uid) %></p>
         </div>

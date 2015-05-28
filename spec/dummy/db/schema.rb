@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20150222174234) do
 
-  create_table "accounts", force: true do |t|
+  create_table "accounts", force: :cascade do |t|
     t.string   "provider"
     t.integer  "uid"
     t.string   "name"
@@ -24,7 +24,9 @@ ActiveRecord::Schema.define(version: 20150222174234) do
     t.datetime "updated_at"
   end
 
-  create_table "connections", force: true do |t|
+  add_index "accounts", ["uid"], name: "index_accounts_on_uid"
+
+  create_table "connections", force: :cascade do |t|
     t.integer  "remote_rental_id"
     t.integer  "rental_id"
     t.datetime "created_at"
@@ -34,7 +36,7 @@ ActiveRecord::Schema.define(version: 20150222174234) do
   add_index "connections", ["remote_rental_id"], name: "index_connections_on_remote_rental_id"
   add_index "connections", ["rental_id"], name: "index_connections_on_rental_id"
 
-  create_table "remote_accounts", force: true do |t|
+  create_table "remote_accounts", force: :cascade do |t|
     t.integer  "account_id"
     t.integer  "uid"
     t.datetime "created_at"
@@ -43,7 +45,7 @@ ActiveRecord::Schema.define(version: 20150222174234) do
 
   add_index "remote_accounts", ["account_id"], name: "index_remote_accounts_on_account_id"
 
-  create_table "remote_rentals", force: true do |t|
+  create_table "remote_rentals", force: :cascade do |t|
     t.integer  "remote_account_id"
     t.integer  "uid"
     t.text     "remote_data"
@@ -54,7 +56,7 @@ ActiveRecord::Schema.define(version: 20150222174234) do
 
   add_index "remote_rentals", ["remote_account_id"], name: "index_remote_rentals_on_remote_account_id"
 
-  create_table "rentals", force: true do |t|
+  create_table "rentals", force: :cascade do |t|
     t.integer  "account_id"
     t.integer  "synced_id"
     t.text     "synced_data"
@@ -66,5 +68,6 @@ ActiveRecord::Schema.define(version: 20150222174234) do
   end
 
   add_index "rentals", ["account_id"], name: "index_rentals_on_account_id"
+  add_index "rentals", ["synced_id"], name: "index_rentals_on_synced_id"
 
 end
