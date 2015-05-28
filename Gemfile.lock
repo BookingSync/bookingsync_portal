@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bookingsync_portal (0.1.1)
+    bookingsync_portal (0.1.2)
       bookingsync_application (~> 0.2.0)
       bootstrap-sass
       coffee-rails
@@ -221,7 +221,7 @@ GEM
       ruby-progressbar (~> 1.4)
     ruby-progressbar (1.7.5)
     safe_yaml (1.0.4)
-    sass (3.4.13)
+    sass (3.4.14)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)

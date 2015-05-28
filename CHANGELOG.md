@@ -1,3 +1,5 @@
+# 0.1.2
+
 * Remove validation of uid presence for remote_rental to allow remote creation.
 * Add visible scope to allow filtering, add synced_id validations for rental.
 * Improve filter input styling with bootstrap.
