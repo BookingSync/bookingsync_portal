@@ -42,6 +42,7 @@ en:
             other: '<strong>%{count}</strong> People'
           surface_html:
             zero: ''
+            one: '<span>Surface</span> <strong>%{count}m²</strong>'
             other: '<span>Surface</span> <strong>%{count}m²</strong>'
           no_name: Unnamed rental
         remote_rental:
