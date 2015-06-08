@@ -1,3 +1,5 @@
+* Globally handle unauthorized ajax calls.
+
 # 0.1.2
 
 * Remove validation of uid presence for remote_rental to allow remote creation.
