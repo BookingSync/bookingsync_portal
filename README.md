@@ -130,7 +130,7 @@ _Note: When saving new token, this gem uses a separate thread with new db connec
 
 The engine is configured by the following ENV variables:
 
-* `BOOKINGSYNC_URL` - the url of the website, should be
+* `BOOKINGSYNC_URL` - the url of the website, should be `https://www.bookingsync.com`
 * `BOOKINGSYNC_APP_ID` - BookingSync Application's Client ID
 * `BOOKINGSYNC_APP_SECRET` - BookingSync Application's Client Secret
 * `BOOKINGSYNC_VERIFY_SSL` - Verify SSL (available only in development or test). Default to false
