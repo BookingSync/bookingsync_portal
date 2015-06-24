@@ -42,10 +42,6 @@ module BookingsyncPortal
   mattr_accessor :photo_model
   @@photo_model = 'BookingsyncPortal::Photo'
 
-  # availability model class
-  mattr_accessor :availability_model
-  @@availability_model = 'BookingsyncPortal::Availability'
-
   # rate model class
   mattr_accessor :rate_model
   @@rate_model = 'BookingsyncPortal::Rate'

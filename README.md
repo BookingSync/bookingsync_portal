@@ -51,7 +51,6 @@ mount BookingsyncPortal::Engine => '/'
 
 BookingSync Portal provide migrations for the most common models:
 * `Account`: BookingSync accounts,
-* `Availability`: BookingSync rentals' availability,
 * `Connection`: connection between `rentals` and `remote_rentals`,
 * `Photo`: BookingSync rentals' photos,
 * `Rate`: BookingSync rentals' rates,

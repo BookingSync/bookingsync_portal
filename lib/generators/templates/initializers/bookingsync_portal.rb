@@ -18,9 +18,6 @@ BookingsyncPortal.setup do |config|
   # customize photo model class, can extend BookingsyncPortal::Photo
   config.photo_model = '::Photo'
 
-  # customize availability model class, can extend BookingsyncPortal::Availability
-  config.availability_model = '::Availability'
-
   # customize rate model class, can extend BookingsyncPortal::Rate
   config.rate_model = '::Rate'
 

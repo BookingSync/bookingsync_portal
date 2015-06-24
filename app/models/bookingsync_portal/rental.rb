@@ -4,7 +4,6 @@ class BookingsyncPortal::Rental < ActiveRecord::Base
   belongs_to :account, class_name: BookingsyncPortal.account_model
   has_one    :connection, class_name: BookingsyncPortal.connection_model, dependent: :destroy
   has_one    :remote_rental, class_name: BookingsyncPortal.remote_rental_model, through: :connection
-  has_one    :availability, class_name: BookingsyncPortal.availability_model, dependent: :destroy
   has_many   :photos, class_name: BookingsyncPortal.photo_model, dependent: :destroy
   has_many   :rates, class_name: BookingsyncPortal.rate_model, dependent: :destroy
 
