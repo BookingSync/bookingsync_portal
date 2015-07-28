@@ -1,3 +1,5 @@
+* Bump bookingsync_application to 0.2.3
+* Bump jsonapi-resources to 0.5.4 and fix specs with new syntax
 * Globally handle unauthorized ajax calls.
 
 # 0.1.2

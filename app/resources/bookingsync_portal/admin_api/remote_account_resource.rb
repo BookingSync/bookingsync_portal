@@ -3,7 +3,7 @@ module BookingsyncPortal
     class RemoteAccountResource < JSONAPI::Resource
       model_name BookingsyncPortal.remote_account_model
 
-      attributes :id, :uid
+      attributes :uid
 
       def self.records(options = {})
         context = options[:context]
