@@ -3,7 +3,7 @@ module BookingsyncPortal
     class ConnectionResource < JSONAPI::Resource
       model_name BookingsyncPortal.connection_model
 
-      attributes :id, :rental_id, :remote_rental_id
+      attributes :rental_id, :remote_rental_id
 
       def self.records(options = {})
         context = options[:context]

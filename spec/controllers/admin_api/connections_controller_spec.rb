@@ -15,7 +15,8 @@ describe BookingsyncPortal::AdminApi::ConnectionsController do
     let!(:rental) { create(:rental, account: account) }
     let!(:remote_rental) { create(:remote_rental, account: account) }
     let(:action) do
-      post :create, connections: { rental_id: rental.id, remote_rental_id: remote_rental.id }
+      post :create, data: { type: "connections",
+        attributes: { "rental-id" => 1, "remote-rental-id" => 1 } }
     end
 
     it "creates connection between rental and remote rental" do

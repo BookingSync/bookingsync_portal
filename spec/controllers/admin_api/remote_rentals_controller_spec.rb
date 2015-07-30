@@ -27,8 +27,11 @@ describe BookingsyncPortal::AdminApi::RemoteRentalsController do
 
     it 'responds with remote rentals from current account in JSON API format' do
       get :index
-      expect(JSON.parse(response.body)["remote_rentals"]).to eq [
-        { "id" => remote_rental.id.to_s }
+      expect(JSON.parse(response.body)["data"]).to eq [
+        { "id" => remote_rental.id.to_s,
+          "type" => "remote-rentals",
+          "links" => { "self" => "https://test.host/en/admin_api/remote-rentals/#{remote_rental.id.to_s}" }
+        }
       ]
     end
   end
