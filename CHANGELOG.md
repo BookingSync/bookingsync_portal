@@ -1,4 +1,4 @@
-# master
+# 0.2.0
 
 * Bump bookingsync_application to 0.3.1
 * Bump jsonapi-resources to 0.5.4 and fix specs with new syntax
