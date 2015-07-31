@@ -1,12 +1,11 @@
-class CreateRentals < ActiveRecord::Migration
+class CreatePhotos < ActiveRecord::Migration
   def change
-    create_table :rentals do |t|
-      t.belongs_to :account, index: true
+    create_table :photos do |t|
+      t.belongs_to :rental, index: true
       t.integer :synced_id, index: true
       t.text :synced_data
       t.datetime :synced_all_at
       t.integer :position
-      t.datetime :published_at
 
       t.timestamps null: false
     end

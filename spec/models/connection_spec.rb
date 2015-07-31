@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BookingsyncPortal.connection_model.constantize do
+RSpec.describe Connection do
   it { is_expected.to belong_to :remote_rental }
   it { is_expected.to belong_to :rental }
 

@@ -34,9 +34,17 @@ module BookingsyncPortal
   mattr_accessor :remote_rental_model
   @@remote_rental_model = 'BookingsyncPortal::RemoteRental'
 
-  # remote rental model class
+  # connection model class
   mattr_accessor :connection_model
   @@connection_model = 'BookingsyncPortal::Connection'
+
+  # photo model class
+  mattr_accessor :photo_model
+  @@photo_model = 'BookingsyncPortal::Photo'
+
+  # rate model class
+  mattr_accessor :rate_model
+  @@rate_model = 'BookingsyncPortal::Rate'
 
   # account resource class
   mattr_accessor :account_resource
