@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BookingsyncPortal.remote_rental_model.constantize do
+RSpec.describe RemoteRental do
   it { is_expected.to serialize(:remote_data).as(BookingsyncPortal::MashSerializer) }
 
   it { is_expected.to belong_to(:remote_account) }
@@ -22,5 +22,25 @@ RSpec.describe BookingsyncPortal.remote_rental_model.constantize do
       let(:remote_rental) { build(:remote_rental, rental: nil) }
       it { is_expected.to eq(false) }
     end
+  end
+
+  describe '#synchronized?' do
+    subject { remote_rental.synchronized? }
+    context 'when synchronized_at is present' do
+      let(:remote_rental) { build(:remote_rental, synchronized_at: 1.day.ago) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when synchronized_at is blank' do
+      let(:remote_rental) { build(:remote_rental, synchronized_at: nil) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe "#name" do
+    subject { described_class.first.name }
+    let!(:remote_rental) { create(:remote_rental, uid: 11) }
+
+    it { is_expected.to eq 11 }
   end
 end
