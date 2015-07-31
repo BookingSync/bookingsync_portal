@@ -7,8 +7,8 @@ require 'bookingsync_portal/version'
 Gem::Specification.new do |s|
   s.name        = 'bookingsync_portal'
   s.version     = BookingsyncPortal::VERSION
-  s.authors     = ['Piotr Marciniak', 'Sebastien Grosjean']
-  s.email       = ['mandaryyyn@gmail.com', 'dev@bookingsync.com']
+  s.authors     = ['Piotr Marciniak', 'Sebastien Grosjean', 'Artur Krzeminski Freda']
+  s.email       = ['mandaryyyn@gmail.com', 'dev@bookingsync.com', 'artur@bookingsync.com']
   s.homepage    = 'https://github.com/BookingSync/bookingsync_portal'
   s.summary     = 'A common base for creating BookingSync portal applications.'
   s.description = 'A common base for creating BookingSync portal applications.'
