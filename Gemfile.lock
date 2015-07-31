@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     bookingsync_portal (0.1.2)
-      bookingsync_application (~> 0.2.0)
+      bookingsync_application (~> 0.3.1)
       bootstrap-sass
       coffee-rails
       font-awesome-sass
@@ -56,29 +56,30 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    arel (6.0.0)
+    arel (6.0.2)
     ast (2.0.0)
     astrolabe (1.3.0)
       parser (>= 2.2.0.pre.3, < 3.0)
-    autoprefixer-rails (5.1.11)
+    autoprefixer-rails (5.2.1.1)
       execjs
       json
-    bookingsync-api (0.0.27)
+    bookingsync-api (0.0.28)
+      addressable
       faraday (~> 0.9)
       hashie
-    bookingsync-engine (0.5.0)
-      bookingsync-api (>= 0.0.23)
+    bookingsync-engine (1.0.1)
+      bookingsync-api (>= 0.0.28)
       omniauth-bookingsync (~> 0.2.0)
       rails (>= 4.0.0)
-    bookingsync_application (0.2.3)
-      bookingsync-engine (~> 0.5.0)
+    bookingsync_application (0.3.1)
+      bookingsync-engine (~> 1.0.1)
       dotenv-rails
       jsonapi-resources (~> 0.1)
       rails (~> 4.1)
       synced (~> 1.1.0)
-    bootstrap-sass (3.3.4.1)
+    bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
-      sass (>= 3.2.19)
+      sass (>= 3.3.0)
     builder (3.2.2)
     coderay (1.1.0)
     coffee-rails (4.1.0)
@@ -115,7 +116,7 @@ GEM
       tilt (~> 1.2)
     hashie (3.4.2)
     i18n (0.7.0)
-    jquery-rails (4.0.3)
+    jquery-rails (4.0.4)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
@@ -129,14 +130,14 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    message_bus (1.0.11)
+    message_bus (1.0.16)
       rack (>= 1.1.3)
       redis
     method_source (0.8.2)
-    mime-types (2.5)
+    mime-types (2.6.1)
     mini_portile (0.6.2)
     minitest (5.6.1)
-    multi_json (1.11.0)
+    multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     nokogiri (1.6.6.2)
@@ -222,7 +223,7 @@ GEM
       ruby-progressbar (~> 1.4)
     ruby-progressbar (1.7.5)
     safe_yaml (1.0.4)
-    sass (3.4.14)
+    sass (3.4.16)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
@@ -239,9 +240,9 @@ GEM
       actionpack (~> 4.0)
       activemodel (~> 4.0)
     slop (3.6.0)
-    sprockets (3.1.0)
+    sprockets (3.2.0)
       rack (~> 1.0)
-    sprockets-rails (2.3.1)
+    sprockets-rails (2.3.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
@@ -280,4 +281,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.10.5
+   1.10.6

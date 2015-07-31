@@ -6,7 +6,7 @@
     <div class="rentals-list-scroll">
       <%- if @visible_rentals_count == 0 -%>
         <div class="lead text-center well">
-          <p><%= t('.no_published_rentals_html', id: current_account.uid) %></p>
+          <p><%= t('.no_published_rentals_html', id: current_account.synced_id) %></p>
         </div>
       <%- elsif @not_connected_rentals.count > 0 -%>
         <% @not_connected_rentals.each do |rental| %>

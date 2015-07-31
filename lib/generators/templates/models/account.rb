@@ -1,5 +1,5 @@
 class Account < BookingsyncPortal::Account
-  synced id_key: :uid, local_attributes: [:email]
+  synced local_attributes: [:email]
 
   # Uncomment to add Rails logger
   # def api

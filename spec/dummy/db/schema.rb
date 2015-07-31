@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20150521091056) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "provider"
-    t.integer  "uid"
+    t.integer  "synced_id"
     t.string   "name"
     t.string   "oauth_access_token"
     t.string   "oauth_refresh_token"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20150521091056) do
     t.datetime "updated_at",          null: false
   end
 
-  add_index "accounts", ["uid"], name: "index_accounts_on_uid"
+  add_index "accounts", ["synced_id"], name: "index_accounts_on_synced_id"
 
   create_table "connections", force: :cascade do |t|
     t.integer  "remote_rental_id"
