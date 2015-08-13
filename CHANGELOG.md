@@ -1,3 +1,7 @@
+# master
+
+* Add a warning to readme about using Rack::Lock with message_bus gem.
+
 # 0.2.0
 
 * Bump bookingsync_application to 0.3.1
