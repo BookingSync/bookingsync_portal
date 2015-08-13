@@ -139,6 +139,12 @@ The engine is configured by the following ENV variables:
 You might want to use [dotenv-rails](https://github.com/bkeepers/dotenv)
 to make ENV variables management easy.
 
+Rack::Lock is not recommended with message_bus gem, causing deadlock problems. You might want to add this line to your app `development.rb` file:
+
+```ruby
+config.middleware.delete Rack::Lock
+```
+
 ## Testing
 
 ### RSpec
