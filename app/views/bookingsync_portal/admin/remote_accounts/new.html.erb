@@ -1,5 +1,5 @@
 <div class="text-center">
-  <h1><%=t '.title' %></h1>
+  <h1><%=t '.title', portal_name: BookingsyncPortal.portal_name %></h1>
   <%= render 'how_to_connect' %>
   <%= render 'form', remote_account: @remote_account %>
 </div>

@@ -19,11 +19,13 @@ $ ->
     greedy: true
     tolerance: "pointer"
     drop: (event, ui) ->
-      rentalId = parseInt($(ui.draggable).attr("id").split("_")[1])
-      remoteRentalId = parseInt($(@).attr("id").split("_")[2])
-      remoteRentalUid = parseInt($(@).data("uid"))
+      remoteRental = $(@)
 
-      $(@).replaceWith HandlebarsTemplates["rentals/connected_rental"]
+      rentalId = parseInt($(ui.draggable).attr("id").split("_").pop())
+      remoteRentalId = parseInt(remoteRental.attr("id").split("_").pop())
+      remoteRentalUid = parseInt(remoteRental.data("uid"))
+
+      remoteRental.replaceWith HandlebarsTemplates["rentals/connected_rental"]
         rentalName: $(ui.draggable).children('.panel-heading').text()
         rentalDescription: $(ui.draggable).children('.panel-body').html()
         rentalId: rentalId
@@ -75,3 +77,15 @@ $ ->
           $(@).addClass('loading')
         success: ->
           $(@).removeClass('loading')
+
+  for rentalsList, index in $(".rentals-list")
+    inputId = "rentals-list-filter-#{index}"
+    new ListFilter(
+      $(rentalsList).children(".rentals-list-header"),
+      $(rentalsList).children(".rentals-list-scroll"),
+      ".panel",
+      ".panel h4",
+      inputId,
+      HandlebarsTemplates["filter_input"]
+        inputId: inputId
+    )

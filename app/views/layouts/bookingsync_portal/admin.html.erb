@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>BookingSync - HolidayLettings integration</title>
-  <%= stylesheet_link_tag 'admin/application', media: 'all', 'data-turbolinks-track' => true %>
+  <title><%=t 'bookingsync_portal.admin.layout.title', portal_name: BookingsyncPortal.portal_name %></title>
+  <%= stylesheet_link_tag 'admin/application', media: 'all' %>
   <%= csrf_meta_tags %>
 </head>
 <body data-messagebus-channel="<%= messagebus_channel %>">
-<%= yield %>
-<%= javascript_include_tag 'admin/application', 'data-turbolinks-track' => true %>
-<div class="footer"></div>
+  <%= render partial: '/layouts/bookingsync_portal/menu' %>
+  <div class="container container-fullscreen">
+    <%= yield %>
+  </div>
+  <%= javascript_include_tag 'admin/application' %>
+  <div class="footer"></div>
 </body>
 </html>

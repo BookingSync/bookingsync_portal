@@ -3,7 +3,7 @@ PATH
   specs:
     bookingsync_portal (0.2.0)
       bookingsync_application (~> 0.3.1)
-      bootstrap-sass
+      bootstrap-bookingsync-sass
       coffee-rails
       font-awesome-sass
       handlebars_assets
@@ -77,6 +77,8 @@ GEM
       jsonapi-resources (~> 0.1)
       rails (~> 4.1)
       synced (~> 1.1.0)
+    bootstrap-bookingsync-sass (0.0.6)
+      bootstrap-sass (>= 3.3.5)
     bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)

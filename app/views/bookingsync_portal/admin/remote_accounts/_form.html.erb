@@ -1,11 +1,11 @@
-<div class="col-sm-offset-4 col-sm-4 form-group">
+<div class="col-sm-offset-4 col-sm-4">
   <%= simple_form_for [:admin, remote_account] do |f| -%>
-    <div class="form-group">
-      <%= f.input :uid, input_html: { class: 'input-lg form-control' } -%>
-    </div>
+    <%= f.input :uid, wrapper_html: { class: 'form-group' },
+      label_html: { class: 'label-lg' }, input_html: { class: 'input-lg form-control' } -%>
 
     <div class="form-group">
-      <%= f.submit t('.submit_new'), class: "btn btn-primary btn-lg btn-block" %>
+      <%= f.submit t('.submit_new', portal_name: BookingsyncPortal.portal_name),
+        class: "btn btn-primary btn-lg btn-block" %>
     </div>
   <%- end -%>
 </div>

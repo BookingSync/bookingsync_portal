@@ -9,11 +9,13 @@ en:
 
   bookingsync_portal:
     admin:
+      layout:
+        title: Connect BookingSync with %{portal_name}
       remote_accounts:
         new:
-          title: Connect A New Remote Account
+          title: Connect with %{portal_name}
         form:
-          submit_new: Connect This Remote Account
+          submit_new: Connect with %{portal_name}
 
       remote_rentals:
         show:
@@ -29,7 +31,7 @@ en:
           no_published_rentals_html: 'No published rentals present, please make sure to <a href="https://www.bookingsync.com/en/admin/v2/%{id}/rentals" target="_blank">fill all your rentals details</a>.'
           create_listings_first: You must create your rentals on Remote Account before you can synchronize them automatically.
           connect_accounts: Add External Portal Account
-          remote_header: "Remote Account: %{account_name}"
+          remote_header: "%{portal_name}: %{account_name}"
         rental:
           bedrooms_html:
             one: '<strong>1</strong> Bedroom'
