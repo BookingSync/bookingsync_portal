@@ -69,6 +69,9 @@ module BookingsyncPortal
   mattr_accessor :connection_resource
   @@connection_resource = 'BookingsyncPortal::AdminApi::ConnectionResource'
 
+  # source name for use in bookings
+  mattr_accessor :source_name
+
   # handle synchronization of rentals after connection is made
   def self.connection_created(connection)
   end
