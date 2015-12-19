@@ -17,6 +17,9 @@ require 'turbolinks'
 require 'responders'
 
 module BookingsyncPortal
+  # portal name
+  mattr_accessor :portal_name
+  @@portal_name = 'Portal'
 
   # account model class
   mattr_accessor :account_model

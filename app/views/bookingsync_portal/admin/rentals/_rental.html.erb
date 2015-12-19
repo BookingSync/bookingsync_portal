@@ -1,9 +1,6 @@
 <div class="panel panel-bookingsync bookingsync-rental"
   id="<%= dom_id rental %>"
   data-connect-url="<%= connect_admin_rental_url(rental) %>">
-  <div class="panel-heading">
-    <%= rental.name.presence || t('.no_name') %>
-  </div>
   <div class="panel-body-grid">
     <div class="panel-body-grid-photo">
       <%- if rental.ordered_photos.first -%>
@@ -11,7 +8,8 @@
       <%- end -%>
     </div>
     <div class="panel-body-grid-text">
-      <%= rental_details rental %>
+      <h4><%= rental.name.presence || t('.no_name') %></h4>
+      <p class="text-overflow"><%= rental_details rental %></p>
     </div>
   </div>
 </div>

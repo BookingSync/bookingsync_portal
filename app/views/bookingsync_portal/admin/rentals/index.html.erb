@@ -1,50 +1,58 @@
-<div class="rentals-container row-fluid">
-  <div class="bookingsync-rentals-list rentals-list col-xs-4">
-    <div class="rentals-list-header">
-      <legend><%=t '.bookingsync_header', account_name: current_account.name %></legend>
-    </div>
-    <div class="rentals-list-scroll">
-      <%- if @visible_rentals_count == 0 -%>
-        <div class="lead text-center well">
-          <p><%= t('.no_published_rentals_html', id: current_account.synced_id) %></p>
-        </div>
-      <%- elsif @not_connected_rentals.count > 0 -%>
-        <% @not_connected_rentals.each do |rental| %>
-          <%= render rental %>
-        <% end %>
-      <%- else -%>
-        <div class="lead text-center well">
-          <p class=""><%= icon 'thumbs-up fa-lg' %></p>
-          <p><%=t '.all_synchronized' %></p>
-        </div>
-      <%- end -%>
-    </div>
-  </div>
-
-  <div class="remote-rentals-list rentals-list col-xs-4">
-    <% @remote_accounts.each do |remote_account| %>
+<div class="rentals-container row">
+  <div class="col-xs-4">
+    <div class="bookingsync-rentals-list rentals-list">
       <div class="rentals-list-header">
-        <legend><%=t '.remote_header', account_name: remote_account.name %></legend>
+        <legend class="text-center"><%= image_tag('bookingsync_portal/bookingsync.png', alt: 'BookingSync') %></legend>
       </div>
-
       <div class="rentals-list-scroll">
-        <%- if Array(@remote_rentals_by_account[remote_account]).length > 0 -%>
-          <% Array(@remote_rentals_by_account[remote_account]).each do |remote_rental| %>
-            <% if remote_rental.connected? %>
-              <%= render "connected_rental", remote_rental: remote_rental, rental: remote_rental.rental %>
-            <% else %>
-              <%= render "remote_rental", remote_rental: remote_rental %>
-            <% end %>
+        <%- if @visible_rentals_count == 0 -%>
+          <div class="lead text-center well">
+            <p><%= t('.no_published_rentals_html', id: current_account.synced_id) %></p>
+          </div>
+        <%- elsif @not_connected_rentals.count > 0 -%>
+          <% @not_connected_rentals.each do |rental| %>
+            <%= render rental %>
           <% end %>
         <%- else -%>
           <div class="lead text-center well">
-            <p class=""><%= icon 'info fa-lg' %></p>
-            <p><%=t '.create_listings_first' %></p>
+            <p class=""><%= icon 'thumbs-up fa-lg' %></p>
+            <p><%=t '.all_synchronized' %></p>
           </div>
         <%- end -%>
       </div>
-    <% end %>
-    <%= render partial: 'new_remote_account' %>
+    </div>
+  </div>
+  <div class="col-xs-4">
+    <div class="remote-rentals-list rentals-list">
+      <div class="rentals-list-header">
+        <legend class="text-center"><%= image_tag("#{BookingsyncPortal.portal_name.parameterize}.png",
+          alt: BookingsyncPortal.portal_name) %></legend>
+      </div>
+
+      <div class="rentals-list-scroll">
+        <% @remote_accounts.each do |remote_account| %>
+          <h3><%=t '.remote_header', portal_name: BookingsyncPortal.portal_name,
+            account_name: remote_account.name %></h3>
+          <%- if Array(@remote_rentals_by_account[remote_account]).length > 0 -%>
+            <% Array(@remote_rentals_by_account[remote_account]).each do |remote_rental| %>
+              <% if remote_rental.connected? %>
+                <%= render "connected_rental", remote_rental: remote_rental, rental: remote_rental.rental %>
+              <% else %>
+                <%= render "remote_rental", remote_rental: remote_rental %>
+              <% end %>
+            <% end %>
+          <%- else -%>
+            <div class="lead text-center well">
+              <p class=""><%= icon 'info fa-lg' %></p>
+              <p><%=t '.create_listings_first' %></p>
+            </div>
+          <%- end -%>
+        <% end %>
+      </div>
+      <div class="rentals-list-footer text-center">
+        <%= render partial: 'new_remote_account' %>
+      </div>
+    </div>
   </div>
   <%= render partial: 'how_to' %>
 </div>
