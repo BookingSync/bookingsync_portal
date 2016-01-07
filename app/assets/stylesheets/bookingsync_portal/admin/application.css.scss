@@ -148,6 +148,7 @@ body > .footer {
 .panel-body-grid {
   display: flex;
   overflow: hidden;
+  position: relative;
 }
 
 .panel-body-grid-photo {
@@ -164,6 +165,7 @@ body > .footer {
 
   h4 {
     margin: 0 0 10px 0;
+    line-height: 1.4;
   }
 
   p {
