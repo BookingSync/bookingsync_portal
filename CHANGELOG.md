@@ -1,5 +1,7 @@
 # master
 
+# 0.3.1
+
 * Minor styling fix
 
 # 0.3.0
