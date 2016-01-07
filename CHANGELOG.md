@@ -1,5 +1,7 @@
 # master
 
+* Minor styling fix
+
 # 0.3.0
 
 * New BookingSync style
