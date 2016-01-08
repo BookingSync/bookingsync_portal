@@ -1,5 +1,10 @@
 # master
 
+# 0.3.2
+
+* properly require 'bootstrap-bookingsync-sass' gem
+* lock sprockets-rails to not conflicting ~> 2.3 version
+
 # 0.3.1
 
 * Minor styling fix
