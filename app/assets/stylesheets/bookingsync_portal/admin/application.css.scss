@@ -143,6 +143,15 @@ body > .footer {
   & + h3 {
     border-top: 0;
   }
+
+  .alert {
+    margin: 10px -12px;
+    border-radius: 0;
+  }
+
+  .alert-bottom:last-of-type {
+    margin-bottom: -10px;
+  }
 }
 
 .panel-body-grid {
