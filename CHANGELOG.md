@@ -1,5 +1,7 @@
 # master
 
+# 0.3.3
+
 * Improve Alerts style within Panels
 
 # 0.3.2
