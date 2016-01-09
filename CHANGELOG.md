@@ -1,9 +1,11 @@
 # master
 
+* Improve Alerts style within Panels
+
 # 0.3.2
 
-* properly require 'bootstrap-bookingsync-sass' gem
-* lock sprockets-rails to not conflicting ~> 2.3 version
+* Properly require 'bootstrap-bookingsync-sass' gem
+* Lock sprockets-rails to not conflicting ~> 2.3 version
 
 # 0.3.1
 
