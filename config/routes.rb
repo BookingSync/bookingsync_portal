@@ -5,6 +5,7 @@ BookingsyncPortal::Engine.routes.draw do
       put :connect, on: :member
     end
     resources :remote_accounts, only: [:new, :create]
+    get 'help', to: 'help#index'
     root to: 'rentals#index'
   end
 

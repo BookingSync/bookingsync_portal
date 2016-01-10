@@ -9,6 +9,17 @@ en:
 
   bookingsync_portal:
     admin:
+      help:
+        index:
+          title: What to do?
+          close: Close
+        help:
+          publish_rentals:
+            title: Publish rentals
+            description_html: 'Only rentals that are in the "Published" status can be connected to the portal. If you see the message "No published rentals present, please make sure to fill all your rentals details" on the left column, go back to the Rentals section to publish the ones you want to connect.'
+          connect:
+            title: Connect rentals
+            description_html: 'Drag the rentals from the left column and drop it to the corresponding listing on the right one.<br>You can filter the lists with the listings names.'
       layout:
         title: Connect BookingSync with %{portal_name}
         flash:
@@ -16,6 +27,7 @@ en:
             legend: Error
         menu:
           toggle_navigation: Toggle Navigation
+
       remote_accounts:
         new:
           title: Connect with %{portal_name}
@@ -37,6 +49,7 @@ en:
           create_listings_first: You must create your rentals on Remote Account before you can synchronize them automatically.
           connect_accounts: Add External Portal Account
           remote_header: "%{portal_name}: %{account_name}"
+          help: Help
         rental:
           bedrooms_html:
             one: '<strong>1</strong> Bedroom'

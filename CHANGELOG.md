@@ -1,5 +1,7 @@
 # master
 
+* Add help section
+
 # 0.3.3
 
 * Improve Alerts style within Panels
