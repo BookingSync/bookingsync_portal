@@ -1,6 +1,7 @@
 # master
 
 * Add help section
+* Migrate to a 2 column view
 
 # 0.3.3
 
