@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%=t 'bookingsync_portal.admin.layout.title', portal_name: BookingsyncPortal.portal_name %></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title><%=t 'bookingsync_portal.admin.layout.title',
+    portal_name: BookingsyncPortal.portal_name %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <%= stylesheet_link_tag 'admin/application', media: 'all' %>
   <%= csrf_meta_tags %>
 </head>
 <body data-messagebus-channel="<%= messagebus_channel %>">
   <%= render partial: '/layouts/bookingsync_portal/menu' %>
   <div class="container container-fullscreen">
+    <%= render '/layouts/bookingsync_portal/flash' %>
     <%= yield %>
   </div>
   <%= javascript_include_tag 'admin/application' %>
