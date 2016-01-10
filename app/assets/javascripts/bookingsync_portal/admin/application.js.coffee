@@ -16,6 +16,8 @@
 #= require jquery-ui/droppable
 #= require handlebars.runtime
 #= require message-bus
+#= require bootstrap/alert
+#= require bootstrap/collapse
 #= require bookingsync/form
 #= require ./vendor/css-contains
 #= require ./lib/list-filter

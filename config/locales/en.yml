@@ -11,6 +11,11 @@ en:
     admin:
       layout:
         title: Connect BookingSync with %{portal_name}
+        flash:
+          error:
+            legend: Error
+        menu:
+          toggle_navigation: Toggle Navigation
       remote_accounts:
         new:
           title: Connect with %{portal_name}
