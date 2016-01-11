@@ -13,8 +13,10 @@ disconnect_label = content_tag(:i, "", { class: 'fa fa-check' }) + h(" ") +
         <%- end -%>
       </div>
       <div class="panel-body-grid-text">
-        <h4 title="<%= RemoteRental.human_attribute_name(:uid) %>
-          <%= remote_rental.uid %>"><%= remote_rental.name %></h4>
+        <h4 title="<%= RemoteRental.human_attribute_name(:name) %>: <%= remote_rental.name %>
+          <%= RemoteRental.human_attribute_name(:uid) %>: <%= remote_rental.uid %>">
+            <%= remote_rental.rental.name %>
+        </h4>
         <%= link_to disconnect_label,
           bookingsync_portal.disconnect_admin_rental_path(rental),
           class: "btn btn-default btn-xs btn-success remove-connection",
