@@ -18,6 +18,14 @@ body > .footer {
 .container-fullscreen {
   height: 100%;
   width: 100%;
+
+  > #flash > .alert {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+    margin: 0 (-1 * ceil($grid-gutter-width / 2));
+  }
 }
 
 .rentals-container {

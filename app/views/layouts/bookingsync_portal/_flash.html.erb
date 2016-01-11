@@ -1,0 +1,8 @@
+<%- if flash[:error] -%>
+  <div id="flash">
+    <div class="alert alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <strong><%=t 'bookingsync_portal.admin.layout.flash.error.legend' %></strong> <%= flash[:error] %>
+    </div>
+  </div>
+<%- end -%>
