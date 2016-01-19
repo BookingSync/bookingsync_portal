@@ -1,3 +1,8 @@
+<%- content_for :navbar_right do -%>
+  <ul class="nav navbar-nav">
+    <li><%= link_to icon("life-ring", t('.help')), admin_help_url %></li>
+  </ul>
+<%- end -%>
 <div class="rentals-container row">
   <div class="col-xs-4">
     <div class="bookingsync-rentals-list rentals-list">

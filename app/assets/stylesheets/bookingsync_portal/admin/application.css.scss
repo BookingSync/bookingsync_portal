@@ -10,6 +10,11 @@ html, body {
   height: 100vh;
 }
 
+body.fullscreen {
+  background-color: #fff;
+  padding: 1em;
+}
+
 body > .footer {
   padding-bottom: 20px;
   clear: both;
