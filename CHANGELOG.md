@@ -1,5 +1,7 @@
 # master
 
+# 0.4.0
+
 * Add source_id to `Account` and assign it when app is being installed. See https://github.com/BookingSync/bookingsync_portal/wiki/Add-source_id-to-Account to make this work.
 * Add help section
 * Migrate to a 2 column view
