@@ -27,3 +27,7 @@ module BookingsyncPortal
     # return false if fetching was not successful due to remote accounts or remote api problems
   end
 end
+
+BookingsyncPortal.setup do |config|
+  config.source_name = "Dummy".freeze
+end

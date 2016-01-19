@@ -4,7 +4,7 @@ describe BookingsyncPortal::Admin::RemoteAccountsController do
   render_views
   routes { BookingsyncPortal::Engine.routes }
 
-  let(:account) { create :account }
+  let(:account) { create :account, synced_source_id: 1 }
 
   before do
     request.env['HTTPS'] = 'on'
@@ -25,6 +25,13 @@ describe BookingsyncPortal::Admin::RemoteAccountsController do
       it do
         expect{ action }.to change{ BookingsyncPortal::RemoteAccount.count }.by(1)
         expect(response).to redirect_to(admin_rentals_url)
+      end
+
+      it "ensures account has assigned synced_source_id" do
+        ensure_service = BookingsyncPortal::Write::EnsureSourceExists.new(account)
+        expect(BookingsyncPortal::Write::EnsureSourceExists).to receive(:new).and_return(ensure_service)
+        expect(ensure_service).to receive(:call)
+        action
       end
     end
 
