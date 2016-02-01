@@ -8,13 +8,4 @@ BookingsyncPortal::Engine.routes.draw do
     get 'help', to: 'help#index'
     root to: 'rentals#index'
   end
-
-  namespace :admin_api do
-    # FIXME properly handle cuurent account resource
-    # jsonapi_resource :account
-    jsonapi_resources :remote_accounts
-    jsonapi_resources :rentals, only: [:index, :show]
-    jsonapi_resources :remote_rentals, only: [:index, :show]
-    jsonapi_resources :connections
-  end
 end
