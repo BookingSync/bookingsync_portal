@@ -3,6 +3,7 @@
 * Remove json-api
 * Don't setup rates association on rental if not needed
 * Bump bookingsync_application to ~ 0.4.0
+* Drop ruby 2.0 support
 
 # 0.4.0
 
