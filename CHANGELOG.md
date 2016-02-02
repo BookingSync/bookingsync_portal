@@ -1,6 +1,7 @@
 # master
 
  * Remove json-api
+ * Don't setup rates association on rental if not needed
 
 # 0.4.0
 
