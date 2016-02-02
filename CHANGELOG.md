@@ -1,7 +1,8 @@
 # master
 
- * Remove json-api
- * Don't setup rates association on rental if not needed
+* Remove json-api
+* Don't setup rates association on rental if not needed
+* Bump bookingsync_application to ~ 0.4.0
 
 # 0.4.0
 
