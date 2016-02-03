@@ -21,21 +21,6 @@ BookingsyncPortal.setup do |config|
   # customize rate model class, can extend BookingsyncPortal::Rate, set to nil if not used
   config.rate_model = '::Rate'
 
-  # customize account resource class, can extend BookingsyncPortal::AdminApi::AccountResource
-  # config.account_resource = '::AdminApi::AccountResource'
-
-  # customize remote account resource class, can extend BookingsyncPortal::AdminApi::RemoteAccountResource
-  # config.remote_account_resource = '::AdminApi::RemoteAccountResource'
-
-  # customize rental resource class, can extend BookingsyncPortal::AdminApi::RentalResource
-  # config.rental_resource = '::AdminApi::RentalResource'
-
-  # customize remote rental resource class, can extend BookingsyncPortal::AdminApi::RemoteRentalResource
-  # config.remote_rental_resource = '::AdminApi::RemoteRentalResource'
-
-  # customize connection resource class, can extend BookingsyncPortal::AdminApi::ConnectionResource
-  # config.connection_resource = '::AdminApi::ConnectionResource'
-
   # handle synchronization of rentals after connection is made
   def config.connection_created(connection)
   end
