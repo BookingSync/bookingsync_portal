@@ -1,5 +1,7 @@
 # master
 
+* Remove json-api leftovers and config options
+
 # 0.5.0
 
 * Remove json-api

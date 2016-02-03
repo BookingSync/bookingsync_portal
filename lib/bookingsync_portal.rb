@@ -49,26 +49,6 @@ module BookingsyncPortal
   mattr_accessor :rate_model
   @@rate_model = 'BookingsyncPortal::Rate'
 
-  # account resource class
-  mattr_accessor :account_resource
-  @@account_resource = 'BookingsyncPortal::AdminApi::AccountResource'
-
-  # remote account resource class
-  mattr_accessor :remote_account_resource
-  @@remote_account_resource = 'BookingsyncPortal::AdminApi::RemoteAccountResource'
-
-  # rental resource class
-  mattr_accessor :rental_resource
-  @@rental_resource = 'BookingsyncPortal::AdminApi::RentalResource'
-
-  # remote rental resource class
-  mattr_accessor :remote_rental_resource
-  @@remote_rental_resource = 'BookingsyncPortal::AdminApi::RemoteRentalResource'
-
-  # connection resource class
-  mattr_accessor :connection_resource
-  @@connection_resource = 'BookingsyncPortal::AdminApi::ConnectionResource'
-
   # source name for use in bookings
   mattr_accessor :source_name
 

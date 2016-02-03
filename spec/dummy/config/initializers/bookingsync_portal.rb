@@ -7,12 +7,6 @@
 # BookingsyncPortal.remote_rental_model = '::RemoteRental'
 # BookingsyncPortal.connection_model = '::Connection'
 
-# BookingsyncPortal.account_resource = '::Admin::AccountResource'
-# BookingsyncPortal.remote_account_resource = '::Admin::RemoteAccountResource'
-# BookingsyncPortal.rental_resource = '::Admin::RentalResource'
-# BookingsyncPortal.remote_rental_resource = '::Admin::RemoteRentalResource'
-# BookingsyncPortal.connection_resource = '::Admin::ConnectionResource'
-
 module BookingsyncPortal
   def self.connection_created(connection)
     # handle connection created here
