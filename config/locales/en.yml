@@ -41,12 +41,14 @@ en:
       rentals:
         new_remote_account:
           connect_accounts: Connect additional accounts
+        new_remote_rental:
+          drop_here: "Drop here to create a new rental on %{portal_name}"
         index:
           connect: Connect
           bookingsync_header: "BookingSync: %{account_name}"
           all_synchronized: Perfect! All your rentals are synchronized.
           no_published_rentals_html: 'No published rentals present, please make sure to <a href="https://www.bookingsync.com/en/admin/v2/%{id}/rentals" target="_blank">fill all your rentals details</a>.'
-          create_listings_first: You must create your rentals on Remote Account before you can synchronize them automatically.
+          create_listings_first: "You must create your rentals on %{portal_name} before you can synchronize them automatically."
           connect_accounts: Add External Portal Account
           remote_header: "%{portal_name}: %{account_name}"
           help: Help

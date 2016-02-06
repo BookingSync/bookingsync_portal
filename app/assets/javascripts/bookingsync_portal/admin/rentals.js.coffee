@@ -44,13 +44,15 @@ $ ->
         success: ->
           $(@).removeClass('loading')
 
-  $(".remote-new-rental").droppable
+  $(".new-remote-rental").droppable
     accept: ".bookingsync-rental"
     activeClass: "dropzone-active"
     hoverClass: "dropzone-hover"
     greedy: true
     tolerance: "pointer"
     drop: (event, ui) ->
+      newRemoteRental = $(@)
+
       rentalId = parseInt($(ui.draggable).attr("id").split("_")[1])
       remoteAccountId = parseInt($(@).data("remote-account-id"))
 
@@ -59,10 +61,7 @@ $ ->
         rentalDescription: $(ui.draggable).children('.panel-body').html()
         rentalId: rentalId
 
-      rentalsScrollingList = $(@).closest(".rentals-list").find(".rentals-list-scroll")
-      $(newRental).appendTo(rentalsScrollingList).addClass('pending')
-      rentalsScrollingList.animate
-        scrollTop: rentalsScrollingList.prop("scrollHeight")
+      $(newRental).insertBefore(newRemoteRental).addClass('pending')
 
       $(ui.draggable).remove()
 

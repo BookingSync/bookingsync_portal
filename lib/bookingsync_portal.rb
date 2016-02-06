@@ -21,6 +21,13 @@ module BookingsyncPortal
   mattr_accessor :portal_name
   @@portal_name = 'Portal'
 
+  # source name for use in bookings
+  mattr_accessor :source_name
+
+  # Allow to create a remote rental from this app.
+  mattr_accessor :create_remote_rental_from_app
+  @@create_remote_rental_on_drop = false
+
   # account model class
   mattr_accessor :account_model
   @@account_model = 'BookingsyncPortal::Account'
@@ -49,8 +56,9 @@ module BookingsyncPortal
   mattr_accessor :rate_model
   @@rate_model = 'BookingsyncPortal::Rate'
 
-  # source name for use in bookings
-  mattr_accessor :source_name
+  # handle creation of a remote rental on the remote account
+  def self.remote_rental_created(remote_rental)
+  end
 
   # message bus channel scope
   mattr_accessor :message_bus_channel_scope
