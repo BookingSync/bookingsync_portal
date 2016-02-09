@@ -1,5 +1,7 @@
 # master
 
+# 0.6.0
+
 * Remove json-api leftovers and config options
 * Force message bus to use specific channel, as in https://github.com/SamSaffron/message_bus#multisite-support,
   Makes multiple bookingsync_portal applications work in a shared redis setup.
