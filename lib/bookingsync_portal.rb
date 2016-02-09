@@ -52,6 +52,9 @@ module BookingsyncPortal
   # source name for use in bookings
   mattr_accessor :source_name
 
+  # message bus channel scope
+  mattr_accessor :message_bus_channel_scope
+
   # handle synchronization of rentals after connection is made
   def self.connection_created(connection)
   end
@@ -69,5 +72,9 @@ module BookingsyncPortal
   # a fresh initializer with all configuration values.
   def self.setup
     yield self
+    raise ArgumentError.new("message_bus_channel_scope must be defined") unless message_bus_channel_scope.present?
+    ::MessageBus.site_id_lookup do
+      message_bus_channel_scope
+    end
   end
 end
