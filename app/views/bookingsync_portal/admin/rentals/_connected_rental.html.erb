@@ -18,10 +18,10 @@ disconnect_label = content_tag(:i, "", { class: 'fa fa-check' }) + h(" ") +
             <%= remote_rental.rental.name %>
         </h4>
         <%= link_to disconnect_label,
-          bookingsync_portal.disconnect_admin_rental_path(rental),
+          bookingsync_portal.admin_connection_path(rental.connection),
           class: "btn btn-default btn-xs btn-success remove-connection",
           data: { disable_with: t('.disconnecting_rental') },
-          method: :put %>
+          method: :delete %>
         <p class="text-overflow"><%= rental_details(rental) %></p>
       </div>
     </div>

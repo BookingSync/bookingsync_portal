@@ -28,7 +28,8 @@
     </div>
   </div>
   <div class="col-xs-6">
-    <div class="remote-rentals-list rentals-list">
+    <div class="remote-rentals-list rentals-list"
+      data-connect-url="<%= bookingsync_portal.admin_connections_url %>">
       <div class="rentals-list-header">
         <legend class="text-center">
           <%= image_tag("#{BookingsyncPortal.portal_name.parameterize}.png",

@@ -1,6 +1,7 @@
 $("#<%= dom_id @rental %>").replaceWith(
   <%- if @rental.connected? %>
-  "<%=j render 'connected_rental', rental: @rental, remote_rental: @rental.remote_rental %>");
+   "<%=j render 'connected_rental', rental: @rental, remote_rental: @rental.remote_rental,
+      disconnect_url: bookingsync_portal.admin_connection_url(@rental.connection) %>");
   <%- else %>
-  "<%=j render 'rental', rental: @rental %>");
+   "<%=j render 'rental', rental: @rental %>");
   <%- end %>
