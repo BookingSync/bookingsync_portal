@@ -25,4 +25,5 @@
 #= require_tree .
 
 window.extractIdFromDomId = (attribute) ->
-  attribute.split("_").pop()
+  if attribute
+    attribute.split("_").pop()

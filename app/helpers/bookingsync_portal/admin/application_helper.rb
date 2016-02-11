@@ -1,6 +1,6 @@
 module BookingsyncPortal
   module Admin
-    module RentalsHelper
+    module ApplicationHelper
       def rental_details(rental)
         scope = 'bookingsync_portal.admin.rentals.rental'
 

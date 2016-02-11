@@ -17,13 +17,13 @@ describe BookingsyncPortal::Admin::ConnectionsController do
     let!(:rental) { create(:rental, account: account) }
 
     context "when remote_rental doesn't exist" do
-      context "when BookingsyncPortal.create_remote_rental_from_app is true" do
+      context "when BookingsyncPortal.create_remote_rental is true" do
         let(:action) do
           post :create, rental_id: rental.id, remote_account_id: remote_account.id
         end
 
         before do
-          allow(BookingsyncPortal).to receive(:create_remote_rental_from_app).and_return(true)
+          allow(BookingsyncPortal).to receive(:create_remote_rental).and_return(true)
         end
 
         it "creates remote_rental between on remote account" do
@@ -34,11 +34,6 @@ describe BookingsyncPortal::Admin::ConnectionsController do
         it "creates connection between rental and newly created remote rental" do
           expect { action }.to change { BookingsyncPortal::Connection.count }.by(1)
           expect(rental.remote_rental.remote_account).to eq remote_account
-        end
-
-        it "calls BookingsyncPortal.remote_rental_created" do
-          expect(BookingsyncPortal).to receive(:remote_rental_created)
-          action
         end
 
         context "when only rental does not belong to current account" do
@@ -63,13 +58,13 @@ describe BookingsyncPortal::Admin::ConnectionsController do
         end
       end
 
-      context "when BookingsyncPortal.create_remote_rental_from_app is false" do
+      context "when BookingsyncPortal.create_remote_rental is false" do
         let(:action) do
           post :create, rental_id: rental.id, remote_account_id: remote_account.id
         end
 
         before do
-          allow(BookingsyncPortal).to receive(:create_remote_rental_from_app).and_return(false)
+          allow(BookingsyncPortal).to receive(:create_remote_rental).and_return(false)
         end
 
         it "does not create a new remote_rental" do
@@ -82,11 +77,6 @@ describe BookingsyncPortal::Admin::ConnectionsController do
           expect {
             expect { action }.to raise_error(ActiveRecord::RecordNotFound)
           }.not_to change { BookingsyncPortal::Connection.count }
-        end
-
-        it "does not calls BookingsyncPortal.remote_rental_created" do
-          expect(BookingsyncPortal).not_to receive(:remote_rental_created)
-          expect { action }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
     end
@@ -102,20 +92,10 @@ describe BookingsyncPortal::Admin::ConnectionsController do
         expect(rental.remote_rental).to eq remote_rental
       end
 
-      it "calls BookingsyncPortal.connection_created" do
-        expect(BookingsyncPortal).to receive(:connection_created)
-        action
-      end
-
       context 'when only remote rental does not belong to current account' do
         let!(:remote_rental) { create :remote_rental }
 
         it 'does not allow to connect' do
-          expect { action }.to raise_error(ActiveRecord::RecordNotFound)
-        end
-
-        it "does not calls BookingsyncPortal.connection_created" do
-          expect(BookingsyncPortal).not_to receive(:connection_created)
           expect { action }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
@@ -126,11 +106,6 @@ describe BookingsyncPortal::Admin::ConnectionsController do
         it 'does not allow to connect' do
           expect { action }.to raise_error(ActiveRecord::RecordNotFound)
         end
-
-        it "does not calls BookingsyncPortal.connection_created" do
-          expect(BookingsyncPortal).not_to receive(:connection_created)
-          expect { action }.to raise_error(ActiveRecord::RecordNotFound)
-        end
       end
 
       context 'when both rental and remote rental belong to different account' do
@@ -139,11 +114,6 @@ describe BookingsyncPortal::Admin::ConnectionsController do
         let!(:rental) { create :rental, account: different_account }
 
         it 'does not allow to connect' do
-          expect { action }.to raise_error(ActiveRecord::RecordNotFound)
-        end
-
-        it "does not calls BookingsyncPortal.connection_created" do
-          expect(BookingsyncPortal).not_to receive(:connection_created)
           expect { action }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
@@ -164,11 +134,6 @@ describe BookingsyncPortal::Admin::ConnectionsController do
       it 'allows to destroy connection' do
         expect { action }.to change { BookingsyncPortal::Connection.count }.by(-1)
       end
-
-      it "calls BookingsyncPortal.connection_destroyed" do
-        expect(BookingsyncPortal).to receive(:connection_destroyed)
-        action
-      end
     end
 
     context 'when current_account is not owner' do
@@ -179,11 +144,6 @@ describe BookingsyncPortal::Admin::ConnectionsController do
       end
 
       it 'does not allow to destroy connection' do
-        expect { action }.to raise_error(ActiveRecord::RecordNotFound)
-      end
-
-      it "does not calls BookingsyncPortal.connection_destroyed" do
-        expect(BookingsyncPortal).not_to receive(:connection_destroyed)
         expect { action }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end

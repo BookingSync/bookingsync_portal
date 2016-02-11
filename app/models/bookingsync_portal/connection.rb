@@ -9,6 +9,15 @@ class BookingsyncPortal::Connection < ActiveRecord::Base
 
   validate :matching_accounts, if: -> { rental && remote_rental }
 
+  after_save :notify_via_message_bus
+  after_destroy :notify_via_message_bus
+
+  def notify_via_message_bus
+    MessageBus.publish "/account-#{rental.account_id}", { refresh_from:
+      BookingsyncPortal::Engine.routes.url_helpers.admin_rental_path(rental, format: :js)
+    }
+  end
+
   private
 
   def matching_accounts?

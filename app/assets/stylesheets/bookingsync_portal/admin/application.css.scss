@@ -214,27 +214,29 @@ body > .footer {
     position: relative;
   }
 
-  .remove-connection {
+  .status {
     position: absolute;
     right: 3px;
     top: 8px;
     border-radius: 11px;
 
-    span {
-      display: none;
-    }
-
-    &:hover {
-      background-color: $brand-danger;
-      border-color: $brand-danger;
-      border-radius: $border-radius-small;
-
-      i {
+    .remove-connection {
+      span {
         display: none;
       }
 
-      span {
-        display: block;
+      &:hover {
+        background-color: $brand-danger;
+        border-color: $brand-danger;
+        border-radius: $border-radius-small;
+
+        i {
+          display: none;
+        }
+
+        span {
+          display: block;
+        }
       }
     }
   }

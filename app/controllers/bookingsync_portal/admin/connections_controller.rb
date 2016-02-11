@@ -2,30 +2,25 @@ module BookingsyncPortal
   module Admin
     class ConnectionsController < Admin::BaseController
       def create
-        if remote_account? && BookingsyncPortal.create_remote_rental_from_app
+        if remote_account? && BookingsyncPortal.create_remote_rental
           new_remote_rental = BookingsyncPortal.remote_rental_model.constantize.new(remote_account: remote_account)
-          connection = BookingsyncPortal.connection_model.constantize.create(rental: rental, remote_rental: new_remote_rental)
-
-          BookingsyncPortal.remote_rental_created(new_remote_rental)
-          BookingsyncPortal.connection_created(connection)
+          @connection = rental.create_connection(remote_rental: new_remote_rental)
         else
-          connection = rental.create_connection(remote_rental: remote_rental)
-
-          BookingsyncPortal.connection_created(connection)
-        
+          @connection = rental.create_connection(remote_rental: remote_rental)
         end
 
-        redirect_or_js_response
+        respond_to do |wants|
+          wants.html { redirect_to admin_rentals_path }
+          wants.js
+        end
       end
 
       def destroy
-        connection = current_account.connections.find(params[:id])
-        connection.remote_rental.update_attribute(:synchronized_at, nil)
-        connection.destroy
+        connection = current_account.connections.find(params[:id]).destroy
 
-        BookingsyncPortal.connection_destroyed(connection)
-
-        redirect_or_js_response
+        respond_to do |wants|
+          wants.html { redirect_to admin_rentals_path }
+        end
       end
 
       private
@@ -44,13 +39,6 @@ module BookingsyncPortal
 
       def remote_account?
         params[:remote_account_id].present? && remote_account
-      end
-
-      def redirect_or_js_response
-        respond_to do |wants|
-          wants.html { redirect_to admin_rentals_path }
-          wants.js { head :ok }
-        end
       end
     end
   end

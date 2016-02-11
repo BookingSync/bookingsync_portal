@@ -4,7 +4,7 @@
 * Cleanup bookingsync_portal config generator and dummy app one
 * Add missing dummy simple_form initializer
 * Add `BookingsyncPortal.remote_rental_created` class method.
-* Add `BookingsyncPortal.create_remote_rental_from_app` option to allow to create remote rentals directly from the app. Default to `false`.
+* Add `BookingsyncPortal.create_remote_rental` option to allow to create remote rentals directly from the app. Default to `false`.
 
 # 0.6.0
 

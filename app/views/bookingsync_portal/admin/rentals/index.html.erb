@@ -49,13 +49,13 @@
                 <%= render "remote_rental", remote_rental: remote_rental %>
               <% end %>
             <% end %>
-          <%- elsif !BookingsyncPortal.create_remote_rental_from_app -%>
+          <%- elsif !BookingsyncPortal.create_remote_rental -%>
             <div class="lead text-center well">
               <p class=""><%= icon 'info fa-lg' %></p>
               <p><%=t '.create_listings_first', portal_name: BookingsyncPortal.portal_name %></p>
             </div>
           <%- end -%>
-          <%- if BookingsyncPortal.create_remote_rental_from_app -%>
+          <%- if BookingsyncPortal.create_remote_rental -%>
             <%= render "new_remote_rental", remote_account: remote_account %>
           <%- end -%>
         <% end %>
