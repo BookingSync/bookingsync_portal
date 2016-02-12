@@ -1,3 +1,3 @@
 class Rate < BookingsyncPortal::Rate
-  synced remove: true, strategy: :updated_since
+  synced remove: true
 end

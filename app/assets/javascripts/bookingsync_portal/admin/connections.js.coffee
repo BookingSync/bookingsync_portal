@@ -26,17 +26,12 @@ $ ->
       remoteAccountId = remoteRentalDropZone.data("remote-account-id")
       remoteRentalUid = remoteRentalDropZone.data("uid")
 
-      template = HandlebarsTemplates["rentals/connecting_rental"]
-        rentalName: $(ui.draggable).children('.panel-heading').text()
-        rentalDescription: $(ui.draggable).children('.panel-body').html()
-        rentalId: rentalId
-        listingId: "Listing #" + remoteRentalUid
       if remoteRentalId
         postData = { "rental_id": rentalId, "remote_rental_id": remoteRentalId }
-        remoteRentalDropZone.replaceWith(template)
       else
         postData = { "rental_id": rentalId, "remote_account_id": remoteAccountId }
-        $(template).insertBefore(remoteRentalDropZone).addClass('pending')
+        # clone new remote rental drop zone and append to the end
+        remoteRentalDropZone.clone().insertBefore(remoteRentalDropZone).addClass('new_rental_placeholder');
 
       $(ui.draggable).remove()
 

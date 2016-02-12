@@ -1,5 +1,5 @@
 class Account < BookingsyncPortal::Account
-  synced local_attributes: [:email], strategy: :updated_since
+  synced local_attributes: [:email]
 
   def api
     @api ||= BookingSync::Engine::APIClient.new(token.token, logger: Rails.logger, account: self)

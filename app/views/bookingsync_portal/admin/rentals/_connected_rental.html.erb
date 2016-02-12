@@ -1,6 +1,5 @@
-<div
-  class="panel panel-connected <%= "pending" unless remote_rental.synchronized? %>"
-  id="<%= dom_id rental %>">
+<div id="<%= dom_id rental %>"
+  class="panel panel-connected <%= "pending" unless rental.remote_rental.synchronized? %>">
 
   <div class="panel-body-grid">
     <div class="panel-body-grid-photo">
@@ -10,18 +9,18 @@
     </div>
     <div class="panel-body-grid-text">
       <h4 title="<%= RemoteRental.human_attribute_name(:uid) %>: <%= remote_rental.uid %>">
-          <%= remote_rental.display_name %>
-          / <%= rental.name %>
+          <%= remote_rental.display_name %> / <%= rental.name %>
       </h4>
       <div class="status">
-        <% unless rental.remote_rental.synchronized? %>
-          <%= icon('spinner fa-spin', t('.synchronizing')) %>
-        <% end %>
         <%= link_to bookingsync_portal.admin_connection_path(rental.connection),
-          class: "btn btn-default btn-xs btn-success remove-connection",
+          class: ["btn", "btn-xs", "remove-connection", rental.remote_rental.synchronized? ? "btn-success" : "btn-warning"],
           data: { disable_with: t('.disconnecting_rental') }, method: :delete do %>
-          <i class="fa fa-check"></i>
-          <span><%= t('.disconnect_rental') %></span>
+          <% unless rental.remote_rental.synchronized? %>
+            <span class="hover_hide"><%= icon('spinner') %></span>
+          <% else %>
+            <span class="hover_hide"><%= icon('check') %></span>
+          <% end %>
+          <span class="hover_show"><%= t('.disconnect_rental') %></span>
         <% end %>
       </div>
       <p class="text-overflow"><%= rental_details(rental) %></p>
