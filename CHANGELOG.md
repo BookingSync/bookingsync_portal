@@ -1,5 +1,7 @@
 # master
 
+* Remove CircleCI setup
+
 # 0.6.0
 
 * Remove json-api leftovers and config options
