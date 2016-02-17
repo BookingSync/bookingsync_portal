@@ -1,5 +1,14 @@
 # Use this to customize the behaviour of BookingsyncPortal engine and hook up custom synchronization
 BookingsyncPortal.setup do |config|
+  # customize the portal name
+  config.portal_name = "Replace with portal app name"
+
+  # customize the source name
+  config.source_name = "Replace with portal name"
+
+  # specify message_bus_channel_scope to allow shared redis setup
+  config.message_bus_channel_scope = 'portal_app_name'
+
   # customize account model class, can extend BookingsyncPortal::Account
   config.account_model = '::Account'
 
@@ -22,15 +31,15 @@ BookingsyncPortal.setup do |config|
   config.rate_model = '::Rate'
 
   # handle synchronization of rentals after connection is made
-  def config.connection_created(connection)
-  end
+  # def config.connection_created(connection)
+  # end
 
   # handle synchronization of rentals after connection is destroyed
-  def config.connection_destroyed(connection)
-  end
+  # def config.connection_destroyed(connection)
+  # end
 
   # fetch remote rentals
-  def config.fetch_remote_rentals(account)
-    # return false if remote account is not present or not valid
-  end
+  # def config.fetch_remote_rentals(account)
+  #   return false if remote account is not present or not valid
+  # end
 end

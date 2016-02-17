@@ -1,6 +1,7 @@
 # master
 
 * Remove CircleCI setup
+* Cleanup bookingsync_portal config generator and dummy app one
 
 # 0.6.0
 
