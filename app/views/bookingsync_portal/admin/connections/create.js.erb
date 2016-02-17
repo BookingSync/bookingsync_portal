@@ -1,0 +1,5 @@
+<%- if @connection.persisted? %>
+  $("#<%= dom_id @connection.remote_rental %>, .new_rental_placeholder").replaceWith(
+   "<%=j render 'bookingsync_portal/admin/rentals/connected_rental', rental: @connection.rental, remote_rental: @connection.remote_rental,
+      disconnect_url: bookingsync_portal.admin_connection_url(@connection) %>");
+<%- end %>

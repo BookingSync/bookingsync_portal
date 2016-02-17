@@ -16,24 +16,6 @@ module BookingsyncPortal
         rental
       end
 
-      def connect
-        remote_rental = current_account.remote_rentals.find(params[:remote_rental_id])
-        connection = rental.build_connection(remote_rental: remote_rental)
-        connection.save
-
-        BookingsyncPortal.connection_created(connection)
-        redirect_or_js_response
-      end
-
-      def disconnect
-        connection = rental.connection
-        rental.remote_rental.update_attribute(:synchronized_at, nil)
-        connection.destroy
-
-        BookingsyncPortal.connection_destroyed(connection)
-        redirect_or_js_response
-      end
-
       private
 
       def synchronize_rentals
@@ -48,13 +30,6 @@ module BookingsyncPortal
 
       def rental
         @rental ||= current_account.rentals.visible.find(params[:id])
-      end
-
-      def redirect_or_js_response
-        respond_to do |wants|
-          wants.html { redirect_to admin_rentals_path }
-          wants.json { head :ok }
-        end
       end
     end
   end

@@ -18,4 +18,18 @@ RSpec.describe Connection do
       expect(subject.errors[:base]).to include('Different ownership of rental and remote_rental')
     end
   end
+
+  context 'message_bus' do
+    let(:account) { create(:account, id: 123) }
+    let!(:rental) { create(:rental, account: account, id: 543) }
+    let(:connection) { create(:connection, rental: rental) }
+
+    context 'on_save' do
+      it 'publishes notification via message_bus' do
+        expect(MessageBus).to receive(:publish).with("/account-123",
+          { refresh_from: '/en/admin/rentals/543.js' })
+        connection
+      end
+    end
+  end
 end

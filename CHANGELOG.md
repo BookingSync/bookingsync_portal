@@ -3,6 +3,11 @@
 * Remove CircleCI setup
 * Cleanup bookingsync_portal config generator and dummy app one
 * Add missing dummy simple_form initializer
+* Add `BookingsyncPortal.create_remote_rental` option to allow to create remote rentals directly from the app. Default to `false`.
+* Refactor connection create and destroy to ConnectionsController.
+* Removed portal callbacks after connection create and destroy, should be handle as model callbacks now.
+* Refactor connection.js codes. Simplify and cover creating new remote rental case.
+* Multiple view, style and js changes around connections. Pay extra attention if an app was extending/overriding them.
 
 # 0.6.0
 

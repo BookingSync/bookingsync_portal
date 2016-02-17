@@ -17,6 +17,10 @@ class BookingsyncPortal::RemoteRental < ActiveRecord::Base
   scope :connected, -> { joins(:rental) }
   scope :not_connected, -> { includes(:rental).where(rentals: { id: nil }) }
 
+  def display_name
+    uid
+  end
+
   def connected?
     rental.present?
   end

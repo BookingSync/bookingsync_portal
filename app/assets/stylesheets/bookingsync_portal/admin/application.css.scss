@@ -1,5 +1,3 @@
-$dropzone-active-bg: #fbf9ee;
-
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "bootstrap-bookingsync-sprockets";
@@ -112,20 +110,6 @@ body > .footer {
 .remote-rentals-list {
   background-color: #fff;
 
-  &.dropzone-active {
-    border: 1px dashed darken($dropzone-active-bg, 7%);
-    background-color: lighten($dropzone-active-bg, 2%);
-  }
-
-  &.dropzone-hover {
-    border: 1px solid darken($dropzone-active-bg, 7%);
-    background-color: $dropzone-active-bg;
-
-    .remote-new-rental {
-      border: 1px solid $btn-success-border;
-    }
-  }
-
   .dropzone-active {
     border: 1px dashed $btn-success-border;
   }
@@ -201,40 +185,36 @@ body > .footer {
 }
 
 .panel-connected {
-  &.pending {
-    border-color: darken($dropzone-active-bg, 7%);
-
-    .panel-heading {
-      background-color: $dropzone-active-bg;
-      color: darken($dropzone-active-bg, 50%);
-    }
-  }
-
   .panel-heading {
     position: relative;
   }
 
-  .remove-connection {
+  .status {
     position: absolute;
     right: 3px;
     top: 8px;
-    border-radius: 11px;
 
-    span {
-      display: none;
-    }
-
-    &:hover {
-      background-color: $brand-danger;
-      border-color: $brand-danger;
-      border-radius: $border-radius-small;
-
-      i {
+    .remove-connection {
+      .hover_show {
         display: none;
       }
 
-      span {
-        display: block;
+      .fa-check {
+        border-radius: 11px;
+      }
+
+      &:hover {
+        background-color: $brand-danger;
+        border-color: $brand-danger;
+        border-radius: $border-radius-small;
+
+        .hover_hide {
+          display: none;
+        }
+
+        .hover_show {
+          display: block;
+        }
       }
     }
   }

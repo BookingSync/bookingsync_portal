@@ -9,6 +9,9 @@ BookingsyncPortal.setup do |config|
   # specify message_bus_channel_scope to allow shared redis setup
   config.message_bus_channel_scope = 'portal_app_name'
 
+  # Allow to create a remote rental directly from this app.
+  config.create_remote_rental = false
+
   # customize account model class, can extend BookingsyncPortal::Account
   config.account_model = '::Account'
 

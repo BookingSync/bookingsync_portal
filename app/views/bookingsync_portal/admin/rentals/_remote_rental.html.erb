@@ -1,11 +1,11 @@
-<div class="panel panel-remote not-connected-remote-rental" id="<%= dom_id remote_rental %>"
+<div class="panel panel-remote" id="<%= dom_id remote_rental %>"
   data-uid="<%= remote_rental.uid %>">
   <div class="panel-body-grid">
     <div class="panel-body-grid-photo">
     </div>
     <div class="panel-body-grid-text">
       <h4 title="<%= RemoteRental.human_attribute_name(:uid) %>
-        <%= remote_rental.uid %>"><%= remote_rental.name %></h4>
+        <%= remote_rental.uid %>"><%= remote_rental.display_name %></h4>
       <p class="text-overflow"></p>
     </div>
   </div>

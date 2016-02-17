@@ -23,3 +23,7 @@
 #= require ./lib/list-filter
 #= require_tree ./templates
 #= require_tree .
+
+window.extractIdFromDomId = (attribute) ->
+  if attribute
+    attribute.split("_").pop()

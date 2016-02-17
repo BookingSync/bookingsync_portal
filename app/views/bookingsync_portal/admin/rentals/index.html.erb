@@ -28,7 +28,8 @@
     </div>
   </div>
   <div class="col-xs-6">
-    <div class="remote-rentals-list rentals-list">
+    <div class="remote-rentals-list rentals-list"
+      data-connect-url="<%= bookingsync_portal.admin_connections_url %>">
       <div class="rentals-list-header">
         <legend class="text-center">
           <%= image_tag("#{BookingsyncPortal.portal_name.parameterize}.png",
@@ -48,11 +49,14 @@
                 <%= render "remote_rental", remote_rental: remote_rental %>
               <% end %>
             <% end %>
-          <%- else -%>
+          <%- elsif !BookingsyncPortal.create_remote_rental -%>
             <div class="lead text-center well">
               <p class=""><%= icon 'info fa-lg' %></p>
-              <p><%=t '.create_listings_first' %></p>
+              <p><%=t '.create_listings_first', portal_name: BookingsyncPortal.portal_name %></p>
             </div>
+          <%- end -%>
+          <%- if BookingsyncPortal.create_remote_rental -%>
+            <%= render "new_remote_rental", remote_account: remote_account %>
           <%- end -%>
         <% end %>
       </div>

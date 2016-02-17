@@ -37,9 +37,9 @@ RSpec.describe RemoteRental do
     end
   end
 
-  describe "#name" do
-    subject { described_class.first.name }
-    let!(:remote_rental) { create(:remote_rental, uid: 11) }
+  describe "#display_name" do
+    subject { remote_rental.display_name }
+    let(:remote_rental) { create(:remote_rental, uid: 11) }
 
     it { is_expected.to eq 11 }
   end
