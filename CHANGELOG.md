@@ -1,5 +1,7 @@
 # master
 
+* Disconnect rentals without reloading page
+
 # 0.7.0
 
 * Remove CircleCI setup

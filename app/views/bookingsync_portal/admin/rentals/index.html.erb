@@ -10,20 +10,7 @@
         <legend class="text-center"><%= image_tag('bookingsync_portal/bookingsync.png', alt: 'BookingSync') %></legend>
       </div>
       <div class="rentals-list-scroll">
-        <%- if @visible_rentals_count == 0 -%>
-          <div class="lead text-center well">
-            <p><%= t('.no_published_rentals_html', id: current_account.synced_id) %></p>
-          </div>
-        <%- elsif @not_connected_rentals.count > 0 -%>
-          <% @not_connected_rentals.each do |rental| %>
-            <%= render rental %>
-          <% end %>
-        <%- else -%>
-          <div class="lead text-center well">
-            <p class=""><%= icon 'thumbs-up fa-lg' %></p>
-            <p><%=t '.all_synchronized' %></p>
-          </div>
-        <%- end -%>
+        <%= render "rentals", visible_rentals: @visible_rentals, not_connected_rentals: @not_connected_rentals %>
       </div>
     </div>
   </div>
