@@ -1,5 +1,7 @@
 # master
 
+# 0.7.0
+
 * Remove CircleCI setup
 * Cleanup bookingsync_portal config generator and dummy app one
 * Add missing dummy simple_form initializer
