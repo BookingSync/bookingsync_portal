@@ -189,6 +189,11 @@ body > .footer {
     position: relative;
   }
 
+  h4 small {
+    color: $gray-lighter;
+    display: block;
+  }
+
   .status {
     position: absolute;
     right: 3px;

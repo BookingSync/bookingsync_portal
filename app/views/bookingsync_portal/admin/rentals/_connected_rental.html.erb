@@ -9,7 +9,8 @@
     </div>
     <div class="panel-body-grid-text">
       <h4 title="<%= RemoteRental.human_attribute_name(:uid) %>: <%= remote_rental.uid %>">
-          <%= remote_rental.display_name %> / <%= rental.name %>
+          <%= rental.name %><br>
+          <small><%= remote_rental.display_name %></small>
       </h4>
       <div class="status">
         <%= link_to bookingsync_portal.admin_connection_path(rental.connection),
