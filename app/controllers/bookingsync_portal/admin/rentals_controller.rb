@@ -6,7 +6,7 @@ module BookingsyncPortal
 
       def index
         @not_connected_rentals = current_account.rentals.visible.ordered.not_connected
-        @visible_rentals_count = current_account.rentals.visible.count
+        @visible_rentals = current_account.rentals.visible
         @remote_accounts = current_account.remote_accounts
         @remote_rentals_by_account = current_account.remote_rentals.ordered
           .includes(:remote_account).group_by(&:remote_account)

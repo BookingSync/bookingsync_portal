@@ -16,10 +16,13 @@ module BookingsyncPortal
       end
 
       def destroy
-        connection = current_account.connections.find(params[:id]).destroy
+        @connection = current_account.connections.find(params[:id]).destroy
+        @not_connected_rentals = current_account.rentals.visible.ordered.not_connected
+        @visible_rentals = current_account.rentals.visible
 
         respond_to do |wants|
           wants.html { redirect_to admin_rentals_path }
+          wants.js
         end
       end
 
