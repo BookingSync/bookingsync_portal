@@ -42,8 +42,8 @@ $.fn.extend
       start: (e, ui) ->
         $(ui.helper).addClass "ui-draggable-helper"
 
-    return @each () ->
-          $(this).draggable(settings)
+    @each () ->
+      $(this).draggable(settings)
 
   droppableRemoteRental: ->
     settings =
@@ -80,5 +80,5 @@ $.fn.extend
             $(@).addClass('loading')
           success: ->
             $(@).removeClass('loading')
-    return @each () ->
-          $(this).droppable(settings)
+    @each () ->
+      $(this).droppable(settings)
