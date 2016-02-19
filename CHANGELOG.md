@@ -1,5 +1,7 @@
 # master
 
+# 0.8.0
+
 * Disconnect rentals without reloading page
 
 # 0.7.0
