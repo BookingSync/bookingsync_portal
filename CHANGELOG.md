@@ -1,5 +1,7 @@
 # master
 
+# 0.8.1
+
 * Ensure proper source sync for invalid create remote_accounts calls
 
 # 0.8.0
