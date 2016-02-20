@@ -1,5 +1,7 @@
 # master
 
+* Ensure proper source sync for invalid create remote_accounts calls
+
 # 0.8.0
 
 * Disconnect rentals without reloading page
