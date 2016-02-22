@@ -14,7 +14,7 @@ class BookingsyncPortal::Connection < ActiveRecord::Base
 
   def notify_via_message_bus
     MessageBus.publish "/account-#{rental.account_id}", { refresh_from:
-      BookingsyncPortal::Engine.routes.url_helpers.admin_rental_path(rental, format: :js)
+      BookingsyncPortal::Routes.admin_rental_path(rental, format: :js)
     }
   end
 
