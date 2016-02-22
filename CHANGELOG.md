@@ -1,5 +1,7 @@
 # master
 
+* Fix threaded routes problems in models. https://github.com/puma/puma/issues/647
+
 # 0.8.1
 
 * Ensure proper source sync for invalid create remote_accounts calls
