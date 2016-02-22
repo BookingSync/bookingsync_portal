@@ -1,6 +1,8 @@
 # master
 
-* Fix threaded routes problems in models. https://github.com/puma/puma/issues/647
+# 0.8.2
+
+* Fix threaded routes problems in models. https://github.com/puma/puma/issues/647.
 
 # 0.8.1
 

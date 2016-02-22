@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bookingsync_portal (0.8.1)
+    bookingsync_portal (0.8.2)
       bookingsync_application (~> 0.4.0)
       bootstrap-bookingsync-sass
       coffee-rails
@@ -137,7 +137,7 @@ GEM
       rack (>= 1.1.3)
       redis
     method_source (0.8.2)
-    mime-types (2.99)
+    mime-types (2.99.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
