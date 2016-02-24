@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     bookingsync_portal (0.8.2)
-      bookingsync_application (~> 0.4.0)
+      bookingsync_application (~> 0.4.1)
       bootstrap-bookingsync-sass
       coffee-rails
       font-awesome-sass
@@ -59,9 +59,8 @@ GEM
     addressable (2.4.0)
     arel (6.0.3)
     ast (2.2.0)
-    autoprefixer-rails (6.3.3)
+    autoprefixer-rails (6.3.3.1)
       execjs
-      json
     bookingsync-api (0.0.34)
       addressable
       faraday (~> 0.9)
@@ -70,7 +69,7 @@ GEM
       bookingsync-api (>= 0.0.28)
       omniauth-bookingsync (~> 0.3.0)
       rails (>= 4.0.0)
-    bookingsync_application (0.4.0)
+    bookingsync_application (0.4.1)
       bookingsync-engine (~> 1.0.1)
       dotenv-rails
       jsonapi-resources (~> 0.1)
@@ -128,7 +127,7 @@ GEM
     json (1.8.3)
     jsonapi-resources (0.7.0)
       rails (>= 4.0)
-    jwt (1.5.2)
+    jwt (1.5.3)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)

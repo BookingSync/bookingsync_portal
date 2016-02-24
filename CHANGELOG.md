@@ -1,5 +1,7 @@
 # master
 
+* Require bookingsync_application 0.4.1 to include webhooks base controller support
+
 # 0.8.2
 
 * Fix threaded routes problems in models. https://github.com/puma/puma/issues/647.
