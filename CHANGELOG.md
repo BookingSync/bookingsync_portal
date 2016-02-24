@@ -1,5 +1,7 @@
 # master
 
+# 0.8.3
+
 * Require bookingsync_application 0.4.1 to include webhooks base controller support
 
 # 0.8.2
