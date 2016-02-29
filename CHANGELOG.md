@@ -1,6 +1,6 @@
 # master
 
-* Introduce BookingMap class for map diff and range extraction
+* Introduce BookingMap class for map generation, diffing and range extraction
 * Require Ruby 2.1+
 
 # 0.8.3

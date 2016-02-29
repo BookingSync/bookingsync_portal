@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210164752) do
+ActiveRecord::Schema.define(version: 20160301141356) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "provider"
@@ -29,6 +29,12 @@ ActiveRecord::Schema.define(version: 20151210164752) do
   end
 
   add_index "accounts", ["synced_id"], name: "index_accounts_on_synced_id"
+
+  create_table "bookings", force: :cascade do |t|
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.string   "status"
+  end
 
   create_table "connections", force: :cascade do |t|
     t.integer  "remote_rental_id"

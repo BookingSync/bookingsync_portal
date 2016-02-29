@@ -2,6 +2,36 @@ class BookingsyncPortal::BookingMap
   class InvalidLength < StandardError
   end
 
+  attr_reader :bookings, :statuses, :from, :to, :length
+
+  def initialize(bookings, options = {})
+    @from = options.fetch(:from) { Date.today.beginning_of_month }
+    @from = @from.to_date
+
+    @length = options.fetch(:length) { 1096 }
+    @to = @from.advance(days: @length.to_i)
+    @statuses = options.fetch(:statuses) { {
+      available:    "0",
+      tentative:    "0",
+      booked:       "1",
+      unavailable:  "1"
+    } }
+    @bookings = bookings_for_map(bookings, @from, @to)
+  end
+
+  def map
+    days = get_days_hash(from, to, statuses[:available].to_s)
+
+    bookings.each do |booking|
+      (booking.start_at.to_date...booking.end_at.to_date).each do |day|
+        if day >= from && day <= to
+          days[day] = statuses[booking.status.downcase.to_sym]
+        end
+      end
+    end
+    days.values.join
+  end
+
   class << self
     # Diff maps
     #
@@ -54,6 +84,26 @@ class BookingsyncPortal::BookingMap
       end
 
       ranges
+    end
+  end
+
+  private
+
+  def bookings_for_map(bookings, from, to)
+    if bookings.is_a?(ActiveRecord::Relation)
+      bookings.where("end_at > ? AND start_at <= ?", from.end_of_day, to)
+        .order(:start_at)
+    else
+      bookings.find_all do |booking|
+        booking.end_at > from.end_of_day && booking.start_at <= to
+      end.sort_by { |booking| booking.start_at }
+    end
+  end
+
+  def get_days_hash(start_at, end_at, default_value = nil)
+    period = start_at...end_at # should not include end_at
+    period.each_with_object({}) do |day, days|
+      days[day] = default_value
     end
   end
 end
