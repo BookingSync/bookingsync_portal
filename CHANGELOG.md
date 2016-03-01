@@ -1,5 +1,8 @@
 # master
 
+* Introduce BookingMap class for map generation, diffing and range extraction
+* Require Ruby 2.1+
+
 # 0.8.3
 
 * Require bookingsync_application 0.4.1 to include webhooks base controller support

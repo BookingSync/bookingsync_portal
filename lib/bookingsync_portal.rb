@@ -1,6 +1,7 @@
 require 'bookingsync_application'
 require 'bookingsync_portal/engine'
 require 'bookingsync_portal/mash_serializer'
+require 'bookingsync_portal/booking_map'
 require 'message_bus'
 
 # FIXME requires below should get removed when ember frontend is added
