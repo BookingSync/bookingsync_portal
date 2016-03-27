@@ -1,5 +1,7 @@
 # master
 
+* Fix rentals partial translations
+
 # 0.8.4
 
 * Introduce BookingMap class for map generation, diffing and range extraction

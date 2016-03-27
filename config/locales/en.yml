@@ -46,12 +46,13 @@ en:
         index:
           connect: Connect
           bookingsync_header: "BookingSync: %{account_name}"
-          all_synchronized: Perfect! All your rentals are synchronized.
-          no_published_rentals_html: 'No published rentals present, please make sure to <a href="https://www.bookingsync.com/en/admin/v2/%{id}/rentals" target="_blank">fill all your rentals details</a>.'
           create_listings_first: "You must create your rentals on %{portal_name} before you can synchronize them automatically."
           connect_accounts: Add External Portal Account
           remote_header: "%{portal_name}: %{account_name}"
           help: Help
+        rentals:
+          no_published_rentals_html: 'No published rentals present, please make sure to <a href="https://www.bookingsync.com/en/admin/v2/%{id}/rentals" target="_blank">fill all your rentals details</a>.'
+          all_synchronized: Perfect! All your rentals are synchronized.
         rental:
           bedrooms_html:
             one: '<strong>1</strong> Bedroom'

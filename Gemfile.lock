@@ -127,7 +127,7 @@ GEM
     json (1.8.3)
     jsonapi-resources (0.7.0)
       rails (>= 4.0)
-    jwt (1.5.3)
+    jwt (1.5.4)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
