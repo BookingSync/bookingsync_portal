@@ -1,5 +1,7 @@
 # master
 
+# 0.8.5
+
 * Fix rentals partial translations
 
 # 0.8.4
