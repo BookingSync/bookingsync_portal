@@ -1,5 +1,6 @@
 # master
 
+* Cleanup unused attributes
 * Add support for Rails 5
 * Properly display surface units in connected rentals container
 

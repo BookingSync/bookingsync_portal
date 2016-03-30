@@ -199,6 +199,10 @@ body > .footer {
     right: 3px;
     top: 8px;
 
+    .btn-xs {
+      border-radius: 11px;
+    }
+
     .remove-connection {
       .hover_show {
         display: none;

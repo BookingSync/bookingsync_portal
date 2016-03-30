@@ -10,7 +10,8 @@
         <legend class="text-center"><%= image_tag('bookingsync_portal/bookingsync.png', alt: 'BookingSync') %></legend>
       </div>
       <div class="rentals-list-scroll">
-        <%= render "rentals", visible_rentals: @visible_rentals, not_connected_rentals: @not_connected_rentals %>
+        <%= render "rentals", visible_rentals: @visible_rentals,
+          not_connected_rentals: @not_connected_rentals %>
       </div>
     </div>
   </div>
