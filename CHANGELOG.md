@@ -1,5 +1,7 @@
 # master
 
+# 0.8.7
+
 * Update source spec to test downcased names comparison
 
 # 0.8.6
