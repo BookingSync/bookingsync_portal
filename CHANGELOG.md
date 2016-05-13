@@ -1,5 +1,7 @@
 # master
 
+* Update source spec to test downcased names comparison
+
 # 0.8.6
 
 * Compare source names as downcased strings
