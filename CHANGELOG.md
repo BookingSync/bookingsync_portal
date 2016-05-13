@@ -1,5 +1,7 @@
 # master
 
+# 0.8.6
+
 * Compare source names as downcased strings
 
 # 0.8.5
