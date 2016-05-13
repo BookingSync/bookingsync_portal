@@ -1,5 +1,7 @@
 # master
 
+* Compare source names as downcased strings
+
 # 0.8.5
 
 * Fix rentals partial translations

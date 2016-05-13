@@ -21,7 +21,7 @@ class BookingsyncPortal::Write::Source
   end
 
   def find_source
-    api.sources.find { |s| s.name == BookingsyncPortal.source_name }
+    api.sources.find { |source| source.name.downcase == BookingsyncPortal.source_name.downcase }
   end
 
   def create_source
