@@ -24,7 +24,7 @@ module BookingsyncPortal
         end
         if rental.surface.to_i > 0
           details << t(:surface_html, scope: scope,
-            count: rental.surface.to_i)
+            count: rental.surface.to_i, unit: rental.surface_unit)
         end
 
         safe_join(details, ', ')
