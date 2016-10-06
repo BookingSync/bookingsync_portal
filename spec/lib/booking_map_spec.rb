@@ -63,6 +63,16 @@ describe BookingsyncPortal::BookingMap do
     it "returns the right map" do
       expect(booking_map.map).to eq "1110010000"
     end
+
+    context "when cutting the end booking" do
+      let(:booked_booking) do
+        build(:booking, start_at: "2016-03-06", end_at: "2016-03-12", status: "Booked")
+      end
+
+      it "returns map matching the maximum length" do
+        expect(booking_map.map).to eq "1110011111"
+      end
+    end
   end
 
   context "class methods" do

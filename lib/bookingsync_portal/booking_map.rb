@@ -24,7 +24,7 @@ class BookingsyncPortal::BookingMap
 
     bookings.each do |booking|
       (booking.start_at.to_date...booking.end_at.to_date).each do |day|
-        if day >= from && day <= to
+        if day >= from && day < to
           days[day] = statuses[booking.status.downcase.to_sym]
         end
       end

@@ -1,5 +1,7 @@
 # master
 
+* Fix booking map maximum length
+
 # 0.8.7
 
 * Update source spec to test downcased names comparison
