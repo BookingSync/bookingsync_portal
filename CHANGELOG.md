@@ -1,5 +1,7 @@
 # master
 
+# 0.8.8
+
 * Fix booking map maximum length
 
 # 0.8.7
