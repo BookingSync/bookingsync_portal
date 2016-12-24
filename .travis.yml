@@ -1,5 +1,7 @@
 language: ruby
 sudo: false
+services:
+  - redis-server
 before_install:
   - gem install bundler
   - gem update bundler
