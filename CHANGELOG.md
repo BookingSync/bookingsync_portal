@@ -1,5 +1,7 @@
 # master
 
+* Properly display surface units in connected rentals container
+
 # 0.8.8
 
 * Fix booking map maximum length
