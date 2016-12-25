@@ -17,12 +17,13 @@ Gem::Specification.new do |s|
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
   s.add_dependency 'rails'
-  s.add_dependency 'sprockets-rails', '~> 2.3'
-  s.add_dependency 'responders', '~> 2.0'
-  s.add_dependency 'bookingsync_application', '~> 0.4.1'
+  s.add_dependency 'sprockets-rails'
+  s.add_dependency 'responders'
+  s.add_dependency 'bookingsync_application', '~> 0.5.0'
+  s.add_dependency 'redis'
   # FIXME: Will no longer be needed once UI moved to Ember
   s.add_dependency 'jquery-rails'
-  s.add_dependency 'jquery-ui-rails'
+  s.add_dependency 'jquery-ui-rails', '~> 6.0.1'
   s.add_dependency 'bootstrap-bookingsync-sass'
   s.add_dependency 'font-awesome-sass'
   s.add_dependency 'handlebars_assets'
@@ -33,6 +34,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'uglifier'
   s.add_dependency 'coffee-rails'
 
+  s.add_development_dependency 'appraisal'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'shoulda'
   s.add_development_dependency 'factory_girl_rails'
@@ -40,4 +42,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'webmock'
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'rubocop'
+  s.add_development_dependency 'pry-rails'
 end

@@ -1,5 +1,6 @@
 # master
 
+* Add support for Rails 5
 * Properly display surface units in connected rentals container
 
 # 0.8.8
