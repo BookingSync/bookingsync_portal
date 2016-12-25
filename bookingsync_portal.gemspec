@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   # FIXME: Will no longer be needed once UI moved to Ember
   s.add_dependency 'jquery-rails'
   s.add_dependency 'jquery-ui-rails', '~> 6.0.1'
-  s.add_dependency 'bootstrap-bookingsync-sass'
+  s.add_dependency 'bootstrap-bookingsync-sass', '~> 1.0.0'
   s.add_dependency 'font-awesome-sass'
   s.add_dependency 'handlebars_assets'
   s.add_dependency 'simple_form'

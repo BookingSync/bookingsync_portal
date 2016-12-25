@@ -1,5 +1,6 @@
 # master
 
+* Update styleguide gem to 1.0.0
 * Cleanup unused attributes
 * Add support for Rails 5
 * [BREAKING CHANGE] Rental's model delegate `surface_unit` by default
