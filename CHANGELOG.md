@@ -1,7 +1,15 @@
 # master
 
+* Update styleguide gem to 1.0.0
+* Cleanup unused attributes
 * Add support for Rails 5
-* Properly display surface units in connected rentals container
+* [BREAKING CHANGE] Rental's model delegate `surface_unit` by default
+* [BREAKING CHANGE] Properly display surface units in connected rentals container, might need the following method in your rental model:
+``` ruby
+def surface_unit_symbol
+  surface_unit == "imperial" ? "ft²" : "m²"
+end
+```
 
 # 0.8.8
 

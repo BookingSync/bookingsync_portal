@@ -58,7 +58,6 @@ $.fn.extend
         rentalId = extractIdFromDomId($(ui.draggable).attr("id"))
         remoteRentalId = extractIdFromDomId(remoteRentalDropZone.attr("id"))
         remoteAccountId = remoteRentalDropZone.data("remote-account-id")
-        remoteRentalUid = remoteRentalDropZone.data("uid")
 
         if remoteRentalId
           postData = { "rental_id": rentalId, "remote_rental_id": remoteRentalId }
