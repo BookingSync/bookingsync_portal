@@ -1,5 +1,7 @@
 ### master
 
+* Update appraisal gemfiles
+
 ### 0.9.0 - 2016-12-25
 
 * Update styleguide gem to 1.0.0
