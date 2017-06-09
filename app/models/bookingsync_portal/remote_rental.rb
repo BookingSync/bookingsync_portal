@@ -16,6 +16,7 @@ class BookingsyncPortal::RemoteRental < ActiveRecord::Base
   scope :ordered, -> { order(created_at: :desc) }
   scope :connected, -> { joins(:rental) }
   scope :not_connected, -> { includes(:rental).where(rentals: { id: nil }) }
+  scope :with_custom_includes, -> { includes(:remote_account, :rental) }
 
   def display_name
     uid
