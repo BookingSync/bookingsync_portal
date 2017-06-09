@@ -9,7 +9,7 @@ module BookingsyncPortal
         @visible_rentals = current_account.rentals.visible
         @remote_accounts = current_account.remote_accounts
         @remote_rentals_by_account = current_account.remote_rentals.ordered
-          .includes(:remote_account).group_by(&:remote_account)
+          .includes(:remote_account, :rental).group_by(&:remote_account)
       end
 
       def show

@@ -1,6 +1,7 @@
 ### master
 
 * Update appraisal gemfiles
+* Fix N+1 query by including rentals on rentals#index
 
 ### 0.9.0 - 2016-12-25
 
