@@ -1,4 +1,4 @@
-class CreateRemoteRentals < ActiveRecord::Migration
+class CreateRemoteRentals < ActiveRecord::Migration[4.2]
   def change
     create_table :remote_rentals do |t|
       t.belongs_to :remote_account, index: true

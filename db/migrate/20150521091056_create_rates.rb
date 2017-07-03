@@ -1,4 +1,4 @@
-class CreateRates < ActiveRecord::Migration
+class CreateRates < ActiveRecord::Migration[4.2]
   def change
     create_table :rates do |t|
       t.belongs_to :rental, index: true
