@@ -14,15 +14,15 @@ class @ListFilter
   observeInputChanges: ->
     @input.change( =>
       filter = $(event.target).val()
-      @showElements @listFilterable + ":not(:Contains(" + filter + "))"
-      @hideElements @listFilterable + ":Contains(" + filter + ")"
+      @hideElements @listFilterable + ":not(:Contains(" + filter + "))"
+      @showElements @listFilterable + ":Contains(" + filter + ")"
       false
     ).keyup =>
       # fire the above change event after every letter
       @input.change()
 
   showElements: (elements) ->
-    @list.find(elements).parents(@listElement).slideUp()
+    @list.find(elements).parents(@listElement).show()
 
   hideElements: (elements) ->
-    @list.find(elements).parents(@listElement).slideDown()
+    @list.find(elements).parents(@listElement).hide()
