@@ -10,7 +10,7 @@ module BookingsyncPortal
       def create
         BookingsyncPortal::Write::EnsureSourceExists.new(current_account).call
         @remote_account = scope.create(params_remote_account)
-        respond_with @remote_account, location: admin_rentals_url
+        respond_with @remote_account, location: admin_rentals_path
       end
 
       private

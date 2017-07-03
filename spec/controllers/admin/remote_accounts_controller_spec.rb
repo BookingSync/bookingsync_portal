@@ -24,11 +24,13 @@ describe BookingsyncPortal::Admin::RemoteAccountsController do
 
   describe 'POST #create' do
     context 'with valid attributes' do
-      let(:action) { post :create, remote_account: attributes_for(:remote_account) }
+      let(:action) do
+        post :create, params: { remote_account: attributes_for(:remote_account) }
+      end
 
       it do
         expect { action }.to change { BookingsyncPortal::RemoteAccount.count }.by(1)
-        expect(response).to redirect_to(admin_rentals_url)
+        expect(response).to redirect_to(admin_rentals_path)
       end
 
       it "ensures account has assigned synced_source_id" do
@@ -40,7 +42,9 @@ describe BookingsyncPortal::Admin::RemoteAccountsController do
     end
 
     context 'with invalid attributes' do
-      let(:action) { post :create, remote_account: { uid: nil } }
+      let(:action) do
+        post :create, params: { remote_account: { uid: nil } }
+      end
 
       it do
         expect { action }.not_to change{ BookingsyncPortal::RemoteAccount.count }

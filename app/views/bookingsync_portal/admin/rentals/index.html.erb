@@ -1,6 +1,6 @@
 <%- content_for :navbar_right do -%>
   <ul class="nav navbar-nav">
-    <li><%= link_to icon("life-ring", t('.help')), admin_help_url %></li>
+    <li><%= link_to icon("life-ring", t('.help')), admin_help_path %></li>
   </ul>
 <%- end -%>
 <div class="rentals-container row">
@@ -17,7 +17,7 @@
   </div>
   <div class="col-xs-6">
     <div class="remote-rentals-list rentals-list"
-      data-connect-url="<%= bookingsync_portal.admin_connections_url %>">
+      data-connect-url="<%= BookingsyncPortal::Engine.routes.url_helpers.admin_connections_path %>">
       <div class="rentals-list-header">
         <legend class="text-center">
           <%= image_tag("#{BookingsyncPortal.portal_name.parameterize}.png",
