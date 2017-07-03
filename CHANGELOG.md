@@ -1,6 +1,7 @@
 ### master
 
 * Update appraisal gemfiles
+* Speed up javascript search on rentals index page
 
 ### 0.9.0 - 2016-12-25
 
