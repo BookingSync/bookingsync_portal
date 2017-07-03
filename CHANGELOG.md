@@ -3,6 +3,8 @@
 * Update appraisal gemfiles
 * [BREAKING CHANGE] update bookingsync_application dependency to be > 1.0
 * [BREAKING CHANGE] drop support for rails < 5
+* Fix N+1 query by including rentals on rentals#index
+* Speed up javascript search on rentals index page
 
 ### 0.9.0 - 2016-12-25
 
