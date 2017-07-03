@@ -27,7 +27,7 @@ RSpec.describe Connection do
     context 'on_save' do
       it 'publishes notification via message_bus' do
         expect(MessageBus).to receive(:publish).with("/account-123",
-          { refresh_from: '/en/admin/rentals/543.js' })
+          { refresh_from: '/admin/rentals/543.js' })
         connection
       end
     end

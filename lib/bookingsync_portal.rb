@@ -74,15 +74,4 @@ module BookingsyncPortal
       message_bus_channel_scope
     end
   end
-
-  # use this until migrated to ruby 2.3, https://bugs.ruby-lang.org/issues/10871, https://github.com/puma/puma/issues/647
-  module Routes
-    module UrlHelpers
-      include BookingsyncPortal::Engine.routes.url_helpers
-    end
-    extend UrlHelpers
-    def self.default_url_options
-      {}
-    end
-  end
 end

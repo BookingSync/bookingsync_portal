@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :booking do
-    ignore do
+    transient do
       last_booking_end { bookings.maximum(:end_at) }
       days { rand(14) + 1 }
     end

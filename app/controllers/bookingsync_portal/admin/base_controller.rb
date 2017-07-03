@@ -1,4 +1,4 @@
-require 'bookingsync_application/admin/common_base_controller'
+require 'bookingsync_application/controllers/common_base'
 
 module BookingsyncPortal
   module Admin
@@ -6,7 +6,7 @@ module BookingsyncPortal
       helper BookingsyncPortal::Admin::ApplicationHelper
       layout 'bookingsync_portal/admin'
       respond_to :html
-      include BookingsyncApplication::Admin::CommonBaseController
+      include BookingsyncApplication::Controllers::CommonBase
 
       before_action :enforce_remote_account!
 

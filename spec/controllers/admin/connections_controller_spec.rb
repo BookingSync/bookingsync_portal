@@ -19,7 +19,7 @@ describe BookingsyncPortal::Admin::ConnectionsController do
     context "when remote_rental doesn't exist" do
       context "when BookingsyncPortal.create_remote_rental is true" do
         let(:action) do
-          post :create, rental_id: rental.id, remote_account_id: remote_account.id
+          post :create, params: { rental_id: rental.id, remote_account_id: remote_account.id }
         end
 
         before do
@@ -60,7 +60,7 @@ describe BookingsyncPortal::Admin::ConnectionsController do
 
       context "when BookingsyncPortal.create_remote_rental is false" do
         let(:action) do
-          post :create, rental_id: rental.id, remote_account_id: remote_account.id
+          post :create, params: { rental_id: rental.id, remote_account_id: remote_account.id }
         end
 
         before do
@@ -84,7 +84,7 @@ describe BookingsyncPortal::Admin::ConnectionsController do
     context "when remote_rental already exists" do
       let!(:remote_rental) { create(:remote_rental, account: account) }
       let(:action) do
-        put :create, rental_id: rental.id, remote_rental_id: remote_rental.id
+        put :create, params: { rental_id: rental.id, remote_rental_id: remote_rental.id }
       end
 
       it 'creates connection between rental and remote rental' do
@@ -125,7 +125,7 @@ describe BookingsyncPortal::Admin::ConnectionsController do
     let!(:remote_rental) { create(:remote_rental, remote_account: remote_account) }
     let!(:connection) { create :connection }
     let(:action) do
-      delete :destroy, id: connection.id
+      delete :destroy, params: { id: connection.id }
     end
 
     context 'when current_account is owner' do
