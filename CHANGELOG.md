@@ -1,5 +1,7 @@
 ### master
 
+### 1.0.0 - 2017-07-03
+
 * Update appraisal gemfiles
 * [BREAKING CHANGE] update bookingsync_application dependency to be > 1.0
 * [BREAKING CHANGE] drop support for rails < 5
