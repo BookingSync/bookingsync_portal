@@ -2,6 +2,7 @@
 
 * Update appraisal gemfiles
 * Fix N+1 query by including rentals on rentals#index
+* Speed up javascript search on rentals index page
 
 ### 0.9.0 - 2016-12-25
 
