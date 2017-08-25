@@ -1,4 +1,6 @@
 class BookingsyncPortal::Connection < ActiveRecord::Base
+  include BookingsyncPortal::Cancelable
+
   self.table_name = 'connections'
 
   belongs_to :remote_rental, class_name: BookingsyncPortal.remote_rental_model

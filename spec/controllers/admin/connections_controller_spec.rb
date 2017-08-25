@@ -92,6 +92,14 @@ describe BookingsyncPortal::Admin::ConnectionsController do
         expect(rental.remote_rental).to eq remote_rental
       end
 
+      context 'when connection is canceled' do
+        let(:connection) { create(:connection, remote_rental: remote_rental, rental: rental, canceled_at: Time.current) }
+
+        it 'restores connection' do
+          expect { action }.to change { connection.reload.visible? }.to(true)
+        end
+      end
+
       context 'when only remote rental does not belong to current account' do
         let!(:remote_rental) { create :remote_rental }
 
@@ -131,8 +139,8 @@ describe BookingsyncPortal::Admin::ConnectionsController do
     context 'when current_account is owner' do
       let(:account) { connection.rental.account }
 
-      it 'allows to destroy connection' do
-        expect { action }.to change { BookingsyncPortal::Connection.count }.by(-1)
+      it 'allows to cancel connection' do
+        expect { action }.to change { connection.reload.canceled? }.to(true)
       end
     end
 

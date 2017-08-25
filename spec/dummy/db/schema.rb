@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301141356) do
+ActiveRecord::Schema.define(version: 20170824173005) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "provider"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160301141356) do
     t.integer  "rental_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.datetime "canceled_at"
     t.index ["remote_rental_id"], name: "index_connections_on_remote_rental_id"
     t.index ["rental_id"], name: "index_connections_on_rental_id"
   end
