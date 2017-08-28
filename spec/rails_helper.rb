@@ -56,9 +56,9 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
 
-  # Timecop.safe_mode = true
-  # config.around(:example, :freeze_time) do |example|
-    # time_now = Time.zone.now.round
-    # Timecop.freeze(time_now) { example.run }
-  # end
+  Timecop.safe_mode = true
+  config.around(:example, :freeze_time) do |example|
+    time_now = Time.zone.now.round
+    Timecop.freeze(time_now) { example.run }
+  end
 end

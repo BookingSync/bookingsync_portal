@@ -10,6 +10,28 @@ RSpec.describe Rental do
   it { is_expected.to validate_presence_of(:synced_id) }
   it { is_expected.to validate_uniqueness_of(:synced_id) }
 
+  describe '.connected' do
+    subject { described_class.connected }
+    let(:connection_1) { create(:connection) }
+    let(:rental_1) { connection_1.rental }
+    let(:connection_2) { create(:canceled_connection) }
+    let(:rental_2) { connection_2.rental }
+    let(:rental_3) { create(:rental, remote_rental: nil) }
+
+    it { is_expected.to eq [rental_1] }
+  end
+
+  describe '.not_connected' do
+    subject { described_class.not_connected }
+    let(:connection_1) { create(:connection) }
+    let(:rental_1) { connection_1.rental }
+    let(:connection_2) { create(:canceled_connection) }
+    let(:rental_2) { connection_2.rental }
+    let(:rental_3) { create(:rental, remote_rental: nil) }
+
+    it { is_expected.to eq [rental_2, rental_3] }
+  end
+
   describe '#connected?' do
     subject { rental.connected? }
     context 'when rental present' do

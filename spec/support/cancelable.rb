@@ -1,5 +1,5 @@
 shared_examples_for "cancelable" do
-  let(:model_name) { described_class.model_name }
+  let(:model_name) { described_class.name.underscore.to_sym }
 
   describe "#cancel", :freeze_time do
     let(:instance) { create(model_name, canceled_at: nil) }
