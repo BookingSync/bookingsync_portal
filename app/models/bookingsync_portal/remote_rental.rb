@@ -14,15 +14,23 @@ class BookingsyncPortal::RemoteRental < ActiveRecord::Base
   validates :remote_account, presence: true
 
   scope :ordered, -> { order(created_at: :desc) }
-  scope :connected, -> { joins(:rental) }
-  scope :not_connected, -> { includes(:rental).where(rentals: { id: nil }) }
+  scope :connected, -> { joins(:rental).where(connections: { canceled_at: nil }) }
+  scope :not_connected, -> {
+    includes(:rental)
+      .where("connections.canceled_at IS NOT NULL OR rentals.id IS NULL")
+      .references(:rental)
+  }
 
   def display_name
     uid
   end
 
   def connected?
-    rental.present?
+    rental.present? && connection.visible?
+  end
+
+  def connection_canceled?
+    rental.present? && connection.canceled?
   end
 
   def synchronized?

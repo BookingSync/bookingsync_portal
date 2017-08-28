@@ -6,7 +6,12 @@ module BookingsyncPortal
           new_remote_rental = BookingsyncPortal.remote_rental_model.constantize.new(remote_account: remote_account)
           @connection = rental.create_connection(remote_rental: new_remote_rental)
         else
-          @connection = rental.create_connection(remote_rental: remote_rental)
+          @connection =
+            if remote_rental.connection_canceled?
+              remote_rental.connection.restore
+            else
+              rental.create_connection(remote_rental: remote_rental)
+            end
         end
 
         respond_to do |wants|
@@ -16,7 +21,7 @@ module BookingsyncPortal
       end
 
       def destroy
-        @connection = current_account.connections.find(params[:id]).destroy
+        @connection = current_account.connections.find(params[:id]).cancel
         @not_connected_rentals = current_account.rentals.visible.ordered.not_connected
         @visible_rentals = current_account.rentals.visible
 

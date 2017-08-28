@@ -7,6 +7,8 @@ RSpec.describe Connection do
   it { is_expected.to validate_presence_of :remote_rental }
   it { is_expected.to validate_presence_of :rental }
 
+  it_behaves_like "cancelable"
+
   context 'when remote rental and rental belong to different accounts' do
     let(:remote_rental) { build(:remote_rental) }
     let(:rental) { build(:rental) }
