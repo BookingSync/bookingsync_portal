@@ -1,5 +1,9 @@
 ### master
 
+### 1.0.1 - 2017-12-01
+
+* Update bookingsync-application to fix `Net::HTTP::Persistent` errors
+
 ### 1.0.0 - 2017-07-03
 
 * Update appraisal gemfiles
