@@ -1,5 +1,9 @@
 ### master
 
+### 1.0.1 - 2017-12-27
+
+* Remove Gemfile.lock
+
 ### 1.0.0 - 2017-07-03
 
 * Update appraisal gemfiles
