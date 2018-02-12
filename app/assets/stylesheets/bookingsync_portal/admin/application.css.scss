@@ -239,3 +239,11 @@ body > .footer {
     background-color: #fff;
   }
 }
+
+.alert-top {
+  margin-bottom: -71px;
+  padding-top: 85px;
+  @media screen and (max-width: 767px) {
+    padding-top: 150px;
+  }
+}
