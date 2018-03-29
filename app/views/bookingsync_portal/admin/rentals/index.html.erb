@@ -1,6 +1,6 @@
 <%- content_for :navbar_right do -%>
   <ul class="nav navbar-nav">
-    <li><%= link_to icon("far", "life-ring", t('.help')), admin_help_path %></li>
+    <li><%= link_to icon("fa", "life-ring", t('.help')), admin_help_path %></li>
   </ul>
 <%- end -%>
 <div class="rentals-container row">
@@ -39,7 +39,7 @@
             <% end %>
           <%- elsif !BookingsyncPortal.create_remote_rental -%>
             <div class="lead text-center well">
-              <p class=""><%= icon "far", "info fa-lg" %></p>
+              <p class=""><%= icon "fa", "info fa-lg" %></p>
               <p><%=t '.create_listings_first', portal_name: BookingsyncPortal.portal_name %></p>
             </div>
           <%- end -%>
