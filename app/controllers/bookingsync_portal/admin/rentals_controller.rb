@@ -18,7 +18,9 @@ module BookingsyncPortal
       private
 
       def not_connected_rentals
-        BookingsyncPortal.not_connected_rentals || Proc.new { current_account.rentals.visible.ordered.not_connected }
+        BookingsyncPortal.not_connected_rentals || Proc.new {
+          current_account.rentals.visible.ordered.not_connected
+        }
       end
       
       def visible_rentals
@@ -30,7 +32,9 @@ module BookingsyncPortal
       end
       
       def remote_rentals_by_account
-        BookingsyncPortal.remote_rentals_by_account || Proc.new { current_account.remote_rentals.ordered.includes(:remote_account, :rental).group_by(&:remote_account) }
+        BookingsyncPortal.remote_rentals_by_account || Proc.new {
+          current_account.remote_rentals.ordered.includes(:remote_account, :rental).group_by(&:remote_account)
+        }
       end
 
       def synchronize_rentals
