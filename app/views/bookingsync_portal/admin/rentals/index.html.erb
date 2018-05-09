@@ -10,8 +10,8 @@
         <legend class="text-center"><%= image_tag('bookingsync_portal/bookingsync.png', alt: 'BookingSync') %></legend>
       </div>
       <div class="rentals-list-scroll">
-        <%= render "rentals", visible_rentals: @visible_rentals,
-          not_connected_rentals: @not_connected_rentals %>
+        <%= render "rentals", visible_rentals: visible_rentals,
+          not_connected_rentals: not_connected_rentals %>
       </div>
     </div>
   </div>
@@ -26,11 +26,11 @@
       </div>
 
       <div class="rentals-list-scroll">
-        <% @remote_accounts.each do |remote_account| %>
+        <% remote_accounts.each do |remote_account| %>
           <h3><%=t '.remote_header', portal_name: BookingsyncPortal.portal_name,
             account_name: remote_account.name %></h3>
-          <%- if Array(@remote_rentals_by_account[remote_account]).length > 0 -%>
-            <% Array(@remote_rentals_by_account[remote_account]).each do |remote_rental| %>
+          <%- if Array(remote_rentals_by_account[remote_account]).length > 0 -%>
+            <% Array(remote_rentals_by_account[remote_account]).each do |remote_rental| %>
               <% if remote_rental.connected? %>
                 <%= render "connected_rental", remote_rental: remote_rental, rental: remote_rental.rental %>
               <% else %>

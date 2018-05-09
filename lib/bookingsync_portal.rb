@@ -61,12 +61,12 @@ module BookingsyncPortal
   mattr_accessor :message_bus_channel_scope
 
   mattr_accessor :not_connected_rentals
-
   mattr_accessor :visible_rentals
-
   mattr_accessor :remote_accounts
-
   mattr_accessor :remote_rentals_by_account
+
+  mattr_accessor :custom_arguments
+  @@custom_arguments = {}
 
   # fetch remote rentals
   def self.fetch_remote_rentals(account)

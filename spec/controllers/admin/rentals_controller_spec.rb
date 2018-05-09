@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe BookingsyncPortal::Admin::RentalsController do
   routes { BookingsyncPortal::Engine.routes }
@@ -10,11 +10,11 @@ describe BookingsyncPortal::Admin::RentalsController do
   let!(:connection) { create(:connection, rental: rental_connected) }
 
   before do
-    request.env['HTTPS'] = 'on'
+    request.env["HTTPS"] = "on"
     allow(controller).to receive(:current_account).and_return(account)
   end
 
-  describe 'GET #index' do
+  describe "GET #index" do
     before do
       expect(Rental).to receive(:synchronize).with(scope: account) do
         # pretending to sync rentals :P
@@ -25,43 +25,44 @@ describe BookingsyncPortal::Admin::RentalsController do
     context "methods from default config" do
       render_views
 
-      it 'synchronizes rentals' do
+      it "synchronizes rentals" do
         expect { get :index }.to change { Rental.count }
       end
     end
     
     context "using custom methods" do
+      let!(:fake_connected_rental) { create(:rental, account: account) }
+      let!(:fake_visible_rental) { create(:rental, account: account) }
+      let!(:fake_remote_account) { create(:remote_account, account: account) }
+      let!(:fake_remote_rental) { create(:remote_rental, account: account) }
       before do
         BookingsyncPortal.setup do |config|
-          config.not_connected_rentals = Proc.new { "not_connected_rentals" }
-          config.visible_rentals = Proc.new { "visible_rentals" }
-          config.remote_accounts = Proc.new { "remote_accounts" }
-          config.remote_rentals_by_account = Proc.new { "remote_rentals_by_account" }
+          config.not_connected_rentals = lambda { |account| [fake_connected_rental] }
+          config.visible_rentals = lambda { |account| [fake_visible_rental] }
+          config.remote_accounts = lambda { |account| [fake_remote_account] }
+          config.remote_rentals_by_account = lambda { |account| [fake_remote_rental] }
         end
+        
+        allow(controller).to receive(:render)
+        allow(controller).to receive(:render).with(:index, an_instance_of(Hash))
       end
 
-      it "should call custom 'not_connected_rentals' method" do
+      it "calls custom methods" do
         get :index
-        expect(BookingsyncPortal.not_connected_rentals.call).to eq("not_connected_rentals")
-        expect(assigns(:not_connected_rentals)).to eq("not_connected_rentals")
-      end
 
-      it "should call custom 'visible_rentals' method" do
-        get :index
-        expect(BookingsyncPortal.visible_rentals.call).to eq("visible_rentals")
-        expect(assigns(:visible_rentals)).to eq("visible_rentals")
-      end
+        expect(BookingsyncPortal.not_connected_rentals.call(account)).to eq([fake_connected_rental])
+        expect(BookingsyncPortal.visible_rentals.call(account)).to eq([fake_visible_rental])
+        expect(BookingsyncPortal.remote_accounts.call(account)).to eq([fake_remote_account])
+        expect(BookingsyncPortal.remote_rentals_by_account.call(account)).to eq([fake_remote_rental])
 
-      it "should call custom 'remote_accounts' method" do
-        get :index
-        expect(BookingsyncPortal.remote_accounts.call).to eq("remote_accounts")
-        expect(assigns(:remote_accounts)).to eq("remote_accounts")
-      end
-
-      it "should call custom 'remote_rentals_by_account' method" do
-        get :index
-        expect(BookingsyncPortal.remote_rentals_by_account.call).to eq("remote_rentals_by_account")
-        expect(assigns(:remote_rentals_by_account)).to eq("remote_rentals_by_account")
+        expect(controller).to have_received(:render).at_least(1).times do |method, options|
+          if method == :index
+            expect(options.dig(:locals, :not_connected_rentals)).to eq([fake_connected_rental])
+            expect(options.dig(:locals, :visible_rentals)).to eq([fake_visible_rental])
+            expect(options.dig(:locals, :remote_accounts)).to eq([fake_remote_account])
+            expect(options.dig(:locals, :remote_rentals_by_account)).to eq([fake_remote_rental])
+          end
+        end
       end
     end
   end
