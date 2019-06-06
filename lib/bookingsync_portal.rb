@@ -57,6 +57,10 @@ module BookingsyncPortal
   mattr_accessor :rate_model
   @@rate_model = 'BookingsyncPortal::Rate'
 
+  # whether load-all (false) or paginated (true) view should be used for admin#index
+  mattr_accessor :use_paginated_view
+  @@use_paginated_view = ->(_account) { false }
+
   # message bus channel scope
   mattr_accessor :message_bus_channel_scope
 

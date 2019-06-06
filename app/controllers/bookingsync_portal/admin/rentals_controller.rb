@@ -1,6 +1,7 @@
 module BookingsyncPortal
   module Admin
     class RentalsController < Admin::BaseController
+      before_action :resolve_action, only: :index
       before_action :synchronize_rentals, only: :index
       before_action :fetch_remote_rentals, only: :index
 
@@ -30,6 +31,10 @@ module BookingsyncPortal
 
       def rental
         @rental ||= current_account.rentals.visible.find(params[:id])
+      end
+
+      def resolve_action
+        redirect_to admin_v2_rentals_path if BookingsyncPortal.use_paginated_view.call(current_account)
       end
     end
   end
