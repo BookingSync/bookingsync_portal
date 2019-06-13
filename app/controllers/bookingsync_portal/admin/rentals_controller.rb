@@ -6,11 +6,19 @@ module BookingsyncPortal
       before_action :fetch_remote_rentals, only: :index
 
       def index
-        @not_connected_rentals = current_account.rentals.visible.ordered.not_connected
-        @visible_rentals = current_account.rentals.visible
-        @remote_accounts = current_account.remote_accounts
-        @remote_rentals_by_account = current_account.remote_rentals.ordered
-          .includes(:remote_account, :rental).group_by(&:remote_account)
+        index_preparation
+        @remote_rentals_by_account = @remote_rentals_by_account.group_by(&:remote_account)
+      end
+
+      def index_with_search
+        synchronize_rentals if !searchable?
+        index_preparation
+
+        apply_search
+        apply_pagination
+
+        @remote_rentals_by_account = @remote_rentals_by_account.group_by(&:remote_account)
+        render :index
       end
 
       def show
@@ -18,6 +26,27 @@ module BookingsyncPortal
       end
 
       private
+
+      def searchable?
+        # TODO implement me
+        true
+      end
+
+      def index_preparation
+        @not_connected_rentals = current_account.rentals.visible.ordered.not_connected
+        @visible_rentals = current_account.rentals.visible
+        @remote_accounts = current_account.remote_accounts
+        @remote_rentals_by_account = current_account.remote_rentals.ordered
+          .includes(:remote_account, :rental)
+      end
+
+      def apply_search
+        #TODO implement me
+      end
+
+      def apply_pagination
+        #TODO implement me
+      end
 
       def synchronize_rentals
         BookingsyncPortal.rental_model.constantize.synchronize(scope: current_account)
