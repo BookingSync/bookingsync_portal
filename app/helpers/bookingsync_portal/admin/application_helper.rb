@@ -29,6 +29,10 @@ module BookingsyncPortal
 
         safe_join(details, ', ')
       end
+
+      def use_paginated_view
+        BookingsyncPortal.use_paginated_view.call(current_account)
+      end
     end
   end
 end

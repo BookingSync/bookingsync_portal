@@ -53,6 +53,7 @@ en:
         rentals:
           no_published_rentals_html: 'No published rentals present, please make sure to <a href="https://www.bookingsync.com/en/admin/v2/%{id}/rentals" target="_blank">fill all your rentals details</a>.'
           all_synchronized: Perfect! All your rentals are synchronized.
+          no_results: No results
         rental:
           bedrooms_html:
             one: '<strong>1</strong> Bedroom'

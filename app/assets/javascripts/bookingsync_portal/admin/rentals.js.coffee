@@ -1,7 +1,12 @@
 $ ->
+  if $("body").data("paginated-view")
+    Filter = ListBackedFilter 
+  else
+    Filter = ListFilter
+
   for rentalsList, index in $(".rentals-list")
     inputId = "rentals-list-filter-#{index}"
-    new ListFilter(
+    new Filter(
       $(rentalsList).children(".rentals-list-header"),
       $(rentalsList).children(".rentals-list-scroll"),
       ".panel",

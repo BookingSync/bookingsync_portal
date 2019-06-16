@@ -61,18 +61,24 @@ module BookingsyncPortal
   mattr_accessor :use_paginated_view
   @@use_paginated_view = ->(_account) { false }
 
-  # rate model class
+  # search by not connected rentals
   mattr_accessor :rentals_search
   @@rentals_search = {
-    rentals: %w(name synced_id)
+    numeric: %w(synced_id),
+    string: %w(name)
   }
+  
+  # search by remote rentals rentals
   mattr_accessor :remote_rentals_search
   @@remote_rentals_search = {
-    rentals: %w(name synced_id),
-    remote_rentals: %w(uid),
-    remote_accounts: %w(uid)
+    numeric: %w(uid rental.synced_id remote_account.uid),
+    string: %w(rental.name)
   }
 
+
+  # included tables for remote_rentals_by_account
+  mattr_accessor :remote_rentals_by_account_included_tables
+  @@remote_rentals_by_account_included_tables = %w(remote_account rental)
 
   # message bus channel scope
   mattr_accessor :message_bus_channel_scope

@@ -5,20 +5,28 @@ module BookingsyncPortal
       before_action :synchronize_rentals, only: :index
       before_action :fetch_remote_rentals, only: :index
 
+      helper_method :search_by_rentals?
+      helper_method :search_by_remote_rentals?
+
       def index
         index_preparation
-        @remote_rentals_by_account = @remote_rentals_by_account.group_by(&:remote_account)
       end
 
       def index_with_search
-        synchronize_rentals if !searchable?
-        index_preparation
+        index_preparation do
+          @search_filter = BookingsyncPortal::SearchFilter.new(params)
 
-        apply_search
-        apply_pagination
+          apply_search
+          apply_pagination
+        end
 
-        @remote_rentals_by_account = @remote_rentals_by_account.group_by(&:remote_account)
-        render :index
+        respond_to do |format|
+          format.html do
+            synchronize_rentals
+            render :index
+          end
+          format.js # view can be app specific
+        end
       end
 
       def show
@@ -27,25 +35,46 @@ module BookingsyncPortal
 
       private
 
-      def searchable?
-        # TODO implement me
-        true
+      def search_by_rentals?
+        params[:rentals_search].present?
       end
+
+      def search_by_remote_rentals?
+        params[:remote_rentals_search].present?
+      end
+
+      def resolve_action
+        redirect_to admin_v2_rentals_path if BookingsyncPortal.use_paginated_view.call(current_account)
+      end
+
 
       def index_preparation
         @not_connected_rentals = current_account.rentals.visible.ordered.not_connected
         @visible_rentals = current_account.rentals.visible
         @remote_accounts = current_account.remote_accounts
-        @remote_rentals_by_account = current_account.remote_rentals.ordered
-          .includes(:remote_account, :rental)
+        @remote_rentals = current_account.remote_rentals.ordered.joins(:rental, :remote_account)
+        
+        yield if block_given?
+
+        @remote_rentals_by_account = current_account.remote_rentals.where(id: @remote_rentals.pluck(:id)).ordered
+          .includes(*BookingsyncPortal.remote_rentals_by_account_included_tables)
+          .group_by(&:remote_account)
       end
 
       def apply_search
-        #TODO implement me
+        if @search_filter.rentals_query.present?
+          @not_connected_rentals = BookingsyncPortal::Searcher.call(query: @search_filter.rentals_query, records: @not_connected_rentals, source: "rentals_search")
+        end
+
+        if @search_filter.remote_rentals_query.present?
+          @remote_rentals = BookingsyncPortal::Searcher.call(query: @search_filter.remote_rentals_query, records: @remote_rentals, source: "remote_rentals_search")
+        end
       end
 
       def apply_pagination
-        #TODO implement me
+        @not_connected_rentals = @not_connected_rentals.page(@search_filter.rentals_page)
+        @remote_rentals = @remote_rentals.page(@search_filter.remote_rentals_page)
+        @remote_accounts = @remote_accounts.where(id: @remote_rentals.pluck(:remote_account_id))
       end
 
       def synchronize_rentals
@@ -53,18 +82,62 @@ module BookingsyncPortal
       end
 
       def fetch_remote_rentals
-        unless BookingsyncPortal.fetch_remote_rentals(current_account)
-          @remote_account_not_registered = true
-        end
+        @remote_account_not_registered = true unless BookingsyncPortal.fetch_remote_rentals(current_account)
       end
 
       def rental
         @rental ||= current_account.rentals.visible.find(params[:id])
       end
-
-      def resolve_action
-        redirect_to admin_v2_rentals_path if BookingsyncPortal.use_paginated_view.call(current_account)
-      end
     end
   end
+
+  class SearchFilter # TODO add tests
+    attr_reader :params
+    def initialize(params)
+      @params = params
+    end
+
+    def rentals_query
+      @rentals_query ||= params.dig(:rentals_search, :query).to_s.strip
+    end
+
+    def remote_rentals_query
+      @remote_rentals_query ||= params.dig(:remote_rentals_search, :query).to_s.strip
+    end
+
+    def rentals_page
+      @rentals_page ||= (params.dig(:rentals_search, :page).to_i || 1)
+    end
+
+    def remote_rentals_page
+      @remote_rentals_page ||= (params.dig(:remote_rentals_search, :page).to_i || 1)
+    end
+  end
+
+  class Searcher # TODO add tests
+    def self.call(query:, source:, records:)
+      search_settings = BookingsyncPortal.rentals_search if source == "rentals_search"
+      search_settings ||= BookingsyncPortal.remote_rentals_search
+
+      conditions = { m: "or" }
+
+      search_settings.each do |type, filtered_fields|
+        filtered_fields.each do |field|
+          conditions.merge!(build_search_query(type, field.gsub(".", "_"), query))
+        end
+      end
+
+      records.ransack(conditions).result
+    end
+
+    private
+
+    def self.build_search_query(type, field, query)
+      if type == :string
+        { "#{field}_cont" => query }
+      else
+        { "#{field}_eq" => query }
+      end
+    end
+  end  
 end
