@@ -73,7 +73,7 @@ module BookingsyncPortal
 
         search_settings = {}
         BookingsyncPortal.remote_rentals_search.each do |type, fields|
-          remote_account_fields = fields.select {|field| field.include?("remote_account.") }
+          remote_account_fields = fields.select {|field| field.include?("remote_account.") }.map {|f| f.gsub("remote_account.", "") }
           search_settings[type] = remote_account_fields if remote_account_fields.present?
         end.compact
         result = BookingsyncPortal::Searcher.call(query: @search_filter.remote_rentals_query, records: result, search_settings: search_settings)
