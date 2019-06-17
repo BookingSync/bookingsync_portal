@@ -9,7 +9,11 @@
   <%= stylesheet_link_tag 'admin/application', media: 'all' %>
   <%= csrf_meta_tags %>
 </head>
-<body data-messagebus-channel="<%= messagebus_channel %>" data-paginated-view="<%=use_paginated_view%>">
+<body 
+  data-messagebus-channel="<%= messagebus_channel %>" 
+  data-paginated-view="<%=use_paginated_view%>"
+  data-items-per-page="<%= BookingsyncPortal.items_per_page %>"
+  >
   <%= render partial: '/layouts/bookingsync_portal/menu' %>
   <div class="container container-fullscreen">
     <%= render '/layouts/bookingsync_portal/flash' %>

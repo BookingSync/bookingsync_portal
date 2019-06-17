@@ -75,6 +75,10 @@ module BookingsyncPortal
     string: %w(rental.name)
   }
 
+  # the number of items that will be displayed per page
+  # works only with enabled use_paginated_view
+  mattr_accessor :items_per_page
+  @@items_per_page = 25
 
   # included tables for remote_rentals_by_account
   mattr_accessor :remote_rentals_by_account_included_tables

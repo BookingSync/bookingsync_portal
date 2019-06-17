@@ -3,12 +3,19 @@
   data = $("<%=escape_javascript(render file: 'bookingsync_portal/admin/rentals/index') %>")
   newList = $(data).find(".bookingsync-rentals-list.rentals-list .rentals-list-scroll").first()
   list.html(newList.html())
+  
+  $(".bookingsync-rental").draggableRental()
+  $(".panel.panel-remote").droppableRemoteRental()
 <%- elsif search_by_remote_rentals? %>
   list = $(".remote-rentals-list.rentals-list .rentals-list-scroll")
   data = $("<%=escape_javascript(render file: 'bookingsync_portal/admin/rentals/index') %>")
   newList = $(data).find(".remote-rentals-list.rentals-list .rentals-list-scroll").first()
   list.html(newList.html())
+  
+  $(".bookingsync-rental").draggableRental()
+  $(".panel.panel-remote").droppableRemoteRental()
 <%- end %>
+
 
 
 

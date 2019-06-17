@@ -1,12 +1,12 @@
 class @ListBackedFilter
-  constructor: (header, list, @listElement, @listFilterable, @inputId, formTemplate) ->
+  constructor: (header, list, @listElement, @listFilterable, @inputId, formTemplate, paginationTemplate) ->
     @header = $(header)
     @list = $(list)
     @form = $(formTemplate)
     @insertForm()
     @observeInputChanges()
     
-    @paginationTemplate = $(HandlebarsTemplates["pagination"]())
+    @paginationTemplate ||= $(HandlebarsTemplates["pagination"]())
     @insertPagination()
     @observePageChanges()
 
@@ -20,6 +20,7 @@ class @ListBackedFilter
     @input = $("#" + @inputId)
 
   insertPagination: ->
+    @paginationTemplate.find("[data-type=previous]").addClass("disabled")
     @setPage(1)
     $(@paginationTemplate).appendTo(@list.parent())
 
@@ -28,6 +29,15 @@ class @ListBackedFilter
 
   currentPage: ->
     $(@form).data("current-page")
+
+  firstPage: ->
+    @currentPage() == 1
+
+  lastPage: ->
+    if @form.parents(".bookingsync-rentals-list").length > 0
+      @list.find('.panel.panel-bookingsync.bookingsync-rental').length < $("body").data("items-per-page")
+    else
+      @list.find('.panel.panel-connected').length < $("body").data("items-per-page")
 
   observeInputChanges: ->
     @input.on 'keyup', =>
@@ -42,9 +52,22 @@ class @ListBackedFilter
 
   displayWaiting: ->
     @list.html(@loadingTemplate) unless @list.children()[0] == @loadingTemplate[0]
+    @paginationTemplate.find("[data-type=previous]").addClass("disabled")
+    @paginationTemplate.find("[data-type=next]").addClass("disabled")
 
   backendSearch: =>
-    $.get(@getSearchQuery())
+    $.get(@getSearchQuery(), @afterSearch)
+
+  afterSearch: =>
+    if @firstPage()
+      @paginationTemplate.find("[data-type=previous]").addClass("disabled")
+    else
+      @paginationTemplate.find("[data-type=previous]").removeClass("disabled")
+
+    if @lastPage()
+      @paginationTemplate.find("[data-type=next]").addClass("disabled") 
+    else
+      @paginationTemplate.find("[data-type=next]").removeClass("disabled") 
 
   getSearchQuery: ->
     if @form.parents(".bookingsync-rentals-list").length > 0
@@ -56,10 +79,14 @@ class @ListBackedFilter
 
   goToPreviousPage: (e) =>
     e.preventDefault()
+    return if @firstPage()
     $(@form).data("current-page", @currentPage() - 1)
+    @displayWaiting()
     @backendSearch()
     
    goToNextPage: (e) =>
     e.preventDefault()
+    return if @lastPage()
     $(@form).data("current-page", @currentPage() + 1)
+    @displayWaiting()
     @backendSearch()

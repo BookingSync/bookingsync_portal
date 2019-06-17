@@ -34,8 +34,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'uglifier'
   s.add_dependency 'coffee-rails'
   
-  s.add_dependency 'ransack'
-  s.add_dependency 'kaminari'
+  s.add_runtime_dependency 'ransack'
+  s.add_runtime_dependency 'kaminari'
 
   s.add_development_dependency 'appraisal'
   s.add_development_dependency 'rspec-rails'
