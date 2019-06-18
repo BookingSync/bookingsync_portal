@@ -1,4 +1,4 @@
-class BookingsyncPortal::SearchFilter # TODO add tests
+class BookingsyncPortal::SearchFilter
   attr_reader :params
   def initialize(params)
     @params = params

@@ -45,7 +45,6 @@ module BookingsyncPortal
         redirect_to admin_v2_rentals_path if BookingsyncPortal.use_paginated_view.call(current_account)
       end
 
-
       def prepare_index_variables
         @not_connected_rentals = current_account.rentals.visible.ordered.not_connected
         @visible_rentals = current_account.rentals.visible

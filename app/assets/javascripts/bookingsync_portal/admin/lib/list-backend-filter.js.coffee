@@ -36,7 +36,6 @@ class @ListBackedFilter
     else
       @paginationTemplate.find("[data-type=next]").removeClass("disabled") 
 
-
   setPage: (page)->
     $(@form).data("current-page", page)
 

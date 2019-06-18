@@ -1,4 +1,4 @@
-class BookingsyncPortal::Searcher # TODO add tests
+class BookingsyncPortal::Searcher
   def self.call(query:, search_settings:, records:)
     return records if query.blank?
     return records if search_settings.blank?
