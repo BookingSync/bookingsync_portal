@@ -86,6 +86,7 @@ describe BookingsyncPortal::Admin::RentalsController do
             remote_account => [remote_rental],
             remote_account_empty => []
           })
+          expect(assigns(:remote_rentals_by_account).first).to eq([remote_account_empty, []])
         end
 
         context "and goes to the next page" do
@@ -100,6 +101,7 @@ describe BookingsyncPortal::Admin::RentalsController do
               remote_account => [remote_rental],
               remote_account_empty => []
             })
+            expect(assigns(:remote_rentals_by_account).first).to eq([remote_account_empty, []])
           end
         end
       end
@@ -116,6 +118,7 @@ describe BookingsyncPortal::Admin::RentalsController do
               remote_account => [remote_rental],
               remote_account_empty => []
             })
+            expect(assigns(:remote_rentals_by_account).first).to eq([remote_account_empty, []])
           end
         end
 
@@ -130,6 +133,7 @@ describe BookingsyncPortal::Admin::RentalsController do
               remote_account => [remote_rental],
               remote_account_empty => []
             })
+            expect(assigns(:remote_rentals_by_account).first).to eq([remote_account_empty, []])
           end
         end
       end
@@ -147,6 +151,7 @@ describe BookingsyncPortal::Admin::RentalsController do
             remote_account => [remote_rental],
             remote_account_empty => []
           })
+          expect(assigns(:remote_rentals_by_account).first).to eq([remote_account_empty, []])
         end
 
         context "and goes to the next page" do
@@ -161,28 +166,6 @@ describe BookingsyncPortal::Admin::RentalsController do
       end
       
       context "and it's attempt to filter by" do
-        context "rental.synced_id" do
-          let(:remote_rentals_search_query) { "#{rental.synced_id}" }
-  
-          it "filters remote_rentals but does not filter not_connected_rentals part" do
-            index_with_search
-            expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-            expect(assigns(:remote_rentals_by_account)).to eq({})
-          end
-        end
-        
-        context "rental_connected.synced_id" do
-          let(:remote_rentals_search_query) { "#{rental_connected.synced_id}" }
-
-          it "filters remote_rentals but does not filter not_connected_rentals part" do
-            index_with_search
-            expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-            expect(assigns(:remote_rentals_by_account)).to eq({ 
-              remote_account_connected => [remote_rental_connected]
-            })
-          end
-        end
-        
         context "remote_account.uid" do
           let(:remote_rentals_search_query) { "#{remote_account.uid}" }
 

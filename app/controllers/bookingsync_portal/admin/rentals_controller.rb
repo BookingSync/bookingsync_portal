@@ -59,14 +59,12 @@ module BookingsyncPortal
           .includes(*BookingsyncPortal.remote_rentals_by_account_included_tables)
           .group_by(&:remote_account)
 
-        @remote_rentals_by_account.merge!(
-          blank_remote_accounts.each_with_object({}) {|remote_account, res| res[remote_account] = []}
-        )
+        @remote_rentals_by_account = blank_remote_accounts.merge(@remote_rentals_by_account)
         @remote_accounts = @remote_rentals_by_account.keys
       end
 
       def blank_remote_accounts
-        return [] if @search_filter.remote_rentals_query.blank? && @search_filter.remote_rentals_page > 1
+        return {} if @search_filter.remote_rentals_query.blank? && @search_filter.remote_rentals_page > 1
         
         result = current_account
           .remote_accounts
@@ -79,6 +77,9 @@ module BookingsyncPortal
           search_settings[type] = remote_account_fields if remote_account_fields.present?
         end.compact
         result = BookingsyncPortal::Searcher.call(query: @search_filter.remote_rentals_query, records: result, search_settings: search_settings)
+        result.each_with_object({}) do |remote_account, res| 
+          res[remote_account] = []
+        end
       end
 
       def apply_search
