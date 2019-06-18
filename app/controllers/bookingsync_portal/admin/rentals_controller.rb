@@ -14,8 +14,6 @@ module BookingsyncPortal
 
       def index_with_search
         prepare_index_variables do
-          @search_filter = BookingsyncPortal::SearchFilter.new(params)
-
           apply_search
           apply_pagination
         end
@@ -51,18 +49,19 @@ module BookingsyncPortal
       def prepare_index_variables
         @not_connected_rentals = current_account.rentals.visible.ordered.not_connected
         @visible_rentals = current_account.rentals.visible
-        @remote_rentals = current_account.remote_rentals.ordered.joins(:rental, :remote_account)
+        @remote_rentals = current_account.remote_rentals.ordered
         @remote_accounts = current_account.remote_accounts
         
+        @search_filter = BookingsyncPortal::SearchFilter.new(params)
+
         yield if block_given?
 
         @remote_rentals_by_account = @remote_rentals
           .includes(*BookingsyncPortal.remote_rentals_by_account_included_tables)
           .group_by(&:remote_account)
 
-        @remote_accounts = @remote_accounts
-          .where(id: @remote_rentals_by_account.keys.map(&:id))
-          .or(blank_remote_accounts)
+        remote_account_ids = @remote_rentals_by_account.keys.map(&:id) + blank_remote_accounts.pluck(:id)
+        @remote_accounts = @remote_accounts.where(id: remote_account_ids)
       end
 
       def blank_remote_accounts
@@ -77,7 +76,6 @@ module BookingsyncPortal
           search_settings[type] = remote_account_fields if remote_account_fields.present?
         end.compact
         result = BookingsyncPortal::Searcher.call(query: @search_filter.remote_rentals_query, records: result, search_settings: search_settings)
-        RemoteAccount.where(id: result.pluck(:id))
       end
 
       def apply_search

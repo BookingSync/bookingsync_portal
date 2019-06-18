@@ -16,6 +16,8 @@ require 'handlebars_assets'
 require 'simple_form'
 require 'turbolinks'
 require 'responders'
+require 'kaminari'
+require 'ransack'
 
 module BookingsyncPortal
   # portal name

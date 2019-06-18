@@ -30,7 +30,7 @@ describe "admin/rentals", type: :request do
       end
 
       before do
-        allow_any_instance_of(BookingsyncPortal::Admin::V2::RentalsController).to receive(:current_account).and_return(account)
+        allow_any_instance_of(BookingsyncPortal::Admin::RentalsController).to receive(:current_account).and_return(account)
       end
 
       it "successfully renders page" do

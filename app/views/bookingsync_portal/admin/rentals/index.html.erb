@@ -39,7 +39,7 @@
             <% end %>
           <%- elsif !BookingsyncPortal.create_remote_rental -%>
             <div class="lead text-center well">
-              <p class=""><%= icon 'info fa-lg' %></p>
+              <p class=""><%= icon 'fa', 'info fa-lg' %></p>
               <p><%=t '.create_listings_first', portal_name: BookingsyncPortal.portal_name %></p>
             </div>
           <%- end -%>
