@@ -60,11 +60,15 @@ module BookingsyncPortal
           .includes(*BookingsyncPortal.remote_rentals_by_account_included_tables)
           .group_by(&:remote_account)
 
-        remote_account_ids = @remote_rentals_by_account.keys.map(&:id) + blank_remote_accounts.pluck(:id)
-        @remote_accounts = @remote_accounts.where(id: remote_account_ids)
+        @remote_rentals_by_account.merge!(
+          blank_remote_accounts.each_with_object({}) {|remote_account, res| res[remote_account] = []}
+        )
+        @remote_accounts = @remote_rentals_by_account.keys
       end
 
       def blank_remote_accounts
+        return [] if @search_filter.remote_rentals_query.blank? && @search_filter.remote_rentals_page > 1
+        
         result = current_account
           .remote_accounts
           .left_outer_joins(:remote_rentals)
@@ -101,54 +105,4 @@ module BookingsyncPortal
       end
     end
   end
-
-  class SearchFilter # TODO add tests
-    attr_reader :params
-    def initialize(params)
-      @params = params
-    end
-
-    def rentals_query
-      @rentals_query ||= params.dig(:rentals_search, :query).to_s.strip
-    end
-
-    def remote_rentals_query
-      @remote_rentals_query ||= params.dig(:remote_rentals_search, :query).to_s.strip
-    end
-
-    def rentals_page
-      @rentals_page ||= (params.dig(:rentals_search, :page).to_i || 1)
-    end
-
-    def remote_rentals_page
-      @remote_rentals_page ||= (params.dig(:remote_rentals_search, :page).to_i || 1)
-    end
-  end
-
-  class Searcher # TODO add tests
-    def self.call(query:, search_settings:, records:)
-      return records if query.blank?
-      return records if search_settings.blank?
-      
-      conditions = { m: "or" }
-
-      search_settings.each do |type, filtered_fields|
-        filtered_fields.each do |field|
-          conditions.merge!(build_search_query(type, field.gsub(".", "_"), query))
-        end
-      end
-
-      records.ransack(conditions).result
-    end
-
-    private
-
-    def self.build_search_query(type, field, query)
-      if type == :string
-        { "#{field}_cont" => query }
-      else
-        { "#{field}_eq" => query }
-      end
-    end
-  end  
 end

@@ -23,6 +23,19 @@ class @ListBackedFilter
     @paginationTemplate.find("[data-type=previous]").addClass("disabled")
     @setPage(1)
     $(@paginationTemplate).appendTo(@list.parent())
+    @refreshPagination()
+
+  refreshPagination: ->
+    if @firstPage()
+      @paginationTemplate.find("[data-type=previous]").addClass("disabled")
+    else
+      @paginationTemplate.find("[data-type=previous]").removeClass("disabled")
+
+    if @lastPage()
+      @paginationTemplate.find("[data-type=next]").addClass("disabled") 
+    else
+      @paginationTemplate.find("[data-type=next]").removeClass("disabled") 
+
 
   setPage: (page)->
     $(@form).data("current-page", page)
@@ -34,10 +47,13 @@ class @ListBackedFilter
     @currentPage() == 1
 
   lastPage: ->
+    $(".bookingsync-rentals-list").find(".panel").length < $("body").data("items-per-page")
     if @form.parents(".bookingsync-rentals-list").length > 0
-      @list.find('.panel.panel-bookingsync.bookingsync-rental').length < $("body").data("items-per-page")
+      itemsCount = @list.find('.panel.bookingsync-rental').length
     else
-      @list.find('.panel.panel-connected').length < $("body").data("items-per-page")
+      itemsCount = @list.find(".panel.panel-connected").length
+      itemsCount += @list.find('.panel.panel-remote').length
+    itemsCount < $("body").data("items-per-page")
 
   observeInputChanges: ->
     @input.on 'keyup', =>
@@ -59,15 +75,7 @@ class @ListBackedFilter
     $.get(@getSearchQuery(), @afterSearch)
 
   afterSearch: =>
-    if @firstPage()
-      @paginationTemplate.find("[data-type=previous]").addClass("disabled")
-    else
-      @paginationTemplate.find("[data-type=previous]").removeClass("disabled")
-
-    if @lastPage()
-      @paginationTemplate.find("[data-type=next]").addClass("disabled") 
-    else
-      @paginationTemplate.find("[data-type=next]").removeClass("disabled") 
+    @refreshPagination()
 
   getSearchQuery: ->
     if @form.parents(".bookingsync-rentals-list").length > 0

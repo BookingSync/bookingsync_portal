@@ -12,6 +12,7 @@ describe BookingsyncPortal::Admin::RentalsController do
   let!(:remote_account_connected) { create(:remote_account, account: account, uid: 3002) }
   let!(:remote_rental_connected) { create(:remote_rental, remote_account: remote_account_connected, uid: 2002) }
   let!(:connection) { create(:connection, rental: rental_connected, remote_rental: remote_rental_connected) }
+  let!(:remote_account_empty) { create(:remote_account, account: account, uid: 3003) }
 
   before do
     request.env['HTTPS'] = 'on'
@@ -38,12 +39,14 @@ describe BookingsyncPortal::Admin::RentalsController do
 
     let(:params) do
       {
-        rentals_search: {query: rentals_search_query, page: 1},
-        remote_rentals_search: {query: remote_rentals_search_query, page: 1},
+        rentals_search: {query: rentals_search_query, page: rentals_search_page},
+        remote_rentals_search: {query: remote_rentals_search_query, page: remote_rentals_search_page},
       }
     end
     let(:rentals_search_query) { "" }
+    let(:rentals_search_page) { 1 }
     let(:remote_rentals_search_query) { "" }
+    let(:remote_rentals_search_page) { 1 }
     let(:request_format) { :html }
 
     context "when format is js" do
@@ -80,8 +83,24 @@ describe BookingsyncPortal::Admin::RentalsController do
           expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
           expect(assigns(:remote_rentals_by_account)).to eq({ 
             remote_account_connected => [remote_rental_connected],
-            remote_account => [remote_rental]
+            remote_account => [remote_rental],
+            remote_account_empty => []
           })
+        end
+
+        context "and goes to the next page" do
+          let(:rentals_search_page) { 2 }
+
+          it "appies pagination only for not_connected_rentals" do
+            index_with_search
+            expect(assigns(:not_connected_rentals)).to be_blank
+
+            expect(assigns(:remote_rentals_by_account)).to eq({ 
+              remote_account_connected => [remote_rental_connected],
+              remote_account => [remote_rental],
+              remote_account_empty => []
+            })
+          end
         end
       end
       
@@ -94,7 +113,8 @@ describe BookingsyncPortal::Admin::RentalsController do
             expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
             expect(assigns(:remote_rentals_by_account)).to eq({ 
               remote_account_connected => [remote_rental_connected],
-              remote_account => [remote_rental]
+              remote_account => [remote_rental],
+              remote_account_empty => []
             })
           end
         end
@@ -107,7 +127,8 @@ describe BookingsyncPortal::Admin::RentalsController do
             expect(assigns(:not_connected_rentals)).to be_blank
             expect(assigns(:remote_rentals_by_account)).to eq({ 
               remote_account_connected => [remote_rental_connected],
-              remote_account => [remote_rental]
+              remote_account => [remote_rental],
+              remote_account_empty => []
             })
           end
         end
@@ -123,8 +144,19 @@ describe BookingsyncPortal::Admin::RentalsController do
           expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
           expect(assigns(:remote_rentals_by_account)).to eq({ 
             remote_account_connected => [remote_rental_connected],
-            remote_account => [remote_rental]
+            remote_account => [remote_rental],
+            remote_account_empty => []
           })
+        end
+
+        context "and goes to the next page" do
+          let(:remote_rentals_search_page) { 2 }
+
+          it "appies pagination only for remote_rentals" do
+            index_with_search
+            expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
+            expect(assigns(:remote_rentals_by_account)).to be_blank
+          end
         end
       end
       
@@ -174,6 +206,19 @@ describe BookingsyncPortal::Admin::RentalsController do
             })
           end
         end
+
+        context "remote_account_empty.uid" do
+          let(:remote_rentals_search_query) { "#{remote_account_empty.uid}" }
+
+          it "filters remote_rentals but does not filter not_connected_rentals part" do
+            index_with_search
+            expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
+            expect(assigns(:remote_rentals_by_account)).to eq({ 
+              remote_account_empty => []
+            })
+          end
+        end
+
       end
     end
   end

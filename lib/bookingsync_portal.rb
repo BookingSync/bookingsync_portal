@@ -73,7 +73,7 @@ module BookingsyncPortal
   # search by remote rentals rentals
   mattr_accessor :remote_rentals_search
   @@remote_rentals_search = {
-    numeric: %w(uid rental.synced_id remote_account.uid),
+    numeric: %w(uid remote_account.uid),
     string: %w(rental.name)
   }
 
