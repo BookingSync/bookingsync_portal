@@ -48,10 +48,9 @@ class @ListBackedFilter
   lastPage: ->
     $(".bookingsync-rentals-list").find(".panel").length < $("body").data("items-per-page")
     if @form.parents(".bookingsync-rentals-list").length > 0
-      itemsCount = @list.find('.panel.bookingsync-rental').length
+      itemsCount = $("body").data("rentals-records-count")
     else
-      itemsCount = @list.find(".panel.panel-connected").length
-      itemsCount += @list.find('.panel.panel-remote').length
+      itemsCount = $("body").data("remote-rentals-records-count")
     itemsCount < $("body").data("items-per-page")
 
   observeInputChanges: ->

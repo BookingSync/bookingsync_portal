@@ -13,6 +13,8 @@
   data-messagebus-channel="<%= messagebus_channel %>" 
   data-paginated-view="<%=use_paginated_view%>"
   data-items-per-page="<%= BookingsyncPortal.items_per_page %>"
+  data-rentals-records-count="<%= @not_connected_rentals.count %>"
+  data-remote-rentals-records-count="<%= @remote_rentals.count %>"
   >
   <%= render partial: '/layouts/bookingsync_portal/menu' %>
   <div class="container container-fullscreen">
