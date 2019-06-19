@@ -8,12 +8,12 @@
   <% end %>
 <%- elsif search_by_rentals? || search_by_remote_rentals? %>
   <div class="lead text-center well">
-    <p class=""><%= icon 'fa', 'search fa-lg' %></p>
+    <p class=""><%= icon 'search fa-lg' %></p>
     <p><%=t '.no_results' %></p>
   </div>
 <%- else -%>
   <div class="lead text-center well">
-    <p class=""><%= icon 'fa', 'thumbs-up fa-lg' %></p>
+    <p class=""><%= icon 'thumbs-up fa-lg' %></p>
     <p><%=t '.all_synchronized' %></p>
   </div>
 <%- end -%>
