@@ -51,7 +51,7 @@ class @ListBackedFilter
       itemsCount = $("body").data("rentals-records-count")
     else
       itemsCount = $("body").data("remote-rentals-records-count")
-    itemsCount < $("body").data("items-per-page")
+    parseInt(itemsCount) < $("body").data("items-per-page")
 
   observeInputChanges: ->
     @input.on 'keyup', =>

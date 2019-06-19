@@ -15,3 +15,6 @@
   $(".bookingsync-rental").draggableRental()
   $(".panel.panel-remote").droppableRemoteRental()
 <%- end %>
+
+$("body").data("rentals-records-count", "<%= @not_connected_rentals.count %>")
+$("body").data("remote-rentals-records-count", "<%= @remote_rentals.count %>")
