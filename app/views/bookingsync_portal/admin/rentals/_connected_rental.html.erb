@@ -17,9 +17,9 @@
           class: ["btn", "btn-xs", "remove-connection", rental.remote_rental.synchronized? ? "btn-success" : "btn-warning"],
           data: { disable_with: t('.disconnecting_rental') }, method: :delete, remote: true do %>
           <% unless rental.remote_rental.synchronized? %>
-            <span class="hover_hide"><%= icon('fa', 'spinner') %></span>
+            <span class="hover_hide"><%= icon('spinner') %></span>
           <% else %>
-            <span class="hover_hide"><%= icon('fa', 'check') %></span>
+            <span class="hover_hide"><%= icon('check') %></span>
           <% end %>
           <span class="hover_show"><%= t('.disconnect_rental') %></span>
         <% end %>
