@@ -61,7 +61,7 @@ module BookingsyncPortal
 
   # whether load-all (false) or paginated (true) view should be used for admin#index
   mattr_accessor :use_paginated_view
-  @@use_paginated_view = ->(_account) { false }
+  @@use_paginated_view = Proc.new { |_account| false }
 
   # search by not connected rentals
   mattr_accessor :rentals_search
@@ -77,10 +77,20 @@ module BookingsyncPortal
     string: %w(rental.name)
   }
 
+  mattr_accessor :filter_strategies
+  @@filter_strategies = [
+    "BookingsyncPortal::FilterStrategies::Rentals",
+    "BookingsyncPortal::FilterStrategies::RemoteRentals",
+    "BookingsyncPortal::FilterStrategies::BlankRemoteAccounts"
+  ]
+
   # the number of items that will be displayed per page
   # works only with enabled use_paginated_view
   mattr_accessor :items_per_page
   @@items_per_page = 25
+
+  mattr_accessor :extend_rentals_index_action
+  @@extend_rentals_index_action = Proc.new { |_account, _action_variables, _params|  }
 
   # included tables for remote_rentals_by_account
   mattr_accessor :remote_rentals_by_account_included_tables

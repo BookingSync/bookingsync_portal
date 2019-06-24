@@ -11,7 +11,7 @@
 </head>
 <body 
   data-messagebus-channel="<%= messagebus_channel %>" 
-  data-paginated-view="<%=use_paginated_view%>"
+  data-paginated-view="<%=use_paginated_view? %>"
   data-items-per-page="<%= BookingsyncPortal.items_per_page %>"
   data-rentals-records-count="<%= not_connected_rentals_count %>"
   data-remote-rentals-records-count="<%= remote_rentals_count %>"

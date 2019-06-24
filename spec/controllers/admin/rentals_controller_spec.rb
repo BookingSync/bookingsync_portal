@@ -204,5 +204,30 @@ describe BookingsyncPortal::Admin::RentalsController do
 
       end
     end
+
+    context "when there is extend_rentals_index_action setting" do
+      let(:rentals_index_action_extention) do
+        Proc.new do |account, action_variables, params|
+          action_variables.not_connected_rentals = Rental.all
+          action_variables.remote_rentals = RemoteRental.all
+          action_variables.custom_variable = "BookingSync"
+        end
+      end
+
+      before do
+        BookingsyncPortal.extend_rentals_index_action = rentals_index_action_extention
+      end
+
+      after do
+        BookingsyncPortal.extend_rentals_index_action = Proc.new {}
+      end
+
+      it "applies extended logic" do
+        index_with_search
+        expect(assigns(:not_connected_rentals)).to eq(Rental.all)
+        expect(assigns(:remote_rentals)).to eq(RemoteRental.all)
+        expect(assigns(:custom_variable)).to eq("BookingSync")
+      end
+    end
   end
 end

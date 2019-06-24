@@ -4,7 +4,7 @@ class @ListBackedFilter
     @list = $(list)
     @form = $(formTemplate)
     @insertForm()
-    @observeInputChanges()
+    @observeFormChanges()
     
     @paginationTemplate ||= $(HandlebarsTemplates["pagination"]())
     @insertPagination()
@@ -53,12 +53,26 @@ class @ListBackedFilter
       itemsCount = $("body").data("remote-rentals-records-count")
     parseInt(itemsCount) < $("body").data("items-per-page")
 
-  observeInputChanges: ->
-    @input.on 'keyup', =>
-      @setPage(1)
-      @displayWaiting()
-      clearTimeout(@typingTimer)
-      @typingTimer = setTimeout(@backendSearch, @doneTypingInterval) # make search request only when user is done typing
+  observeFormChanges: ->
+    skippedKeyCodes = [13, 16, 17, 18, 37, 38, 39, 40, 17, 91, 93, 224]
+    @input.on 'keyup', (e) =>
+      if e.keyCode not in skippedKeyCodes
+        @startSearching()
+
+    @input.bind 'paste', =>
+      @startSearching()
+
+    @input.on 'change', =>
+      @startSearching()
+
+    @form.on 'change', (e) =>
+      @startSearching()
+
+  startSearching: =>
+    @setPage(1)
+    @displayWaiting()
+    clearTimeout(@typingTimer)
+    @typingTimer = setTimeout(@backendSearch, @doneTypingInterval) # make search request only when user is done typing
 
   observePageChanges: ->
     @paginationTemplate.find("[data-type=previous]").on "click", @goToPreviousPage
@@ -80,14 +94,20 @@ class @ListBackedFilter
       fieldName = "rentals_search"
     else
       fieldName = "remote_rentals_search"
-    searchParams = "#{fieldName}[query]=#{@input.val()}&#{fieldName}[page]=#{@currentPage()}"
-    "#{document.location.href}.js?#{searchParams}"
+    searchParams = ["#{fieldName}[page]=#{@currentPage()}"]
+    $(@form.serialize().split("&")).each (_, item) ->
+      key = item.split("=")[0]
+      value = item.split("=")[1]
+      searchParams.push("#{fieldName}[#{key}]=#{value}")
+      
+    "#{document.location.href}.js?#{searchParams.join("&")}"
 
   goToPreviousPage: (e) =>
     e.preventDefault()
     return if @firstPage()
     $(@form).data("current-page", @currentPage() - 1)
     @displayWaiting()
+    clearTimeout(@typingTimer)
     @backendSearch()
     
    goToNextPage: (e) =>
@@ -95,4 +115,5 @@ class @ListBackedFilter
     return if @lastPage()
     $(@form).data("current-page", @currentPage() + 1)
     @displayWaiting()
+    clearTimeout(@typingTimer)
     @backendSearch()
