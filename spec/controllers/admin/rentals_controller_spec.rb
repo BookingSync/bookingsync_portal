@@ -260,7 +260,7 @@ describe BookingsyncPortal::Admin::RentalsController do
           expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
           expect(assigns(:remote_rentals_by_account)).to eq({
             remote_account_empty => [],
-            remote_account1 => [remote_rental_11, remote_rental_12, remote_rental_13],
+            remote_account3 => [remote_rental_31, remote_rental_32, remote_rental_33],
             remote_account2 => [remote_rental_21],
           })
         end
@@ -275,7 +275,7 @@ describe BookingsyncPortal::Admin::RentalsController do
           expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
           expect(assigns(:remote_rentals_by_account)).to eq({
             remote_account2 => [remote_rental_22, remote_rental_23],
-            remote_account3 => [remote_rental_31, remote_rental_32],
+            remote_account1 => [remote_rental_11, remote_rental_12],
           })
         end
       end
@@ -288,7 +288,7 @@ describe BookingsyncPortal::Admin::RentalsController do
 
           expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
           expect(assigns(:remote_rentals_by_account)).to eq({
-            remote_account3 => [remote_rental_33],
+            remote_account1 => [remote_rental_13],
           })
         end
       end

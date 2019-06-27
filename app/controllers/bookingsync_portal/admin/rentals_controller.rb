@@ -59,7 +59,7 @@ module BookingsyncPortal
 
         @action_variables.remote_rentals_by_account = @action_variables.remote_rentals
                                                         .includes(*BookingsyncPortal.remote_rentals_by_account_included_tables)
-                                                        .reorder(:remote_account_id)
+                                                        .reorder(remote_account_id: :desc)
                                                         .group_by(&:remote_account)
 
         @action_variables.remote_rentals_by_account = blank_remote_accounts.merge(@action_variables.remote_rentals_by_account)
