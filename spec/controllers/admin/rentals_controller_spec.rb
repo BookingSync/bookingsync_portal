@@ -81,7 +81,7 @@ describe BookingsyncPortal::Admin::RentalsController do
         it "does not filter rentals" do
           index_with_search
           expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-          expect(assigns(:remote_rentals_by_account)).to eq({ 
+          expect(assigns(:remote_rentals_by_account)).to eq({
             remote_account_connected => [remote_rental_connected],
             remote_account => [remote_rental],
             remote_account_empty => []
@@ -96,7 +96,7 @@ describe BookingsyncPortal::Admin::RentalsController do
             index_with_search
             expect(assigns(:not_connected_rentals)).to be_blank
 
-            expect(assigns(:remote_rentals_by_account)).to eq({ 
+            expect(assigns(:remote_rentals_by_account)).to eq({
               remote_account_connected => [remote_rental_connected],
               remote_account => [remote_rental],
               remote_account_empty => []
@@ -113,7 +113,7 @@ describe BookingsyncPortal::Admin::RentalsController do
           it "filters not_connected_rentals but does not filter remote_rentals part" do
             index_with_search
             expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-            expect(assigns(:remote_rentals_by_account)).to eq({ 
+            expect(assigns(:remote_rentals_by_account)).to eq({
               remote_account_connected => [remote_rental_connected],
               remote_account => [remote_rental],
               remote_account_empty => []
@@ -128,7 +128,7 @@ describe BookingsyncPortal::Admin::RentalsController do
           it "filters not_connected_rentals but does not filter remote_rentals part" do
             index_with_search
             expect(assigns(:not_connected_rentals)).to be_blank
-            expect(assigns(:remote_rentals_by_account)).to eq({ 
+            expect(assigns(:remote_rentals_by_account)).to eq({
               remote_account_connected => [remote_rental_connected],
               remote_account => [remote_rental],
               remote_account_empty => []
@@ -227,6 +227,70 @@ describe BookingsyncPortal::Admin::RentalsController do
         expect(assigns(:not_connected_rentals)).to eq(Rental.all)
         expect(assigns(:remote_rentals)).to eq(RemoteRental.all)
         expect(assigns(:custom_variable)).to eq("BookingSync")
+      end
+    end
+
+    context "when there are several remote_rentals belonged to several remote_accounts" do
+      let!(:remote_account1) { remote_account }
+      let!(:remote_account2) { remote_account_connected }
+      let!(:remote_account3) { create(:remote_account, account: account) }
+
+      let!(:remote_rental_11) { remote_rental }
+      let!(:remote_rental_21) { remote_rental_connected }
+      let!(:remote_rental_31) { create(:remote_rental, remote_account: remote_account3) }
+
+      let!(:remote_rental_12) { create(:remote_rental, remote_account: remote_account1) }
+      let!(:remote_rental_22) { create(:remote_rental, remote_account: remote_account2) }
+      let!(:remote_rental_32) { create(:remote_rental, remote_account: remote_account3) }
+
+      let!(:remote_rental_13) { create(:remote_rental, remote_account: remote_account1) }
+      let!(:remote_rental_23) { create(:remote_rental, remote_account: remote_account2) }
+      let!(:remote_rental_33) { create(:remote_rental, remote_account: remote_account3) }
+
+      before do
+        allow(BookingsyncPortal).to receive(:items_per_page).and_return(4)
+      end
+
+      context "and there is the first page" do
+        let(:remote_rentals_search_page) { 1 }
+
+        it "displayes recors in corrent order" do
+          index_with_search
+
+          expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
+          expect(assigns(:remote_rentals_by_account)).to eq({
+            remote_account_empty => [],
+            remote_account1 => [remote_rental_11, remote_rental_12, remote_rental_13],
+            remote_account2 => [remote_rental_21],
+          })
+        end
+      end
+
+      context "and there is the second page" do
+        let(:remote_rentals_search_page) { 2 }
+
+        it "displayes recors in corrent order" do
+          index_with_search
+
+          expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
+          expect(assigns(:remote_rentals_by_account)).to eq({
+            remote_account2 => [remote_rental_22, remote_rental_23],
+            remote_account3 => [remote_rental_31, remote_rental_32],
+          })
+        end
+      end
+
+      context "and there is the third page" do
+        let(:remote_rentals_search_page) { 3 }
+
+        it "displayes recors in corrent order" do
+          index_with_search
+
+          expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
+          expect(assigns(:remote_rentals_by_account)).to eq({
+            remote_account3 => [remote_rental_33],
+          })
+        end
       end
     end
   end
