@@ -11,7 +11,7 @@ module BookingsyncPortal
         @search_filter = search_filter
       end
 
-      def self.call(account: nil, records:, search_filter:)
+      def self.call(account: nil, records:, search_filter: nil)
         return records if models_for_filter.all? {|model_name| model_name.constantize.table_name != records.table_name }
         new(account: account, records: records, search_filter: search_filter).call
       end

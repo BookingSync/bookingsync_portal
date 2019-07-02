@@ -15,6 +15,8 @@ class @ListBackedFilter
     @doneTypingInterval = 1500 # 1.5 seconds wait after each keyup before sending search request
     @typingTimer = undefined
 
+    @currentSearchQuery = @input.val()
+
   insertForm: ->
     @form.appendTo(@header)
     @input = $("#" + @inputId)
@@ -54,12 +56,7 @@ class @ListBackedFilter
     parseInt(itemsCount) < $("body").data("items-per-page")
 
   observeFormChanges: ->
-    skippedKeyCodes = [13, 16, 17, 18, 37, 38, 39, 40, 17, 91, 93, 224]
     @input.on 'keyup', (e) =>
-      if e.keyCode not in skippedKeyCodes
-        @startSearching()
-
-    @input.bind 'paste', =>
       @startSearching()
 
     @input.on 'change', =>
@@ -69,6 +66,8 @@ class @ListBackedFilter
       @startSearching()
 
   startSearching: =>
+    return if @currentSearchQuery == @input.val()
+    @currentSearchQuery = @input.val()
     @setPage(1)
     @displayWaiting()
     clearTimeout(@typingTimer)

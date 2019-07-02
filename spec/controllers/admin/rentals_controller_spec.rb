@@ -205,21 +205,46 @@ describe BookingsyncPortal::Admin::RentalsController do
       end
     end
 
-    context "when there is extend_rentals_index_action setting" do
+    context "when there is before_rentals_index_action_filter setting" do
       let(:rentals_index_action_extention) do
-        Proc.new do |account, action_variables, params|
-          action_variables.not_connected_rentals = Rental.all
-          action_variables.remote_rentals = RemoteRental.all
-          action_variables.custom_variable = "BookingSync"
+        Proc.new do |controller|
+          controller.action_variables.not_connected_rentals = Rental.all
+          controller.action_variables.remote_rentals = RemoteRental.all
+          controller.action_variables.custom_variable = "BookingSync"
         end
       end
 
       before do
-        BookingsyncPortal.extend_rentals_index_action = rentals_index_action_extention
+        BookingsyncPortal.before_rentals_index_action_filter = rentals_index_action_extention
       end
 
       after do
-        BookingsyncPortal.extend_rentals_index_action = Proc.new {}
+        BookingsyncPortal.before_rentals_index_action_filter = Proc.new {}
+      end
+
+      it "applies extended logic" do
+        index_with_search
+        expect(assigns(:not_connected_rentals)).not_to eq(Rental.all) # will be overridden
+        expect(assigns(:remote_rentals)).not_to eq(RemoteRental.all)  # will be overridden
+        expect(assigns(:custom_variable)).to eq("BookingSync")
+      end
+    end    
+
+    context "when there is after_rentals_index_action_filter setting" do
+      let(:rentals_index_action_extention) do
+        Proc.new do |controller|
+          controller.action_variables.not_connected_rentals = Rental.all
+          controller.action_variables.remote_rentals = RemoteRental.all
+          controller.action_variables.custom_variable = "BookingSync"
+        end
+      end
+
+      before do
+        BookingsyncPortal.after_rentals_index_action_filter = rentals_index_action_extention
+      end
+
+      after do
+        BookingsyncPortal.after_rentals_index_action_filter = Proc.new {}
       end
 
       it "applies extended logic" do

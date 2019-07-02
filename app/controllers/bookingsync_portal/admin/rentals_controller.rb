@@ -33,6 +33,16 @@ module BookingsyncPortal
         rental
       end
 
+      def ignore_blank_remote_accounts?
+        search_filter.remote_rentals_query.blank? && search_filter.remote_rentals_page > 1
+      end
+
+      def action_variables
+        @action_variables ||= {}
+      end
+
+      public :current_account
+
       private
 
       def search_by_rentals?
@@ -53,9 +63,10 @@ module BookingsyncPortal
         @action_variables.not_connected_rentals = current_account.rentals.visible.ordered.not_connected
         @action_variables.visible_rentals = current_account.rentals.visible
         @action_variables.remote_rentals = current_account.remote_rentals.ordered
+        @action_variables.blank_remote_accounts = generate_blank_remote_accounts
 
+        BookingsyncPortal.before_rentals_index_action_filter.call(self)
         yield if block_given?
-        BookingsyncPortal.extend_rentals_index_action.call(current_account, @action_variables, params)
 
         @action_variables.remote_rentals_by_account = @action_variables.remote_rentals
                                                         .includes(*BookingsyncPortal.remote_rentals_by_account_included_tables)
@@ -65,25 +76,28 @@ module BookingsyncPortal
         @action_variables.remote_rentals_by_account = blank_remote_accounts.merge(@action_variables.remote_rentals_by_account)
         @action_variables.remote_accounts = @action_variables.remote_rentals_by_account.keys
 
+        BookingsyncPortal.after_rentals_index_action_filter.call(self)
         @action_variables.to_h.each do |variable_name, variable_value|
           instance_variable_set("@#{variable_name}", variable_value)
         end
       end
 
       def blank_remote_accounts
-        return {} if search_filter.remote_rentals_query.blank? && search_filter.remote_rentals_page > 1
-        
-        result = current_account
+        return {} if ignore_blank_remote_accounts?
+        BookingsyncPortal.filter_strategies.each do |strategy|
+          @action_variables.blank_remote_accounts = strategy.constantize.call(account: current_account, records: @action_variables.blank_remote_accounts, search_filter: search_filter)
+        end
+        @action_variables.blank_remote_accounts.each_with_object({}) do |remote_account, res| 
+          res[remote_account] = []
+        end
+      end
+
+      def generate_blank_remote_accounts
+        return RemoteAccount.none if ignore_blank_remote_accounts?
+        current_account
           .remote_accounts
           .left_outer_joins(:remote_rentals)
           .where(remote_rentals: { id: nil })
-
-        BookingsyncPortal.filter_strategies.each do |strategy|
-          result = strategy.constantize.call(account: current_account, records: result, search_filter: search_filter)
-        end
-        result.each_with_object({}) do |remote_account, res| 
-          res[remote_account] = []
-        end
       end
 
       def apply_search

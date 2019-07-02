@@ -89,8 +89,11 @@ module BookingsyncPortal
   mattr_accessor :items_per_page
   @@items_per_page = 25
 
-  mattr_accessor :extend_rentals_index_action
-  @@extend_rentals_index_action = -> (_account, _action_variables, _params) { }
+  mattr_accessor :before_rentals_index_action_filter
+  @@before_rentals_index_action_filter = -> (_controller) { }
+
+  mattr_accessor :after_rentals_index_action_filter
+  @@after_rentals_index_action_filter = -> (_controller) { }
 
   # included tables for remote_rentals_by_account
   mattr_accessor :remote_rentals_by_account_included_tables
