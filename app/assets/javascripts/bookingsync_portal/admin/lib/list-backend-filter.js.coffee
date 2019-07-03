@@ -15,7 +15,7 @@ class @ListBackedFilter
     @doneTypingInterval = 1500 # 1.5 seconds wait after each keyup before sending search request
     @typingTimer = undefined
 
-    @currentSearchQuery = @input.val()
+    @currentSearchQuery = @form.serialize()
 
   insertForm: ->
     @form.appendTo(@header)
@@ -66,8 +66,8 @@ class @ListBackedFilter
       @startSearching()
 
   startSearching: =>
-    return if @currentSearchQuery == @input.val()
-    @currentSearchQuery = @input.val()
+    return if @currentSearchQuery == @form.serialize()
+    @currentSearchQuery = @form.serialize()
     @setPage(1)
     @displayWaiting()
     clearTimeout(@typingTimer)
