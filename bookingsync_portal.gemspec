@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'font-awesome-sass', '4.7.0'
   s.add_dependency 'handlebars_assets'
   s.add_dependency 'simple_form'
-  s.add_dependency 'message_bus'
+  s.add_dependency 'message_bus', '2.0.2'
   s.add_dependency 'turbolinks'
   s.add_dependency 'sass-rails'
   s.add_dependency 'uglifier'
