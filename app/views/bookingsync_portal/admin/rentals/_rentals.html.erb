@@ -6,7 +6,7 @@
   <% not_connected_rentals.each do |rental| %>
     <%= render rental %>
   <% end %>
-<%- elsif search_by_rentals? || search_by_remote_rentals? %>
+<%- elsif params[:controller] == "bookingsync_portal/admin/connections" && (search_by_rentals? || search_by_remote_rentals?) %>
   <div class="lead text-center well">
     <p class=""><%= icon 'search fa-lg' %></p>
     <p><%=t '.no_results' %></p>
