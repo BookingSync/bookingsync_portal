@@ -6,7 +6,7 @@ PATH
       bootstrap-bookingsync-sass (~> 1.0.0)
       bootstrap-sass (< 3.4)
       coffee-rails
-      font-awesome-sass
+      font-awesome-sass (= 4.7.0)
       handlebars_assets
       jquery-rails
       jquery-ui-rails (~> 6.0.1)
