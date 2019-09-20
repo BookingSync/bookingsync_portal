@@ -6,7 +6,7 @@ before_install:
   - gem install bundler
   - gem update bundler
 rvm:
-  - 2.3.3
+  - 2.3.8
 gemfile:
   - gemfiles/rails_5.0.gemfile
   - gemfiles/rails_5.1.gemfile
