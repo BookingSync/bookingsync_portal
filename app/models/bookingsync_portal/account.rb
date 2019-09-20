@@ -1,7 +1,7 @@
 class BookingsyncPortal::Account < ActiveRecord::Base
   self.table_name = 'accounts'
 
-  include BookingSync::Engine::Model
+  include BookingSync::Engine::Models::Account
 
   has_many :remote_accounts, class_name: BookingsyncPortal.remote_account_model, dependent: :destroy
   has_many :remote_rentals, class_name: BookingsyncPortal.remote_rental_model, through: :remote_accounts
