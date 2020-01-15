@@ -19,13 +19,14 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails'
   s.add_dependency 'sprockets-rails'
   s.add_dependency 'responders'
-  s.add_dependency 'bookingsync_application', ['>= 1', '< 3']
+  s.add_dependency 'bookingsync_application', ['>= 3', '< 4']
   s.add_dependency 'redis'
   # FIXME: Will no longer be needed once UI moved to Ember
   s.add_dependency 'jquery-rails'
   s.add_dependency 'jquery-ui-rails', '~> 6.0.1'
+  s.add_dependency 'bootstrap-sass', '< 3.4'
   s.add_dependency 'bootstrap-bookingsync-sass', '~> 1.0.0'
-  s.add_dependency 'font-awesome-sass'
+  s.add_dependency 'font-awesome-sass', '4.7.0'
   s.add_dependency 'handlebars_assets'
   s.add_dependency 'simple_form'
   s.add_dependency 'message_bus'
@@ -40,7 +41,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'factory_girl_rails'
   s.add_development_dependency 'vcr'
   s.add_development_dependency 'webmock'
-  s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'sqlite3', '1.3.13'
   s.add_development_dependency 'rubocop'
   s.add_development_dependency 'pry-rails'
   s.add_development_dependency 'rails-controller-testing'
