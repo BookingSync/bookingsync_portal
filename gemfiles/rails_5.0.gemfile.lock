@@ -321,7 +321,7 @@ DEPENDENCIES
   rspec-rails
   rubocop
   shoulda
-  sqlite3
+  sqlite3 (= 1.4.2)
   vcr
   webmock
 
