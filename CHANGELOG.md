@@ -1,5 +1,7 @@
 ### master
 
+### 2.0.0 - 2020-01-16
+
 * [BREAKING CHANGE] update bookingsync_application dependency to be >= 3.0
 
 ### 1.0.0 - 2017-07-03
