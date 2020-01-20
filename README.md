@@ -7,7 +7,7 @@ A Rails engine to simplify building BookingSync Portal Applications.
 
 ## Requirements
 
-This engine requires Rails `>= 4.0.0` and Ruby `>= 2.1.0`.
+This engine requires Rails `>= 4.0.0, < 5.2.0` and Ruby `>= 2.1.0`.
 
 ## Documentation
 
@@ -15,7 +15,7 @@ This engine requires Rails `>= 4.0.0` and Ruby `>= 2.1.0`.
 
 ## Installation
 
-BookingSync Portal works with Rails 4.0 onwards and Ruby 2.1 onwards. To get started, add it to your Gemfile with:
+BookingSync Portal works with Rails `>= 4.0.0, < 5.2.0` onwards and Ruby 2.1 onwards. To get started, add it to your Gemfile with:
 
 ```ruby
 gem 'bookingsync_portal'
