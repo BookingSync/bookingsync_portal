@@ -4,7 +4,7 @@ RSpec.describe Account do
   describe 'included_modules' do
     subject { described_class.included_modules }
 
-    it { is_expected.to include BookingSync::Engine::Model }
+    it { is_expected.to include BookingSync::Engine::Models::Account }
   end
 
   it { is_expected.to have_many(:remote_accounts).dependent(:destroy) }
