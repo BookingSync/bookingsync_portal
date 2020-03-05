@@ -2,7 +2,7 @@
 
 ### 2.0.1 - 2020-03-04
 
-* update vuln gems: bootstrap-sass and nokogiri
+* update vulnerable gems: bootstrap-sass and nokogiri
 
 ### 2.0.0 - 2020-01-20
 
