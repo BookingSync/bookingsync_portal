@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bookingsync_portal (1.0.1)
+    bookingsync_portal (2.0.1)
       bookingsync_application (>= 3, < 4)
       bootstrap-bookingsync-sass (~> 1.0.0)
       bootstrap-sass (< 3.5)

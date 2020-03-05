@@ -1,5 +1,9 @@
 ### master
 
+### 2.0.1 - 2020-03-04
+
+* update vulnerable gems: bootstrap-sass and nokogiri
+
 ### 2.0.0 - 2020-01-20
 
 * [BREAKING CHANGE] update bookingsync_application dependency to be >= 3.0
