@@ -8,6 +8,7 @@ require 'bookingsync_application/spec_helper'
 require 'shoulda/matchers'
 require 'factory_girl_rails'
 require 'rails-controller-testing'
+require 'byebug'
 
 Rails::Controller::Testing.install
 

@@ -29,6 +29,18 @@ module BookingsyncPortal
 
         safe_join(details, ', ')
       end
+
+      def use_paginated_view?
+        BookingsyncPortal.use_paginated_view.call(current_account)
+      end
+
+      def not_connected_rentals_count
+        @not_connected_rentals.present? ? @not_connected_rentals.count : 0
+      end
+
+      def remote_rentals_count
+        @remote_rentals.present? ? @remote_rentals.count : 0
+      end
     end
   end
 end

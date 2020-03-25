@@ -29,12 +29,16 @@ Gem::Specification.new do |s|
   s.add_dependency 'font-awesome-sass', '4.7.0'
   s.add_dependency 'handlebars_assets'
   s.add_dependency 'simple_form'
-  s.add_dependency 'message_bus'
+  s.add_dependency 'message_bus', '2.0.2'
   s.add_dependency 'turbolinks'
-  s.add_dependency 'sass-rails'
+  s.add_dependency 'sass-rails', '~> 5'
   s.add_dependency 'uglifier'
   s.add_dependency 'coffee-rails'
 
+  s.add_dependency 'ransack'
+  s.add_dependency 'kaminari'
+
+  s.add_development_dependency 'byebug'
   s.add_development_dependency 'appraisal'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'shoulda'

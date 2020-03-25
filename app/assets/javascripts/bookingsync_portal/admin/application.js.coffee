@@ -21,6 +21,7 @@
 #= require bookingsync/form
 #= require ./vendor/css-contains
 #= require ./lib/list-filter
+#= require ./lib/list-backend-filter
 #= require_tree ./templates
 #= require_tree .
 

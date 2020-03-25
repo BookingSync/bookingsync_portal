@@ -16,6 +16,8 @@ require 'handlebars_assets'
 require 'simple_form'
 require 'turbolinks'
 require 'responders'
+require 'kaminari'
+require 'ransack'
 
 module BookingsyncPortal
   # portal name
@@ -56,6 +58,46 @@ module BookingsyncPortal
   # rate model class
   mattr_accessor :rate_model
   @@rate_model = 'BookingsyncPortal::Rate'
+
+  # whether load-all (false) or paginated (true) view should be used for admin#index
+  mattr_accessor :use_paginated_view
+  @@use_paginated_view = -> (_account) { false }
+
+  # search by not connected rentals
+  mattr_accessor :rentals_search
+  @@rentals_search = {
+    numeric: %w(synced_id),
+    string: %w(name)
+  }
+  
+  # search by remote rentals rentals
+  mattr_accessor :remote_rentals_search
+  @@remote_rentals_search = {
+    numeric: %w(uid remote_account.uid),
+    string: %w(rental.name)
+  }
+
+  mattr_accessor :filter_strategies
+  @@filter_strategies = [
+    "BookingsyncPortal::FilterStrategies::Rentals",
+    "BookingsyncPortal::FilterStrategies::RemoteRentals",
+    "BookingsyncPortal::FilterStrategies::BlankRemoteAccounts"
+  ]
+
+  # the number of items that will be displayed per page
+  # works only with enabled use_paginated_view
+  mattr_accessor :items_per_page
+  @@items_per_page = 25
+
+  mattr_accessor :before_rentals_index_action_filter
+  @@before_rentals_index_action_filter = -> (_controller) { }
+
+  mattr_accessor :after_rentals_index_action_filter
+  @@after_rentals_index_action_filter = -> (_controller) { }
+
+  # included tables for remote_rentals_by_account
+  mattr_accessor :remote_rentals_by_account_included_tables
+  @@remote_rentals_by_account_included_tables = %w(remote_account rental)
 
   # message bus channel scope
   mattr_accessor :message_bus_channel_scope
