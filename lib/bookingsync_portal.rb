@@ -18,6 +18,17 @@ require 'turbolinks'
 require 'responders'
 
 module BookingsyncPortal
+  ROOT_PATH = Pathname.new(File.join(__dir__, ".."))
+
+  class << self
+    def webpacker
+      @webpacker ||= ::Webpacker::Instance.new(
+        root_path: ROOT_PATH,
+        config_path: ROOT_PATH.join("config/webpacker.yml")
+      )
+    end
+  end
+
   # portal name
   mattr_accessor :portal_name
   @@portal_name = 'Portal'

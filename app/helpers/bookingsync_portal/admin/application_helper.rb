@@ -1,6 +1,14 @@
+require "webpacker/helper"
+
 module BookingsyncPortal
   module Admin
     module ApplicationHelper
+      include ::Webpacker::Helper
+
+      def current_webpacker_instance
+        BookingsyncPortal.webpacker
+      end
+
       def rental_details(rental)
         scope = 'bookingsync_portal.admin.rentals.rental'
 

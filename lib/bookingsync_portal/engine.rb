@@ -5,6 +5,10 @@ module BookingsyncPortal
     config.generators do |g|
       g.install :install
     end
+    config.app_middleware.use(
+      Rack::Static,
+      urls: ["/bookingsync-portal-packs"], root: "bookingsync-portal/public"
+    )
 
     if defined?(Sprockets) && Sprockets::VERSION.chr.to_i >= 3
       initializer 'bookingsync_portal.assets.precompile' do |app|
@@ -13,6 +17,21 @@ module BookingsyncPortal
           bookingsync_portal/bookingsync.png
         )
       end
+    end
+
+    initializer "webpacker.proxy" do |app|
+      insert_middleware = begin
+                          BookingsyncPortal.webpacker.config.dev_server.present?
+                        rescue
+                          nil
+                        end
+      next unless insert_middleware
+
+      app.middleware.insert_before(
+        0, Webpacker::DevServerProxy,
+        ssl_verify_none: true,
+        webpacker: BookingsyncPortal.webpacker
+      )
     end
   end
 end

@@ -8,7 +8,7 @@ module BookingsyncPortal
       respond_to :html
       include BookingsyncApplication::Controllers::CommonBase
 
-      before_action :enforce_remote_account!
+      # before_action :enforce_remote_account!
 
       private
 
