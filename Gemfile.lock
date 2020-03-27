@@ -195,6 +195,7 @@ GEM
     parallel (1.19.1)
     parser (2.7.0.2)
       ast (~> 2.4.0)
+    pg (1.2.3)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -297,7 +298,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.2)
     synced (1.8.0)
       bookingsync-api (>= 0.1.4)
       hashie
@@ -335,12 +335,12 @@ DEPENDENCIES
   bookingsync_portal!
   bootstrap-bookingsync-sass!
   factory_girl_rails
+  pg
   pry-rails
   rails-controller-testing
   rspec-rails
   rubocop
   shoulda-matchers (>= 4)
-  sqlite3 (~> 1.4)
   vcr
   webmock
 
