@@ -1,5 +1,3 @@
-require "webpacker/helper"
-
 module BookingsyncPortal
   module Admin
     module ApplicationHelper
