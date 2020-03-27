@@ -6,3 +6,8 @@ spec/dummy/db/*.sqlite3-journal
 spec/dummy/log/*.log
 spec/dummy/tmp/
 spec/dummy/.sass-cache
+tmp/
+.DS_Store
+/**/.DS_Store
+yarn-error.log
+public/

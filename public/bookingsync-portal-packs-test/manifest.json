@@ -1,7 +1,67 @@
 {
+  "admin/application.js": "/bookingsync-portal-packs-test/js/admin/application-93d480d788622d4fd6d0.js",
+  "admin/application.js.map": "/bookingsync-portal-packs-test/js/admin/application-93d480d788622d4fd6d0.js.map",
+  "admin/connections.js": "/bookingsync-portal-packs-test/js/admin/connections-c3c77cb32cb4afae7e48.js",
+  "admin/connections.js.map": "/bookingsync-portal-packs-test/js/admin/connections-c3c77cb32cb4afae7e48.js.map",
+  "admin/handle_remote_errors.js": "/bookingsync-portal-packs-test/js/admin/handle_remote_errors-6f9b5404e65e5c929360.js",
+  "admin/handle_remote_errors.js.map": "/bookingsync-portal-packs-test/js/admin/handle_remote_errors-6f9b5404e65e5c929360.js.map",
+  "admin/lib/list-filter.js": "/bookingsync-portal-packs-test/js/admin/lib/list-filter-888963997f4d2de54833.js",
+  "admin/lib/list-filter.js.map": "/bookingsync-portal-packs-test/js/admin/lib/list-filter-888963997f4d2de54833.js.map",
+  "admin/live_updates.js": "/bookingsync-portal-packs-test/js/admin/live_updates-30447bab8e1671e4301f.js",
+  "admin/live_updates.js.map": "/bookingsync-portal-packs-test/js/admin/live_updates-30447bab8e1671e4301f.js.map",
+  "admin/rentals.js": "/bookingsync-portal-packs-test/js/admin/rentals-6f30f19aba75cccab443.js",
+  "admin/rentals.js.map": "/bookingsync-portal-packs-test/js/admin/rentals-6f30f19aba75cccab443.js.map",
   "admin/vendor/css-contains.js": "/bookingsync-portal-packs-test/js/admin/vendor/css-contains-02d4bebfc0929a22470e.js",
   "admin/vendor/css-contains.js.map": "/bookingsync-portal-packs-test/js/admin/vendor/css-contains-02d4bebfc0929a22470e.js.map",
   "entrypoints": {
+    "admin/application": {
+      "js": [
+        "/bookingsync-portal-packs-test/js/admin/application-93d480d788622d4fd6d0.js"
+      ],
+      "js.map": [
+        "/bookingsync-portal-packs-test/js/admin/application-93d480d788622d4fd6d0.js.map"
+      ]
+    },
+    "admin/connections": {
+      "js": [
+        "/bookingsync-portal-packs-test/js/admin/connections-c3c77cb32cb4afae7e48.js"
+      ],
+      "js.map": [
+        "/bookingsync-portal-packs-test/js/admin/connections-c3c77cb32cb4afae7e48.js.map"
+      ]
+    },
+    "admin/handle_remote_errors": {
+      "js": [
+        "/bookingsync-portal-packs-test/js/admin/handle_remote_errors-6f9b5404e65e5c929360.js"
+      ],
+      "js.map": [
+        "/bookingsync-portal-packs-test/js/admin/handle_remote_errors-6f9b5404e65e5c929360.js.map"
+      ]
+    },
+    "admin/lib/list-filter": {
+      "js": [
+        "/bookingsync-portal-packs-test/js/admin/lib/list-filter-888963997f4d2de54833.js"
+      ],
+      "js.map": [
+        "/bookingsync-portal-packs-test/js/admin/lib/list-filter-888963997f4d2de54833.js.map"
+      ]
+    },
+    "admin/live_updates": {
+      "js": [
+        "/bookingsync-portal-packs-test/js/admin/live_updates-30447bab8e1671e4301f.js"
+      ],
+      "js.map": [
+        "/bookingsync-portal-packs-test/js/admin/live_updates-30447bab8e1671e4301f.js.map"
+      ]
+    },
+    "admin/rentals": {
+      "js": [
+        "/bookingsync-portal-packs-test/js/admin/rentals-6f30f19aba75cccab443.js"
+      ],
+      "js.map": [
+        "/bookingsync-portal-packs-test/js/admin/rentals-6f30f19aba75cccab443.js.map"
+      ]
+    },
     "admin/vendor/css-contains": {
       "js": [
         "/bookingsync-portal-packs-test/js/admin/vendor/css-contains-02d4bebfc0929a22470e.js"
