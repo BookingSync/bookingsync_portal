@@ -12,10 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2016_03_01_141356) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "accounts", id: :serial, force: :cascade do |t|
+  create_table "accounts", force: :cascade do |t|
     t.string "provider"
     t.integer "synced_id"
     t.string "name"
@@ -31,13 +28,13 @@ ActiveRecord::Schema.define(version: 2016_03_01_141356) do
     t.index ["synced_id"], name: "index_accounts_on_synced_id"
   end
 
-  create_table "bookings", id: :serial, force: :cascade do |t|
+  create_table "bookings", force: :cascade do |t|
     t.datetime "start_at"
     t.datetime "end_at"
     t.string "status"
   end
 
-  create_table "connections", id: :serial, force: :cascade do |t|
+  create_table "connections", force: :cascade do |t|
     t.integer "remote_rental_id"
     t.integer "rental_id"
     t.datetime "created_at", null: false
@@ -46,7 +43,7 @@ ActiveRecord::Schema.define(version: 2016_03_01_141356) do
     t.index ["rental_id"], name: "index_connections_on_rental_id"
   end
 
-  create_table "photos", id: :serial, force: :cascade do |t|
+  create_table "photos", force: :cascade do |t|
     t.integer "rental_id"
     t.integer "synced_id"
     t.text "synced_data"
@@ -58,7 +55,7 @@ ActiveRecord::Schema.define(version: 2016_03_01_141356) do
     t.index ["synced_id"], name: "index_photos_on_synced_id"
   end
 
-  create_table "rates", id: :serial, force: :cascade do |t|
+  create_table "rates", force: :cascade do |t|
     t.integer "rental_id"
     t.integer "synced_id"
     t.text "synced_data"
@@ -69,7 +66,7 @@ ActiveRecord::Schema.define(version: 2016_03_01_141356) do
     t.index ["synced_id"], name: "index_rates_on_synced_id"
   end
 
-  create_table "remote_accounts", id: :serial, force: :cascade do |t|
+  create_table "remote_accounts", force: :cascade do |t|
     t.integer "account_id"
     t.integer "uid"
     t.datetime "created_at", null: false
@@ -77,7 +74,7 @@ ActiveRecord::Schema.define(version: 2016_03_01_141356) do
     t.index ["account_id"], name: "index_remote_accounts_on_account_id"
   end
 
-  create_table "remote_rentals", id: :serial, force: :cascade do |t|
+  create_table "remote_rentals", force: :cascade do |t|
     t.integer "remote_account_id"
     t.integer "uid"
     t.text "remote_data"
@@ -87,7 +84,7 @@ ActiveRecord::Schema.define(version: 2016_03_01_141356) do
     t.index ["remote_account_id"], name: "index_remote_rentals_on_remote_account_id"
   end
 
-  create_table "rentals", id: :serial, force: :cascade do |t|
+  create_table "rentals", force: :cascade do |t|
     t.integer "account_id"
     t.integer "synced_id"
     t.text "synced_data"
