@@ -24,7 +24,7 @@ RSpec.describe Connection do
     let!(:rental) { create(:rental, account: account, id: 543) }
     let(:connection) { create(:connection, rental: rental) }
 
-    context 'on_save' do
+    context 'after_commit' do
       it 'publishes notification via message_bus' do
         expect(MessageBus).to receive(:publish).with("/account-123",
           { refresh_from: '/admin/rentals/543.js' })
