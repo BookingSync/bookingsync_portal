@@ -5,10 +5,6 @@ module BookingsyncPortal
     config.generators do |g|
       g.install :install
     end
-    config.app_middleware.use(
-      Rack::Static,
-      urls: ["/bookingsync-portal-packs"], root: "bookingsync-portal/public"
-    )
 
     if defined?(Sprockets) && Sprockets::VERSION.chr.to_i >= 3
       initializer 'bookingsync_portal.assets.precompile' do |app|
