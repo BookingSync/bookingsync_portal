@@ -2,7 +2,6 @@
 
 source "https://rubygems.org"
 
-gem "bootstrap-bookingsync-sass", git: "https://github.com/BookingSync/bootstrap-bookingsync-sass", branch: "make-it-work-with-sprockets-4"
 gem "rails", "~> 6.0"
 
 gemspec path: "../"
