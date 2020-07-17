@@ -1,5 +1,5 @@
 PATH
-  remote: .
+  remote: ..
   specs:
     bookingsync_portal (1.0.1)
       bookingsync_application (>= 4, < 5)
@@ -365,6 +365,7 @@ DEPENDENCIES
   byebug
   factory_girl_rails
   pry-rails
+  rails (~> 6.0)
   rails-controller-testing
   rspec-rails
   rubocop
