@@ -1,0 +1,5 @@
+<%- if yield(:warning_top).present? -%>
+  <div class="alert alert-warning alert-top" role="alert">
+    <%= yield(:warning_top) %>
+  </div>
+<%- end -%>
