@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails'
   s.add_dependency 'jquery-ui-rails', '~> 6.0.1'
   s.add_dependency 'bootstrap-sass', '< 3.5'
-  s.add_dependency 'bootstrap-bookingsync-sass', '~> 2.0.0'
+  s.add_dependency 'bootstrap-bookingsync-sass', '~> 3.0.0'
   s.add_dependency 'font-awesome-sass', '4.7.0'
   s.add_dependency 'handlebars_assets'
   s.add_dependency 'simple_form'
