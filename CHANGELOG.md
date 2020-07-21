@@ -1,5 +1,7 @@
 ### master
 
+# 3.0.0 - 2020-07-21
+
 * [BREAKING CHANGE] Drop support for rails prior to 5.2
 * [BREAKING CHANGE] Drop support for ruby prior to 2.5
 * [BREAKING CHANGE] update bookingsync_application dependency to be >= 4.0
