@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails'
   s.add_dependency 'sprockets-rails'
   s.add_dependency 'responders'
-  s.add_dependency 'bookingsync_application', ['>= 3', '< 4']
+  s.add_dependency 'bookingsync_application', ['>= 4']
   s.add_dependency 'redis'
   # FIXME: Will no longer be needed once UI moved to Ember
   s.add_dependency 'jquery-rails'
