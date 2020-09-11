@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :booking do
     transient do
       last_booking_end { bookings.maximum(:end_at) }
@@ -16,6 +16,6 @@ FactoryGirl.define do
       time.change(hour: 10)
     end
 
-    status "Booked"
+    status { "Booked" }
   end
 end

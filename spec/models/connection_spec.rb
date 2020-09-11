@@ -22,13 +22,16 @@ RSpec.describe Connection do
   context 'message_bus' do
     let(:account) { create(:account, id: 123) }
     let!(:rental) { create(:rental, account: account, id: 543) }
-    let(:connection) { create(:connection, rental: rental) }
+    let!(:remote_rental) { create(:remote_rental, account: account) }
+    let(:connection) { build(:connection, rental: rental, remote_rental: remote_rental) }
+
+    subject(:save) { connection.save }
 
     context 'on_save' do
       it 'publishes notification via message_bus' do
         expect(MessageBus).to receive(:publish).with("/account-123",
           { refresh_from: '/admin/rentals/543.js' })
-        connection
+        save
       end
     end
   end

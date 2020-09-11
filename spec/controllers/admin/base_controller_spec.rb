@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe BookingsyncPortal::Admin::BaseController do
+RSpec.describe BookingsyncPortal::Admin::BaseController do
   routes { BookingsyncPortal::Engine.routes }
 
   controller(BookingsyncPortal::Admin::RentalsController) do
