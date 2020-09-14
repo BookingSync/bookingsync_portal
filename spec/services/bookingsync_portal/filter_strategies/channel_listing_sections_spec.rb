@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe BookingsyncPortal::FilterStrategies::BlankRemoteAccounts do
+describe BookingsyncPortal::FilterStrategies::ChannelListingSections do
   describe ".call" do
     subject(:call) { described_class.call(records: records, search_filter: search_filter) }
 

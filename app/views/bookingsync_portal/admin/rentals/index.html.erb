@@ -10,8 +10,10 @@
         <legend class="text-center"><%= image_tag('bookingsync_portal/bookingsync.png', alt: 'BookingSync') %></legend>
       </div>
       <div class="rentals-list-scroll">
-        <%= render "rentals", visible_rentals: @visible_rentals,
-          not_connected_rentals: @not_connected_rentals %>
+        <%= render "core_listings",
+          available_listings_count: @available_listings_count,
+          core_listings: @core_listings
+        %>
       </div>
     </div>
   </div>
@@ -26,15 +28,15 @@
       </div>
 
       <div class="rentals-list-scroll">
-        <% @remote_accounts.each do |remote_account| %>
+        <% @channel_listing_sections.each do |channel_listing_section| %>
           <h3><%=t '.remote_header', portal_name: BookingsyncPortal.portal_name,
-            account_name: remote_account.name %></h3>
-          <%- if Array(@remote_rentals_by_account[remote_account]).length > 0 -%>
-            <% Array(@remote_rentals_by_account[remote_account]).each do |remote_rental| %>
-              <% if remote_rental.connected? %>
-                <%= render "connected_rental", remote_rental: remote_rental, rental: remote_rental.rental %>
+            account_name: channel_listing_section.name %></h3>
+          <%- if Array(@channel_listings_by_section[channel_listing_section]).length > 0 -%>
+            <% Array(@channel_listings_by_section[channel_listing_section]).each do |channel_listing| %>
+              <% if channel_listing.connected? %>
+                <%= render "connected_channel_listing", channel_listing: channel_listing, core_listing: channel_listing.rental %>
               <% else %>
-                <%= render "remote_rental", remote_rental: remote_rental %>
+                <%= render "channel_listing", channel_listing: channel_listing %>
               <% end %>
             <% end %>
           <%- elsif !BookingsyncPortal.create_remote_rental -%>
@@ -44,12 +46,12 @@
             </div>
           <%- end -%>
           <%- if BookingsyncPortal.create_remote_rental -%>
-            <%= render "new_remote_rental", remote_account: remote_account %>
+            <%= render "new_channel_listing", channel_listing_section: channel_listing_section %>
           <%- end -%>
         <% end %>
       </div>
       <div class="rentals-list-footer text-center">
-        <%= render partial: 'new_remote_account' %>
+        <%= render partial: 'new_channel_listing_section' %>
       </div>
     </div>
   </div>

@@ -1,20 +1,20 @@
-<%- if search_by_rentals? %>
+<%- if search_by_core_listings? %>
   list = $(".bookingsync-rentals-list.rentals-list .rentals-list-scroll")
   data = $("<%=escape_javascript(render file: 'bookingsync_portal/admin/rentals/index') %>")
   newList = $(data).find(".bookingsync-rentals-list.rentals-list .rentals-list-scroll").first()
   list.html(newList.html())
-  
+
   $(".bookingsync-rental").draggableRental()
   $(".panel.panel-remote").droppableRemoteRental()
-<%- elsif search_by_remote_rentals? %>
+<%- elsif search_by_channel_listings? %>
   list = $(".remote-rentals-list.rentals-list .rentals-list-scroll")
   data = $("<%=escape_javascript(render file: 'bookingsync_portal/admin/rentals/index') %>")
   newList = $(data).find(".remote-rentals-list.rentals-list .rentals-list-scroll").first()
   list.html(newList.html())
-  
+
   $(".bookingsync-rental").draggableRental()
   $(".panel.panel-remote").droppableRemoteRental()
 <%- end %>
 
-$("body").data("rentals-records-count", "<%= @not_connected_rentals.count %>")
-$("body").data("remote-rentals-records-count", "<%= @remote_rentals.count %>")
+$("body").data("rentals-records-count", "<%= @core_listings.count %>")
+$("body").data("remote-rentals-records-count", "<%= @channel_listings.count %>")

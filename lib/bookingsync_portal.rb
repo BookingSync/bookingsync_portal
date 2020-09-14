@@ -59,32 +59,62 @@ module BookingsyncPortal
   mattr_accessor :rate_model
   @@rate_model = 'BookingsyncPortal::Rate'
 
+  # UI related models
+  # Core listing model class. This data model is used to render rentals which are not connected yet
+  mattr_accessor :core_listing_model
+  @@core_listing_model = 'BookingsyncPortal::Rental'
+
+  # Channel listing model class. This data model is used to render already connected rentals
+  # Basically there is a connection data model which links rental from core and rental from channel.
+  # You should specify here the data model which stores rentals from the channel
+  mattr_accessor :channel_listing_model
+  @@channel_listing_model = 'BookingsyncPortal::RemoteRental'
+
+  # Channel listing section model class. Listings on the right side are grouped sometimes by a property or
+  # by the remote account. This is a general entity that acts in UI as a wrapper for channel listings
+  mattr_accessor :channel_listing_section_model
+  @@channel_listing_section_model = 'BookingsyncPortal::RemoteAccount'
+
+  # This is an entry to all initial database queries. Basically all methods return ActiveRecord::Relation
+  # object so it is easy to leak a bit and use it further (like in apply_pagination or apply_search methods)
+  #
+  # Example:
+  #   BookingsyncPortal.listings_repository_proc.call(account).find_core_listings
+  mattr_accessor :listings_repository_proc
+  @@listings_repository_proc = ->(account) { BookingsyncPortal::ListingsRepository.new(account) }
+
   # whether load-all (false) or paginated (true) view should be used for admin#index
   mattr_accessor :use_paginated_view
   @@use_paginated_view = -> (_account) { false }
 
-  # search by not connected rentals
-  mattr_accessor :rentals_search
-  @@rentals_search = {
+  # search fields for core listings
+  mattr_accessor :core_listings_search_fields
+  @@core_listings_search_fields = {
     numeric: %w(synced_id),
     string: %w(name)
   }
-  
-  # search by remote rentals rentals
-  mattr_accessor :remote_rentals_search
-  @@remote_rentals_search = {
+
+  # search fields for channel listings
+  mattr_accessor :channel_listings_search_fields
+  @@channel_listings_search_fields = {
     numeric: %w(uid remote_account.uid),
     string: %w(rental.name)
   }
 
+  # search fields for channel listing sections
+  mattr_accessor :channel_listing_sections_search_fields
+  @@channel_listing_sections_search_fields = {
+    numeric: %w(uid)
+  }
+
   mattr_accessor :filter_strategies
   @@filter_strategies = [
-    "BookingsyncPortal::FilterStrategies::Rentals",
-    "BookingsyncPortal::FilterStrategies::RemoteRentals",
-    "BookingsyncPortal::FilterStrategies::BlankRemoteAccounts"
+    "BookingsyncPortal::FilterStrategies::CoreListings",
+    "BookingsyncPortal::FilterStrategies::ChannelListings",
+    "BookingsyncPortal::FilterStrategies::ChannelListingSections"
   ]
 
-  # the number of items that will be displayed per page
+  # the number of listings that will be displayed per page
   # works only with enabled use_paginated_view
   mattr_accessor :items_per_page
   @@items_per_page = 25
@@ -95,17 +125,12 @@ module BookingsyncPortal
   mattr_accessor :after_rentals_index_action_filter
   @@after_rentals_index_action_filter = -> (_controller) { }
 
-  # included tables for remote_rentals_by_account
-  mattr_accessor :remote_rentals_by_account_included_tables
-  @@remote_rentals_by_account_included_tables = %w(remote_account rental)
-
   # message bus channel scope
   mattr_accessor :message_bus_channel_scope
 
-  # fetch remote rentals
-  def self.fetch_remote_rentals(account)
-    # return false if remote account is not present or not valid
-  end
+  # is it required to sync listings before showing them
+  mattr_accessor :should_synchronize_core_listings
+  @@should_synchronize_core_listings = true
 
   # Default way to setup BookingsyncPortal. Run rails generate bookingsync_portal:install to create
   # a fresh initializer with all configuration values.

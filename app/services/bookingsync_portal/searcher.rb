@@ -2,7 +2,7 @@ class BookingsyncPortal::Searcher
   def self.call(query:, search_settings:, records:)
     return records if query.blank?
     return records if search_settings.blank?
-    
+
     conditions = { m: "or" }
 
     search_settings.each do |type, filtered_fields|

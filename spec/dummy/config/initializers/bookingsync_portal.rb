@@ -30,6 +30,21 @@ BookingsyncPortal.setup do |config|
   # customize rate model class, can extend BookingsyncPortal::Rate, set to nil if not used
   config.rate_model = '::Rate'
 
+  # UI related models
+  # Core listing model class. This data model is used to render rentals which are not connected yet
+  config.core_listing_model = '::Rental'
+
+  # Channel listing model class. This data model is used to render already connected rentals
+  # Basically there is a connection data model which links rental from core and rental from channel.
+  # You should specify here the data model which stores rentals from the channel
+  config.channel_listing_model = '::RemoteRental'
+
+  # Channel listing section model class. Listings on the right side are grouped sometimes by a property or
+  # by the remote account. This is a general entity that acts in UI as a wrapper for channel listings
+  config.channel_listing_section_model = '::RemoteAccount'
+
+  config.listings_repository_proc = ->(account) { ListingsRepository.new(account) }
+
   # handle synchronization of rentals after connection is made
   # def config.connection_created(connection)
   # end

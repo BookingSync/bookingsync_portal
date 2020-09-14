@@ -1,4 +1,2 @@
-module BookingsyncPortal
-  module FilterStrategies
-  end
+module BookingsyncPortal::FilterStrategies
 end

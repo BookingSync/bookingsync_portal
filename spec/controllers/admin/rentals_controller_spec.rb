@@ -12,7 +12,7 @@ describe BookingsyncPortal::Admin::RentalsController do
   let!(:remote_account_connected) { create(:remote_account, account: account, uid: 3002) }
   let!(:remote_rental_connected) { create(:remote_rental, remote_account: remote_account_connected, uid: 2002) }
   let!(:connection) { create(:connection, rental: rental_connected, remote_rental: remote_rental_connected) }
-  let!(:remote_account_empty) { create(:remote_account, account: account, uid: 3003) }
+  let!(:remote_account_empty) { create(:remote_account, account: account, uid: 1234) }
 
   before do
     request.env['HTTPS'] = 'on'
@@ -39,20 +39,20 @@ describe BookingsyncPortal::Admin::RentalsController do
 
     let(:params) do
       {
-        rentals_search: {query: rentals_search_query, page: rentals_search_page},
-        remote_rentals_search: {query: remote_rentals_search_query, page: remote_rentals_search_page},
+        core_listings_search: {query: core_listings_search_query, page: core_listings_search_page},
+        channel_listings_search: {query: channel_listings_search_query, page: channel_listings_search_page},
       }
     end
-    let(:rentals_search_query) { "" }
-    let(:rentals_search_page) { 1 }
-    let(:remote_rentals_search_query) { "" }
-    let(:remote_rentals_search_page) { 1 }
+    let(:core_listings_search_query) { "" }
+    let(:core_listings_search_page) { 1 }
+    let(:channel_listings_search_query) { "" }
+    let(:channel_listings_search_page) { 1 }
     let(:request_format) { :html }
 
     context "when format is js" do
       let(:request_format) { :js }
 
-      it "does not call Rental.synchronize for current_account" do
+      it "does not call Rental.synchronize" do
         expect(Rental).not_to receive(:synchronize).with(scope: account)
         index_with_search
       end
@@ -68,148 +68,169 @@ describe BookingsyncPortal::Admin::RentalsController do
         end
       end
 
-      it "calls Rental.synchronize for current_account" do
+      it "calls Rental.synchronize" do
         expect(Rental).to receive(:synchronize).with(scope: account)
         index_with_search
       end
     end
 
-    context "when there is rentals_search query" do
-      context "and it's empty string" do
-        let(:rentals_search_query) { "" }
+    context "when there is core listings search query" do
+      context "and it's an empty string" do
+        let(:core_listings_search_query) { "" }
 
-        it "does not filter rentals" do
+        it "does not filter core listings" do
           index_with_search
-          expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-          expect(assigns(:remote_rentals_by_account)).to eq({
+          expect(assigns(:core_listings)).to contain_exactly(rental)
+          expect(assigns(:channel_listings_by_section)).to eq({
             remote_account_connected => [remote_rental_connected],
-            remote_account => [remote_rental],
-            remote_account_empty => []
+            remote_account => [remote_rental]
           })
-          expect(assigns(:remote_rentals_by_account).first).to eq([remote_account_empty, []])
+          expect(assigns(:channel_listing_sections)).to eq([
+            remote_account_empty,
+            remote_account_connected,
+            remote_account
+          ])
         end
 
         context "and goes to the next page" do
-          let(:rentals_search_page) { 2 }
+          let(:core_listings_search_page) { 2 }
 
-          it "appies pagination only for not_connected_rentals" do
+          it "applies pagination only for core listings" do
             index_with_search
-            expect(assigns(:not_connected_rentals)).to be_blank
-
-            expect(assigns(:remote_rentals_by_account)).to eq({
+            expect(assigns(:core_listings)).to be_blank
+            expect(assigns(:channel_listings_by_section)).to eq({
               remote_account_connected => [remote_rental_connected],
               remote_account => [remote_rental],
-              remote_account_empty => []
             })
-            expect(assigns(:remote_rentals_by_account).first).to eq([remote_account_empty, []])
+            expect(assigns(:channel_listing_sections)).to eq([
+              remote_account_empty,
+              remote_account_connected,
+              remote_account
+            ])
           end
         end
       end
-      
+
       context "and it's attempt to filter by" do
         context "rental.synced_id" do
-          let(:rentals_search_query) { "#{rental.synced_id}" }
-  
-          it "filters not_connected_rentals but does not filter remote_rentals part" do
+          let(:core_listings_search_query) { "#{rental.synced_id}" }
+
+          it "filters core listings but does not filter channel listings part" do
             index_with_search
-            expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-            expect(assigns(:remote_rentals_by_account)).to eq({
+            expect(assigns(:core_listings)).to contain_exactly(rental)
+            expect(assigns(:channel_listings_by_section)).to eq({
               remote_account_connected => [remote_rental_connected],
               remote_account => [remote_rental],
-              remote_account_empty => []
             })
-            expect(assigns(:remote_rentals_by_account).first).to eq([remote_account_empty, []])
+            expect(assigns(:channel_listing_sections)).to eq([
+              remote_account_empty,
+              remote_account_connected,
+              remote_account
+            ])
           end
         end
 
         context "rental_connected.synced_id" do
-          let(:rentals_search_query) { "#{rental_connected.synced_id}" }
+          let(:core_listings_search_query) { "#{rental_connected.synced_id}" }
 
-          it "filters not_connected_rentals but does not filter remote_rentals part" do
+          it "filters core listings but does not filter channel listings part" do
             index_with_search
-            expect(assigns(:not_connected_rentals)).to be_blank
-            expect(assigns(:remote_rentals_by_account)).to eq({
+            expect(assigns(:core_listings)).to be_blank
+            expect(assigns(:channel_listings_by_section)).to eq({
               remote_account_connected => [remote_rental_connected],
-              remote_account => [remote_rental],
-              remote_account_empty => []
+              remote_account => [remote_rental]
             })
-            expect(assigns(:remote_rentals_by_account).first).to eq([remote_account_empty, []])
+            expect(assigns(:channel_listing_sections)).to eq([
+              remote_account_empty,
+              remote_account_connected,
+              remote_account
+            ])
           end
         end
       end
     end
-    
-    context "when there is remote_rentals_search query" do
-      context "and it's empty string" do
-        let(:remote_rentals_search_query) { "" }
 
-        it "does not filter rentals" do
+    context "when there is channel listings search query" do
+      context "and it's an empty string" do
+        let(:channel_listings_search_query) { "" }
+
+        it "does not filter core listings" do
           index_with_search
-          expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-          expect(assigns(:remote_rentals_by_account)).to eq({ 
+          expect(assigns(:core_listings)).to contain_exactly(rental)
+          expect(assigns(:channel_listings_by_section)).to eq({
             remote_account_connected => [remote_rental_connected],
-            remote_account => [remote_rental],
-            remote_account_empty => []
+            remote_account => [remote_rental]
           })
-          expect(assigns(:remote_rentals_by_account).first).to eq([remote_account_empty, []])
+          expect(assigns(:channel_listing_sections)).to eq([
+            remote_account_empty,
+            remote_account_connected,
+            remote_account
+          ])
         end
 
         context "and goes to the next page" do
-          let(:remote_rentals_search_page) { 2 }
+          let(:channel_listings_search_page) { 2 }
 
-          it "appies pagination only for remote_rentals" do
+          it "applies pagination only for channel listings" do
             index_with_search
-            expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-            expect(assigns(:remote_rentals_by_account)).to be_blank
+            expect(assigns(:core_listings)).to contain_exactly(rental)
+            expect(assigns(:channel_listings_by_section)).to be_empty
+            expect(assigns(:channel_listing_sections)).to be_empty
           end
         end
       end
-      
+
       context "and it's attempt to filter by" do
         context "remote_account.uid" do
-          let(:remote_rentals_search_query) { "#{remote_account.uid}" }
+          let(:channel_listings_search_query) { "#{remote_account.uid}" }
 
-          it "filters remote_rentals but does not filter not_connected_rentals part" do
+          it "filters channel listings but does not filter core listings part" do
             index_with_search
-            expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-            expect(assigns(:remote_rentals_by_account)).to eq({ 
+            expect(assigns(:core_listings)).to contain_exactly(rental)
+            expect(assigns(:channel_listings_by_section)).to eq({
               remote_account => [remote_rental]
             })
+            expect(assigns(:channel_listing_sections)).to eq([
+              remote_account
+            ])
           end
         end
 
         context "remote_account_connected.uid" do
-          let(:remote_rentals_search_query) { "#{remote_account_connected.uid}" }
+          let(:channel_listings_search_query) { "#{remote_account_connected.uid}" }
 
-          it "filters remote_rentals but does not filter not_connected_rentals part" do
+          it "filters channel listings but does not filter core listings part" do
             index_with_search
-            expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-            expect(assigns(:remote_rentals_by_account)).to eq({ 
+            expect(assigns(:core_listings)).to contain_exactly(rental)
+            expect(assigns(:channel_listings_by_section)).to eq({
               remote_account_connected => [remote_rental_connected]
             })
+            expect(assigns(:channel_listing_sections)).to eq([
+              remote_account_connected
+            ])
           end
         end
 
         context "remote_account_empty.uid" do
-          let(:remote_rentals_search_query) { "#{remote_account_empty.uid}" }
+          let(:channel_listings_search_query) { "#{remote_account_empty.uid}" }
 
-          it "filters remote_rentals but does not filter not_connected_rentals part" do
+          it "filters channel listings but does not filter core listings part" do
             index_with_search
-            expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-            expect(assigns(:remote_rentals_by_account)).to eq({ 
-              remote_account_empty => []
-            })
+            expect(assigns(:core_listings)).to contain_exactly(rental)
+            expect(assigns(:channel_listings_by_section)).to be_empty
+            expect(assigns(:channel_listing_sections)).to eq([
+              remote_account_empty
+            ])
           end
         end
-
       end
     end
 
     context "when there is before_rentals_index_action_filter setting" do
       let(:rentals_index_action_extention) do
         Proc.new do |controller|
-          controller.action_variables.not_connected_rentals = Rental.all
-          controller.action_variables.remote_rentals = RemoteRental.all
+          controller.action_variables.core_listings = Rental.all
+          controller.action_variables.channel_listings = RemoteRental.all
           controller.action_variables.custom_variable = "BookingSync"
         end
       end
@@ -224,17 +245,17 @@ describe BookingsyncPortal::Admin::RentalsController do
 
       it "applies extended logic" do
         index_with_search
-        expect(assigns(:not_connected_rentals)).not_to eq(Rental.all) # will be overridden
-        expect(assigns(:remote_rentals)).not_to eq(RemoteRental.all)  # will be overridden
+        expect(assigns(:core_listings)).not_to eq(Rental.all) # will be overridden
+        expect(assigns(:channel_listings)).not_to eq(RemoteRental.all)  # will be overridden
         expect(assigns(:custom_variable)).to eq("BookingSync")
       end
-    end    
+    end
 
     context "when there is after_rentals_index_action_filter setting" do
       let(:rentals_index_action_extention) do
         Proc.new do |controller|
-          controller.action_variables.not_connected_rentals = Rental.all
-          controller.action_variables.remote_rentals = RemoteRental.all
+          controller.action_variables.core_listings = Rental.all
+          controller.action_variables.channel_listings = RemoteRental.all
           controller.action_variables.custom_variable = "BookingSync"
         end
       end
@@ -249,72 +270,83 @@ describe BookingsyncPortal::Admin::RentalsController do
 
       it "applies extended logic" do
         index_with_search
-        expect(assigns(:not_connected_rentals)).to eq(Rental.all)
-        expect(assigns(:remote_rentals)).to eq(RemoteRental.all)
+        expect(assigns(:core_listings)).to eq(Rental.all)
+        expect(assigns(:channel_listings)).to eq(RemoteRental.all)
         expect(assigns(:custom_variable)).to eq("BookingSync")
       end
     end
 
-    context "when there are several remote_rentals belonged to several remote_accounts" do
+    context "when there are several channel listings inside several sections" do
       let!(:remote_account1) { remote_account }
       let!(:remote_account2) { remote_account_connected }
       let!(:remote_account3) { create(:remote_account, account: account) }
 
       let!(:remote_rental_11) { remote_rental }
       let!(:remote_rental_21) { remote_rental_connected }
-      let!(:remote_rental_31) { create(:remote_rental, remote_account: remote_account3) }
+      let!(:remote_rental_31) { create(:remote_rental, remote_account: remote_account3, uid: "123") }
 
-      let!(:remote_rental_12) { create(:remote_rental, remote_account: remote_account1) }
-      let!(:remote_rental_22) { create(:remote_rental, remote_account: remote_account2) }
-      let!(:remote_rental_32) { create(:remote_rental, remote_account: remote_account3) }
+      let!(:remote_rental_12) { create(:remote_rental, remote_account: remote_account1, uid: "456") }
+      let!(:remote_rental_22) { create(:remote_rental, remote_account: remote_account2, uid: "124") }
+      let!(:remote_rental_32) { create(:remote_rental, remote_account: remote_account3, uid: "125") }
 
-      let!(:remote_rental_13) { create(:remote_rental, remote_account: remote_account1) }
-      let!(:remote_rental_23) { create(:remote_rental, remote_account: remote_account2) }
-      let!(:remote_rental_33) { create(:remote_rental, remote_account: remote_account3) }
+      let!(:remote_rental_13) { create(:remote_rental, remote_account: remote_account1, uid: "126") }
+      let!(:remote_rental_23) { create(:remote_rental, remote_account: remote_account2, uid: "127") }
+      let!(:remote_rental_33) { create(:remote_rental, remote_account: remote_account3, uid: "128") }
 
       before do
         allow(BookingsyncPortal).to receive(:items_per_page).and_return(4)
       end
 
       context "and there is the first page" do
-        let(:remote_rentals_search_page) { 1 }
+        let(:channel_listings_search_page) { 1 }
 
-        it "displayes recors in corrent order" do
+        it "displays records in correct order" do
           index_with_search
 
-          expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-          expect(assigns(:remote_rentals_by_account)).to eq({
-            remote_account_empty => [],
-            remote_account3 => [remote_rental_31, remote_rental_32, remote_rental_33],
-            remote_account2 => [remote_rental_21],
+          expect(assigns(:core_listings)).to contain_exactly(rental)
+          expect(assigns(:channel_listings_by_section)).to eq({
+            remote_account3 => [remote_rental_33, remote_rental_32, remote_rental_31],
+            remote_account2 => [remote_rental_23],
           })
+          expect(assigns(:channel_listing_sections)).to eq([
+            remote_account_empty,
+            remote_account3,
+            remote_account2
+          ])
         end
       end
 
       context "and there is the second page" do
-        let(:remote_rentals_search_page) { 2 }
+        let(:channel_listings_search_page) { 2 }
 
-        it "displayes recors in corrent order" do
+        it "displays records in correct order" do
           index_with_search
 
-          expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-          expect(assigns(:remote_rentals_by_account)).to eq({
-            remote_account2 => [remote_rental_22, remote_rental_23],
-            remote_account1 => [remote_rental_11, remote_rental_12],
+          expect(assigns(:core_listings)).to contain_exactly(rental)
+          expect(assigns(:channel_listings_by_section)).to eq({
+            remote_account2 => [remote_rental_22, remote_rental_21],
+            remote_account1 => [remote_rental_13, remote_rental_12],
           })
+          expect(assigns(:channel_listing_sections)).to eq([
+            remote_account2,
+            remote_account1
+          ])
         end
       end
 
       context "and there is the third page" do
-        let(:remote_rentals_search_page) { 3 }
+        let(:channel_listings_search_page) { 3 }
 
-        it "displayes recors in corrent order" do
+        it "displays records in correct order" do
           index_with_search
 
-          expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-          expect(assigns(:remote_rentals_by_account)).to eq({
-            remote_account1 => [remote_rental_13],
+          expect(assigns(:core_listings)).to contain_exactly(rental)
+          expect(assigns(:channel_listings_by_section)).to eq({
+            remote_account1 => [remote_rental_11],
           })
+          expect(assigns(:channel_listing_sections)).to eq([
+            remote_account1
+          ])
         end
       end
     end

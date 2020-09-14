@@ -1,0 +1,28 @@
+<div id="<%= dom_id core_listing %>" class="panel panel-connected <%= "pending" if !channel_listing.synchronized? %>">
+  <div class="panel-body-grid">
+    <div class="panel-body-grid-photo">
+      <%- if core_listing.ordered_photos.first -%>
+        <%= image_tag core_listing.ordered_photos.first.thumb_url, class: "img-responsive" %>
+      <%- end -%>
+    </div>
+    <div class="panel-body-grid-text">
+      <h4 title="<%= RemoteRental.human_attribute_name(:uid) %>: <%= channel_listing.uid %>">
+          <%= core_listing.name %><br>
+          <small><%= channel_listing.display_name %></small>
+      </h4>
+      <div class="status">
+        <%= link_to BookingsyncPortal::Engine.routes.url_helpers.admin_connection_path(core_listing.connection),
+          class: ["btn", "btn-xs", "remove-connection", channel_listing.synchronized? ? "btn-success" : "btn-warning"],
+          data: { disable_with: t('.disconnecting_rental') }, method: :delete, remote: true do %>
+          <% unless channel_listing.synchronized? %>
+            <span class="hover_hide"><%= icon('spinner') %></span>
+          <% else %>
+            <span class="hover_hide"><%= icon('check') %></span>
+          <% end %>
+          <span class="hover_show"><%= t('.disconnect_rental') %></span>
+        <% end %>
+      </div>
+      <p class="text-overflow"><%= core_listing_details(core_listing) %></p>
+    </div>
+  </div>
+</div>

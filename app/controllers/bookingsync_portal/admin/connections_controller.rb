@@ -17,8 +17,10 @@ module BookingsyncPortal
 
       def destroy
         @connection = current_account.connections.find(params[:id]).destroy
-        @not_connected_rentals = current_account.rentals.visible.ordered.not_connected
-        @visible_rentals = current_account.rentals.visible
+
+        listings_repository = BookingsyncPortal.listings_repository_proc.call(current_account)
+        @core_listings = listings_repository.find_core_listings
+        @available_listings_count = listings_repository.get_available_listings_count
 
         respond_to do |wants|
           wants.html { redirect_to admin_rentals_path }

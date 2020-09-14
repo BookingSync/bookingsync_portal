@@ -1,0 +1,14 @@
+<div class="panel panel-bookingsync bookingsync-rental"
+  id="<%= dom_id core_listing %>">
+  <div class="panel-body-grid">
+    <div class="panel-body-grid-photo">
+      <%- if core_listing.ordered_photos.first -%>
+        <%= image_tag core_listing.ordered_photos.first.thumb_url, class: "img-responsive" %>
+      <%- end -%>
+    </div>
+    <div class="panel-body-grid-text">
+      <h4><%= core_listing.name.presence || t('.no_name') %></h4>
+      <p class="text-overflow"><%= core_listing_details core_listing %></p>
+    </div>
+  </div>
+</div>

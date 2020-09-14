@@ -1,12 +1,12 @@
-<%- if visible_rentals.count == 0 -%>
+<%- if available_listings_count == 0 -%>
   <div class="lead text-center well">
     <p><%= t('.no_published_rentals_html', id: current_account.synced_id) %></p>
   </div>
-<%- elsif not_connected_rentals.count > 0 -%>
-  <% not_connected_rentals.each do |rental| %>
-    <%= render rental %>
+<%- elsif core_listings.count > 0 -%>
+  <% core_listings.each do |core_listing| %>
+    <%= render "core_listing", core_listing: core_listing %>
   <% end %>
-<%- elsif params[:controller] == "bookingsync_portal/admin/connections" && (search_by_rentals? || search_by_remote_rentals?) %>
+<%- elsif params[:controller] == "bookingsync_portal/admin/connections" && (search_by_core_listings? || search_by_channel_listings?) %>
   <div class="lead text-center well">
     <p class=""><%= icon 'search fa-lg' %></p>
     <p><%=t '.no_results' %></p>

@@ -4,17 +4,17 @@ describe BookingsyncPortal::SearchFilter do
   let(:search_filter) { described_class.new(params) }
   let(:params) do
     {
-      rentals_search: rentals_search,
-      remote_rentals_search: remote_rentals_search,
+      core_listings_search: core_listings_search,
+      channel_listings_search: channel_listings_search,
     }
   end
-  let(:remote_rentals_search) { {} }
-  let(:rentals_search) { {} }
+  let(:channel_listings_search) { {} }
+  let(:core_listings_search) { {} }
 
-  describe "#rentals_query" do
-    subject(:rentals_query) { search_filter.rentals_query }
-    
-    let(:rentals_search) { { query: query } }
+  describe "#core_listings_query" do
+    subject(:core_listings_query) { search_filter.core_listings_query }
+
+    let(:core_listings_search) { { query: query } }
 
     context "when query is blank" do
       let(:query) { "" }
@@ -24,17 +24,17 @@ describe BookingsyncPortal::SearchFilter do
 
     context "when query exists" do
       let(:query) { "bla-bla" }
-      
+
       it { is_expected.to eq(query) }
     end
   end
 
-  describe "#remote_rentals_query" do
-    subject(:remote_rentals_query) { search_filter.remote_rentals_query }
+  describe "#channel_listings_query" do
+    subject(:channel_listings_query) { search_filter.channel_listings_query }
 
-    let(:remote_rentals_search) { { query: query } }
+    let(:channel_listings_search) { { query: query } }
 
-    context "when remote_rentals_page is blank" do
+    context "when channel_listings_page is blank" do
       let(:query) { "" }
 
       it { is_expected.to be_blank }
@@ -42,16 +42,16 @@ describe BookingsyncPortal::SearchFilter do
 
     context "when query exists" do
       let(:query) { "bla-bla" }
-      
+
       it { is_expected.to eq(query) }
     end
   end
 
-  describe "#rentals_page" do
-    subject(:rentals_page) { search_filter.rentals_page }
+  describe "#core_listings_page" do
+    subject(:core_listings_page) { search_filter.core_listings_page }
 
-    let(:rentals_search) { { page: page } }
-    
+    let(:core_listings_search) { { page: page } }
+
     context "when page is blank" do
       let(:page) { "" }
 
@@ -66,11 +66,11 @@ describe BookingsyncPortal::SearchFilter do
 
   end
 
-  describe "#remote_rentals_page" do
-    subject(:remote_rentals_page) { search_filter.remote_rentals_page }
+  describe "#channel_listings_page" do
+    subject(:channel_listings_page) { search_filter.channel_listings_page }
 
-    let(:remote_rentals_search) { { page: page } }
-    
+    let(:channel_listings_search) { { page: page } }
+
     context "when page is blank" do
       let(:page) { "" }
 
