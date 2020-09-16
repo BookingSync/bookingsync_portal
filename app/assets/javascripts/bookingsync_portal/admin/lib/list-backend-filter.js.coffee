@@ -5,12 +5,12 @@ class @ListBackedFilter
     @form = $(formTemplate)
     @insertForm()
     @observeFormChanges()
-    
+
     @paginationTemplate ||= $(HandlebarsTemplates["pagination"]())
     @insertPagination()
     @observePageChanges()
 
-    @loadingTemplate = $(HandlebarsTemplates["loading"]()) 
+    @loadingTemplate = $(HandlebarsTemplates["loading"]())
 
     @doneTypingInterval = 1500 # 1.5 seconds wait after each keyup before sending search request
     @typingTimer = undefined
@@ -34,9 +34,9 @@ class @ListBackedFilter
       @paginationTemplate.find("[data-type=previous]").removeClass("disabled")
 
     if @lastPage()
-      @paginationTemplate.find("[data-type=next]").addClass("disabled") 
+      @paginationTemplate.find("[data-type=next]").addClass("disabled")
     else
-      @paginationTemplate.find("[data-type=next]").removeClass("disabled") 
+      @paginationTemplate.find("[data-type=next]").removeClass("disabled")
 
   setPage: (page)->
     $(@form).data("current-page", page)
@@ -48,11 +48,11 @@ class @ListBackedFilter
     @currentPage() == 1
 
   lastPage: ->
-    $(".bookingsync-rentals-list").find(".panel").length < $("body").data("items-per-page")
     if @form.parents(".bookingsync-rentals-list").length > 0
       itemsCount = $("body").data("rentals-records-count")
     else
       itemsCount = $("body").data("remote-rentals-records-count")
+
     parseInt(itemsCount) < $("body").data("items-per-page")
 
   observeFormChanges: ->
@@ -90,15 +90,15 @@ class @ListBackedFilter
 
   getSearchQuery: ->
     if @form.parents(".bookingsync-rentals-list").length > 0
-      fieldName = "rentals_search"
+      fieldName = "core_listings_search"
     else
-      fieldName = "remote_rentals_search"
+      fieldName = "channel_listings_search"
     searchParams = ["#{fieldName}[page]=#{@currentPage()}"]
     $(@form.serialize().split("&")).each (_, item) ->
       key = item.split("=")[0]
       value = item.split("=")[1]
       searchParams.push("#{fieldName}[#{key}]=#{value}")
-      
+
     "#{document.location.href}.js?#{searchParams.join("&")}"
 
   goToPreviousPage: (e) =>
@@ -108,7 +108,7 @@ class @ListBackedFilter
     @displayWaiting()
     clearTimeout(@typingTimer)
     @backendSearch()
-    
+
    goToNextPage: (e) =>
     e.preventDefault()
     return if @lastPage()

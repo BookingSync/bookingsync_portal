@@ -1,6 +1,6 @@
 $ ->
   if $("body").data("paginated-view")
-    Filter = ListBackedFilter 
+    Filter = ListBackedFilter
   else
     Filter = ListFilter
 

@@ -37,16 +37,10 @@ describe BookingsyncPortal::Admin::RentalsController do
       get :index_with_search, params: params, format: request_format
     end
 
-    let(:params) do
-      {
-        core_listings_search: {query: core_listings_search_query, page: core_listings_search_page},
-        channel_listings_search: {query: channel_listings_search_query, page: channel_listings_search_page},
-      }
-    end
-    let(:core_listings_search_query) { "" }
-    let(:core_listings_search_page) { 1 }
-    let(:channel_listings_search_query) { "" }
-    let(:channel_listings_search_page) { 1 }
+    let(:params) { core_listings_search.merge(channel_listings_search) }
+
+    let(:core_listings_search) { {} }
+    let(:channel_listings_search) { {} }
     let(:request_format) { :html }
 
     context "when format is js" do
@@ -75,21 +69,23 @@ describe BookingsyncPortal::Admin::RentalsController do
     end
 
     context "when there is core listings search query" do
-      context "and it's an empty string" do
-        let(:core_listings_search_query) { "" }
+      let(:core_listings_search) do
+        {
+          core_listings_search: {
+            query: core_listings_search_query,
+            page: core_listings_search_page
+          }
+        }
+      end
+      let(:core_listings_search_page) { 1 }
+      let(:core_listings_search_query) { "" }
 
+      context "and it's an empty string" do
         it "does not filter core listings" do
           index_with_search
           expect(assigns(:core_listings)).to contain_exactly(rental)
-          expect(assigns(:channel_listings_by_section)).to eq({
-            remote_account_connected => [remote_rental_connected],
-            remote_account => [remote_rental]
-          })
-          expect(assigns(:channel_listing_sections)).to eq([
-            remote_account_empty,
-            remote_account_connected,
-            remote_account
-          ])
+          expect(assigns(:channel_listings_by_section)).to be_empty
+          expect(assigns(:channel_listing_sections)).to be_empty
         end
 
         context "and goes to the next page" do
@@ -97,16 +93,9 @@ describe BookingsyncPortal::Admin::RentalsController do
 
           it "applies pagination only for core listings" do
             index_with_search
-            expect(assigns(:core_listings)).to be_blank
-            expect(assigns(:channel_listings_by_section)).to eq({
-              remote_account_connected => [remote_rental_connected],
-              remote_account => [remote_rental],
-            })
-            expect(assigns(:channel_listing_sections)).to eq([
-              remote_account_empty,
-              remote_account_connected,
-              remote_account
-            ])
+            expect(assigns(:core_listings)).to be_empty
+            expect(assigns(:channel_listings_by_section)).to be_empty
+            expect(assigns(:channel_listing_sections)).to be_empty
           end
         end
       end
@@ -118,15 +107,8 @@ describe BookingsyncPortal::Admin::RentalsController do
           it "filters core listings but does not filter channel listings part" do
             index_with_search
             expect(assigns(:core_listings)).to contain_exactly(rental)
-            expect(assigns(:channel_listings_by_section)).to eq({
-              remote_account_connected => [remote_rental_connected],
-              remote_account => [remote_rental],
-            })
-            expect(assigns(:channel_listing_sections)).to eq([
-              remote_account_empty,
-              remote_account_connected,
-              remote_account
-            ])
+            expect(assigns(:channel_listings_by_section)).to be_empty
+            expect(assigns(:channel_listing_sections)).to be_empty
           end
         end
 
@@ -136,27 +118,30 @@ describe BookingsyncPortal::Admin::RentalsController do
           it "filters core listings but does not filter channel listings part" do
             index_with_search
             expect(assigns(:core_listings)).to be_blank
-            expect(assigns(:channel_listings_by_section)).to eq({
-              remote_account_connected => [remote_rental_connected],
-              remote_account => [remote_rental]
-            })
-            expect(assigns(:channel_listing_sections)).to eq([
-              remote_account_empty,
-              remote_account_connected,
-              remote_account
-            ])
+            expect(assigns(:channel_listings_by_section)).to be_empty
+            expect(assigns(:channel_listing_sections)).to be_empty
           end
         end
       end
     end
 
     context "when there is channel listings search query" do
-      context "and it's an empty string" do
-        let(:channel_listings_search_query) { "" }
+      let(:channel_listings_search) do
+        {
+          channel_listings_search: {
+            query: channel_listings_search_query,
+            page: channel_listings_search_page
+          }
+        }
+      end
 
+      let(:channel_listings_search_query) { "" }
+      let(:channel_listings_search_page) { 1 }
+
+      context "and it's an empty string" do
         it "does not filter core listings" do
           index_with_search
-          expect(assigns(:core_listings)).to contain_exactly(rental)
+          expect(assigns(:core_listings)).to be_empty
           expect(assigns(:channel_listings_by_section)).to eq({
             remote_account_connected => [remote_rental_connected],
             remote_account => [remote_rental]
@@ -173,7 +158,7 @@ describe BookingsyncPortal::Admin::RentalsController do
 
           it "applies pagination only for channel listings" do
             index_with_search
-            expect(assigns(:core_listings)).to contain_exactly(rental)
+            expect(assigns(:core_listings)).to be_empty
             expect(assigns(:channel_listings_by_section)).to be_empty
             expect(assigns(:channel_listing_sections)).to be_empty
           end
@@ -186,7 +171,7 @@ describe BookingsyncPortal::Admin::RentalsController do
 
           it "filters channel listings but does not filter core listings part" do
             index_with_search
-            expect(assigns(:core_listings)).to contain_exactly(rental)
+            expect(assigns(:core_listings)).to be_empty
             expect(assigns(:channel_listings_by_section)).to eq({
               remote_account => [remote_rental]
             })
@@ -201,7 +186,7 @@ describe BookingsyncPortal::Admin::RentalsController do
 
           it "filters channel listings but does not filter core listings part" do
             index_with_search
-            expect(assigns(:core_listings)).to contain_exactly(rental)
+            expect(assigns(:core_listings)).to be_empty
             expect(assigns(:channel_listings_by_section)).to eq({
               remote_account_connected => [remote_rental_connected]
             })
@@ -216,7 +201,7 @@ describe BookingsyncPortal::Admin::RentalsController do
 
           it "filters channel listings but does not filter core listings part" do
             index_with_search
-            expect(assigns(:core_listings)).to contain_exactly(rental)
+            expect(assigns(:core_listings)).to be_empty
             expect(assigns(:channel_listings_by_section)).to be_empty
             expect(assigns(:channel_listing_sections)).to eq([
               remote_account_empty
@@ -293,6 +278,14 @@ describe BookingsyncPortal::Admin::RentalsController do
       let!(:remote_rental_23) { create(:remote_rental, remote_account: remote_account2, uid: "127") }
       let!(:remote_rental_33) { create(:remote_rental, remote_account: remote_account3, uid: "128") }
 
+      let(:params) do
+        {
+          channel_listings_search: {
+            page: channel_listings_search_page
+          }
+        }
+      end
+
       before do
         allow(BookingsyncPortal).to receive(:items_per_page).and_return(4)
       end
@@ -303,7 +296,7 @@ describe BookingsyncPortal::Admin::RentalsController do
         it "displays records in correct order" do
           index_with_search
 
-          expect(assigns(:core_listings)).to contain_exactly(rental)
+          expect(assigns(:core_listings)).to be_empty
           expect(assigns(:channel_listings_by_section)).to eq({
             remote_account3 => [remote_rental_33, remote_rental_32, remote_rental_31],
             remote_account2 => [remote_rental_23],
@@ -322,7 +315,7 @@ describe BookingsyncPortal::Admin::RentalsController do
         it "displays records in correct order" do
           index_with_search
 
-          expect(assigns(:core_listings)).to contain_exactly(rental)
+          expect(assigns(:core_listings)).to be_empty
           expect(assigns(:channel_listings_by_section)).to eq({
             remote_account2 => [remote_rental_22, remote_rental_21],
             remote_account1 => [remote_rental_13, remote_rental_12],
@@ -340,7 +333,7 @@ describe BookingsyncPortal::Admin::RentalsController do
         it "displays records in correct order" do
           index_with_search
 
-          expect(assigns(:core_listings)).to contain_exactly(rental)
+          expect(assigns(:core_listings)).to be_empty
           expect(assigns(:channel_listings_by_section)).to eq({
             remote_account1 => [remote_rental_11],
           })

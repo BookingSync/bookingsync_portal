@@ -30,9 +30,8 @@ module BookingsyncPortal
         rental
       end
 
-      # DISCUSS: how first condition matters? We show blank sections only on the first page even if we search
-      def ignore_blank_channel_listing_sections?
-        search_filter.channel_listings_query.blank? && search_filter.channel_listings_page > 1
+      def on_the_first_channel_listings_page?
+        search_filter.channel_listings_page == 1
       end
 
       def action_variables
@@ -41,8 +40,6 @@ module BookingsyncPortal
 
       public :current_account
 
-      private
-
       def search_by_core_listings?
         params[:core_listings_search].present?
       end
@@ -50,6 +47,8 @@ module BookingsyncPortal
       def search_by_channel_listings?
         params[:channel_listings_search].present?
       end
+
+      private
 
       def resolve_action
         if BookingsyncPortal.use_paginated_view.call(current_account)
@@ -62,70 +61,85 @@ module BookingsyncPortal
 
         @listings_repository = BookingsyncPortal.listings_repository_proc.call(current_account)
 
-        @action_variables.core_listings = @listings_repository.find_core_listings
-        @action_variables.available_listings_count = @listings_repository.get_available_listings_count
-        @action_variables.channel_listings = @listings_repository.find_channel_listings
+        set_core_listings { @listings_repository.find_core_listings }
+        set_available_listings_count { @listings_repository.get_available_listings_count }
 
-        @action_variables.channel_listing_sections = if ignore_blank_channel_listing_sections?
-          @listings_repository.find_channel_listing_sections_only_with_listings
-        else
-          @listings_repository.find_channel_listing_sections_with_blank_ones_first
+        set_channel_listings { @listings_repository.find_channel_listings }
+
+        set_channel_listing_sections do
+          if on_the_first_channel_listings_page?
+            @listings_repository.find_channel_listing_sections_with_blank_ones_first
+          else
+            @listings_repository.find_channel_listing_sections_only_with_listings
+          end
         end
 
         BookingsyncPortal.before_rentals_index_action_filter.call(self)
         yield if block_given?
 
-        @action_variables.channel_listings_by_section = @listings_repository.group_channel_listings_by_section(@action_variables.channel_listings)
+        set_channel_listings_by_section do
+          @listings_repository.group_channel_listings_by_section(@action_variables.channel_listings)
+        end
 
-        if ignore_blank_channel_listing_sections?
-          @action_variables.channel_listing_sections = @action_variables.channel_listings_by_section.keys
-        else
-          sections_with_listings, blank_sections = @action_variables.channel_listing_sections.partition do |s|
-            s.has_listings == 1
+        set_channel_listing_sections do
+          if on_the_first_channel_listings_page?
+            blank_sections = @action_variables.channel_listing_sections.select do |s|
+              s.has_listings == 0
+            end
+
+            blank_sections + @action_variables.channel_listings_by_section.keys
+          else
+            @action_variables.channel_listings_by_section.keys
           end
-
-          sections_with_listings = sections_with_listings.select do |s|
-            @action_variables.channel_listings_by_section.keys.include?(s)
-          end
-
-          @action_variables.channel_listing_sections = blank_sections + sections_with_listings
         end
 
         BookingsyncPortal.after_rentals_index_action_filter.call(self)
         @action_variables.to_h.each do |variable_name, variable_value|
           instance_variable_set("@#{variable_name}", variable_value)
         end
+
       end
 
       def apply_search
         BookingsyncPortal.filter_strategies.each do |strategy|
-          @action_variables.core_listings = strategy.constantize.call(
-            account: current_account,
-            records: @action_variables.core_listings,
-            search_filter: search_filter
-          )
-          @action_variables.channel_listings = strategy.constantize.call(
-            account: current_account,
-            records: @action_variables.channel_listings,
-            search_filter: search_filter
-          )
+          set_core_listings do
+            strategy.constantize.call(
+              account: current_account,
+              records: @action_variables.core_listings,
+              search_filter: search_filter
+            )
+          end
 
-          @action_variables.channel_listing_sections = strategy.constantize.call(
-            account: current_account,
-            records: @action_variables.channel_listing_sections,
-            search_filter: search_filter
-          )
+          set_channel_listings do
+            strategy.constantize.call(
+              account: current_account,
+              records: @action_variables.channel_listings,
+              search_filter: search_filter
+            )
+          end
+
+          set_channel_listing_sections do
+            strategy.constantize.call(
+              account: current_account,
+              records: @action_variables.channel_listing_sections,
+              search_filter: search_filter
+            )
+          end
         end
       end
 
       def apply_pagination
-        @action_variables.core_listings = @action_variables.core_listings
-          .page(search_filter.core_listings_page)
-          .per(BookingsyncPortal.items_per_page)
+        set_core_listings do
+          @action_variables.core_listings
+            .page(search_filter.core_listings_page)
+            .per(BookingsyncPortal.items_per_page)
+        end
 
-        @action_variables.channel_listings = @action_variables.channel_listings
-          .page(search_filter.channel_listings_page)
-          .per(BookingsyncPortal.items_per_page)
+        set_channel_listings do
+          @action_variables.channel_listings
+            .page(search_filter.channel_listings_page)
+            .per(BookingsyncPortal.items_per_page)
+        end
       end
 
       def synchronize_core_listings
@@ -140,6 +154,26 @@ module BookingsyncPortal
 
       def search_filter
         @search_filter ||= BookingsyncPortal::SearchFilter.new(params)
+      end
+
+      def set_core_listings
+        @action_variables.core_listings = search_by_channel_listings? ? [] : yield
+      end
+
+      def set_available_listings_count
+        @action_variables.available_listings_count = search_by_channel_listings? ? nil : yield
+      end
+
+      def set_channel_listings
+        @action_variables.channel_listings = search_by_core_listings? ? [] : yield
+      end
+
+      def set_channel_listing_sections
+        @action_variables.channel_listing_sections = search_by_core_listings? ? [] : yield
+      end
+
+      def set_channel_listings_by_section
+        @action_variables.channel_listings_by_section = search_by_core_listings? ? {} : yield
       end
     end
   end
