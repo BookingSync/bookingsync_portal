@@ -10,7 +10,7 @@ class ListingsRepository
     account.rentals.visible.ordered.not_connected
   end
 
-  def get_available_listings_count
+  def available_listings_count
     account.rentals.visible.count
   end
 

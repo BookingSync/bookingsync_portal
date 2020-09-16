@@ -10,7 +10,7 @@ class BookingsyncPortal::ListingsRepository
     raise NotImplementedError
   end
 
-  def find_all_listings
+  def available_listings_count
     raise NotImplementedError
   end
 

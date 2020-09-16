@@ -62,7 +62,7 @@ module BookingsyncPortal
         @listings_repository = BookingsyncPortal.listings_repository_proc.call(current_account)
 
         set_core_listings { @listings_repository.find_core_listings }
-        set_available_listings_count { @listings_repository.get_available_listings_count }
+        set_available_listings_count { @listings_repository.available_listings_count }
 
         set_channel_listings { @listings_repository.find_channel_listings }
 
