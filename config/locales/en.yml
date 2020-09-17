@@ -39,9 +39,9 @@ en:
           listing_id: "Listing #%{id}"
 
       rentals:
-        new_remote_account:
+        new_channel_listing_section:
           connect_accounts: Connect additional accounts
-        new_remote_rental:
+        new_channel_listing:
           drop_here: "Drop here to create a new rental on %{portal_name}"
         index:
           connect: Connect
@@ -50,11 +50,11 @@ en:
           connect_accounts: Add External Portal Account
           remote_header: "%{portal_name}: %{account_name}"
           help: Help
-        rentals:
+        core_listings:
           no_published_rentals_html: 'No published rentals present, please make sure to <a href="https://www.bookingsync.com/en/admin/v2/%{id}/rentals" target="_blank">fill all your rentals details</a>.'
           all_synchronized: Perfect! All your rentals are synchronized.
           no_results: No results
-        rental:
+        core_listing:
           bedrooms_html:
             one: '<strong>1</strong> Bedroom'
             other: '<strong>%{count}</strong> Bedrooms'
@@ -66,12 +66,15 @@ en:
             other: '<strong>%{count}</strong> People'
           surface_html:
             zero: ''
-            one: '<span>Surface</span> <strong>%{count}%{unit}</strong>'
-            other: '<span>Surface</span> <strong>%{count}%{unit}</strong>'
+            one: '<span>Surface</span> <strong>%{count} %{unit}</strong>'
+            other: '<span>Surface</span> <strong>%{count} %{unit}</strong>'
           no_name: Unnamed rental
-        remote_rental:
+          surface_unit:
+            imperial: "ft<sup>2</sup>"
+            metric: "m<sup>2</sup>"
+        channel_listing:
           no_name: Unnamed remote rental
-        connected_rental:
+        connected_channel_listing:
           disconnect_rental: 'Disconnect'
           disconnecting_rental: 'Disconnecting...'
           synchronizing: 'Synchronizing...'
