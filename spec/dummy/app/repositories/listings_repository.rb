@@ -31,7 +31,7 @@ class ListingsRepository
 
   def find_channel_listing_sections_with_blank_ones_first
     account.remote_accounts.left_outer_joins(:remote_rentals)
-      .order("remote_rentals.id DESC NULLS FIRST")
+      .order(Arel.sql("CASE WHEN remote_rentals.id IS NULL THEN 0 ELSE 1 END ASC"))
       .select("DISTINCT remote_accounts.*, CASE WHEN remote_rentals.id IS NULL THEN 0 ELSE 1 END AS has_listings")
   end
 

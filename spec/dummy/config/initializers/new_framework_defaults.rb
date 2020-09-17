@@ -19,6 +19,6 @@ ActiveSupport.to_time_preserves_timezone = false
 # Require `belongs_to` associations by default. Previous versions had false.
 Rails.application.config.active_record.belongs_to_required_by_default = false
 
-if Rails.application.config.active_record.respond_to(:sqlite3)
+if Rails::VERSION::MAJOR > 5 || Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR >= 2
   Rails.application.config.active_record.sqlite3.represent_boolean_as_integer = true
 end
