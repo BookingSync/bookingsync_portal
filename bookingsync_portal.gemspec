@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'appraisal'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'shoulda-matchers'
-  s.add_development_dependency 'factory_bot_rails'
+  s.add_development_dependency 'factory_bot_rails', '~> 5.2'
   s.add_development_dependency 'vcr'
   s.add_development_dependency 'webmock'
   s.add_development_dependency 'sqlite3', '1.3.13'

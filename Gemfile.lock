@@ -117,10 +117,10 @@ GEM
       railties (>= 3.2, < 6.1)
     erubi (1.9.0)
     execjs (2.7.0)
-    factory_bot (5.1.1)
+    factory_bot (5.2.0)
       activesupport (>= 4.2.0)
-    factory_bot_rails (5.1.1)
-      factory_bot (~> 5.1.0)
+    factory_bot_rails (5.2.0)
+      factory_bot (~> 5.2.0)
       railties (>= 4.2.0)
     faraday (1.0.0)
       multipart-post (>= 1.2, < 3)
@@ -337,7 +337,7 @@ PLATFORMS
 DEPENDENCIES
   appraisal
   bookingsync_portal!
-  factory_bot_rails
+  factory_bot_rails (~> 5.2)
   pry
   pry-rails
   rails-controller-testing
