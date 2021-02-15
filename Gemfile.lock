@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     bookingsync_portal (1.0.1)
-      bookingsync_application (>= 3, < 4)
+      bookingsync_application (>= 3)
       bootstrap-bookingsync-sass (~> 1.0.0)
       bootstrap-sass (< 3.5)
       coffee-rails
@@ -293,6 +293,8 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sassc (2.4.0)
+      ffi (~> 1.9)
     shoulda (3.6.0)
       shoulda-context (~> 1.0, >= 1.0.1)
       shoulda-matchers (~> 3.0)
