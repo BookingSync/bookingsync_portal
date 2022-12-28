@@ -16,12 +16,12 @@ Gem::Specification.new do |s|
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  s.add_dependency 'rails', '>= 5.2'
+  s.add_dependency 'rails', '>= 6.0'
   s.add_dependency 'sprockets-rails'
   s.add_dependency 'sprockets', '>= 4'
   s.add_dependency 'responders'
   s.add_dependency 'bookingsync_application', ['>= 4', '< 5']
-  s.add_dependency 'redis'
+  s.add_dependency 'redis', '< 5'
   # FIXME: Will no longer be needed once UI moved to Ember
   s.add_dependency 'jquery-rails'
   s.add_dependency 'jquery-ui-rails', '~> 6.0.1'

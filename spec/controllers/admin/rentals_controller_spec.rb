@@ -105,11 +105,11 @@ describe BookingsyncPortal::Admin::RentalsController do
           end
         end
       end
-      
+
       context "and it's attempt to filter by" do
         context "rental.synced_id" do
           let(:rentals_search_query) { "#{rental.synced_id}" }
-  
+
           it "filters not_connected_rentals but does not filter remote_rentals part" do
             index_with_search
             expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
@@ -138,7 +138,7 @@ describe BookingsyncPortal::Admin::RentalsController do
         end
       end
     end
-    
+
     context "when there is remote_rentals_search query" do
       context "and it's empty string" do
         let(:remote_rentals_search_query) { "" }
@@ -146,7 +146,7 @@ describe BookingsyncPortal::Admin::RentalsController do
         it "does not filter rentals" do
           index_with_search
           expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-          expect(assigns(:remote_rentals_by_account)).to eq({ 
+          expect(assigns(:remote_rentals_by_account)).to eq({
             remote_account_connected => [remote_rental_connected],
             remote_account => [remote_rental],
             remote_account_empty => []
@@ -164,7 +164,7 @@ describe BookingsyncPortal::Admin::RentalsController do
           end
         end
       end
-      
+
       context "and it's attempt to filter by" do
         context "remote_account.uid" do
           let(:remote_rentals_search_query) { "#{remote_account.uid}" }
@@ -172,7 +172,7 @@ describe BookingsyncPortal::Admin::RentalsController do
           it "filters remote_rentals but does not filter not_connected_rentals part" do
             index_with_search
             expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-            expect(assigns(:remote_rentals_by_account)).to eq({ 
+            expect(assigns(:remote_rentals_by_account)).to eq({
               remote_account => [remote_rental]
             })
           end
@@ -184,7 +184,7 @@ describe BookingsyncPortal::Admin::RentalsController do
           it "filters remote_rentals but does not filter not_connected_rentals part" do
             index_with_search
             expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-            expect(assigns(:remote_rentals_by_account)).to eq({ 
+            expect(assigns(:remote_rentals_by_account)).to eq({
               remote_account_connected => [remote_rental_connected]
             })
           end
@@ -196,7 +196,7 @@ describe BookingsyncPortal::Admin::RentalsController do
           it "filters remote_rentals but does not filter not_connected_rentals part" do
             index_with_search
             expect(assigns(:not_connected_rentals)).to contain_exactly(rental)
-            expect(assigns(:remote_rentals_by_account)).to eq({ 
+            expect(assigns(:remote_rentals_by_account)).to eq({
               remote_account_empty => []
             })
           end
@@ -228,7 +228,7 @@ describe BookingsyncPortal::Admin::RentalsController do
         expect(assigns(:remote_rentals)).not_to eq(RemoteRental.all)  # will be overridden
         expect(assigns(:custom_variable)).to eq("BookingSync")
       end
-    end    
+    end
 
     context "when there is after_rentals_index_action_filter setting" do
       let(:rentals_index_action_extention) do

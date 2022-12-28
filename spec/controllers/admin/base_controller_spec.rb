@@ -20,7 +20,8 @@ describe BookingsyncPortal::Admin::BaseController do
 
       it "redirects to engine authentication path" do
         get :index
-        expect(response.body).to include "/auth/bookingsync/?account_id="
+        expect(response.body).to include("action=\"/auth/bookingsync\" method=\"post\"")
+        expect(response.body).to include("<input type=\"hidden\" name=\"account_id\" value=\"\">")
       end
     end
   end
