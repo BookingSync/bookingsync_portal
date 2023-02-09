@@ -60,13 +60,12 @@ module BookingsyncPortal
   # message bus channel scope
   mattr_accessor :message_bus_channel_scope
 
+  mattr_accessor :synchronize_rentals
+  @@synchronize_rentals = ->(account) { BookingsyncPortal.rental_model.constantize.synchronize(scope: account) }
+
   # fetch remote rentals
   def self.fetch_remote_rentals(account)
     # return false if remote account is not present or not valid
-  end
-
-  def self.synchronize_rentals(account)
-    BookingsyncPortal.rental_model.constantize.synchronize(scope: account)
   end
 
   # Default way to setup BookingsyncPortal. Run rails generate bookingsync_portal:install to create

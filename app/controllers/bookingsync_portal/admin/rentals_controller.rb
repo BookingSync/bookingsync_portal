@@ -19,7 +19,7 @@ module BookingsyncPortal
       private
 
       def synchronize_rentals
-        BookingsyncPortal.synchronize_rentals(current_account)
+        BookingsyncPortal.synchronize_rentals.call(current_account)
       end
 
       def fetch_remote_rentals
