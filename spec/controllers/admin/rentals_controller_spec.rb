@@ -34,10 +34,10 @@ describe BookingsyncPortal::Admin::RentalsController do
       let(:custom_proc) { ->(account) { observer << account } }
 
       around do |example|
-        original_lambda = BookingsyncPortal.synchronize_rentals
-        BookingsyncPortal.synchronize_rentals = custom_proc
+        original_lambda = BookingsyncPortal.rentals_synchronizer
+        BookingsyncPortal.rentals_synchronizer = custom_proc
         example.call
-        BookingsyncPortal.synchronize_rentals = original_lambda
+        BookingsyncPortal.rentals_synchronizer = original_lambda
       end
 
       it 'skips inline rentals sync' do

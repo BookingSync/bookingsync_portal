@@ -60,8 +60,8 @@ module BookingsyncPortal
   # message bus channel scope
   mattr_accessor :message_bus_channel_scope
 
-  mattr_accessor :synchronize_rentals
-  @@synchronize_rentals = ->(account) { BookingsyncPortal.rental_model.constantize.synchronize(scope: account) }
+  mattr_accessor :rentals_synchronizer
+  @@rentals_synchronizer = ->(account) { BookingsyncPortal.rental_model.constantize.synchronize(scope: account) }
 
   # fetch remote rentals
   def self.fetch_remote_rentals(account)
