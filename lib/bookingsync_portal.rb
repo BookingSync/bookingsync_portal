@@ -65,6 +65,10 @@ module BookingsyncPortal
     # return false if remote account is not present or not valid
   end
 
+  def self.synchronize_rentals(account)
+    BookingsyncPortal.rental_model.constantize.synchronize(scope: account)
+  end
+
   # Default way to setup BookingsyncPortal. Run rails generate bookingsync_portal:install to create
   # a fresh initializer with all configuration values.
   def self.setup
