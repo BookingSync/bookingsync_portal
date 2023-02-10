@@ -16,15 +16,38 @@ describe BookingsyncPortal::Admin::RentalsController do
   end
 
   describe 'GET #index' do
-    before do
-      expect(Rental).to receive(:synchronize).with(scope: account) do
-        # pretending to sync rentals :P
-        rental
+    context "with default synchronization" do
+      before do
+        expect(Rental).to receive(:synchronize).with(scope: account) do
+          # pretending to sync rentals :P
+          rental
+        end
+      end
+
+      it 'synchronizes rentals' do
+        expect { get :index }.to change { Rental.count }
       end
     end
 
-    it 'synchronizes rentals' do
-      expect { get :index }.to change { Rental.count }
+    context 'with custom synchronization action' do
+      let(:observer) { [] }
+      let(:custom_proc) { ->(account) { observer << account } }
+
+      around do |example|
+        original_lambda = BookingsyncPortal.rentals_synchronizer
+        BookingsyncPortal.rentals_synchronizer = custom_proc
+        example.call
+        BookingsyncPortal.rentals_synchronizer = original_lambda
+      end
+
+      it 'skips inline rentals sync' do
+        expect(Rental).not_to receive(:synchronize)
+        expect { get :index }.not_to change { Rental.count }
+      end
+
+      it 'runs custom proc' do
+        expect { get :index }.to change { observer }.from([]).to([account])
+      end
     end
   end
 end

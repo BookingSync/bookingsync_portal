@@ -19,7 +19,7 @@ module BookingsyncPortal
       private
 
       def synchronize_rentals
-        BookingsyncPortal.rental_model.constantize.synchronize(scope: current_account)
+        BookingsyncPortal.rentals_synchronizer.call(current_account)
       end
 
       def fetch_remote_rentals
