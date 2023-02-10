@@ -1,5 +1,9 @@
 ### master
 
+* [BREAKING CHANGE] Drop support for rails prior to 6.0
+* [BREAKING CHANGE] Drop support for ruby prior to 2.7
+* Allow to inject custom rentals synchronizer that is executed before RentalsController#index action
+
 # 3.0.0 - 2020-07-21
 
 * [BREAKING CHANGE] Drop support for rails prior to 5.2

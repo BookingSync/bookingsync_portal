@@ -7,7 +7,7 @@ A Rails engine to simplify building BookingSync Portal Applications.
 
 ## Requirements
 
-This engine requires Rails `>= 5.2.0` and Ruby `>= 2.5.0`.
+This engine requires Rails `>= 6.0.0` and Ruby `>= 2.7.0`.
 
 ## Documentation
 
@@ -15,7 +15,7 @@ This engine requires Rails `>= 5.2.0` and Ruby `>= 2.5.0`.
 
 ## Installation
 
-BookingSync Portal works with Rails 5.2 onwards and Ruby 2.5 onwards. To get started, add it to your Gemfile with:
+BookingSync Portal works with Rails 6.0 onwards and Ruby 2.7 onwards. To get started, add it to your Gemfile with:
 
 ```ruby
 gem 'bookingsync_portal'
@@ -138,6 +138,17 @@ The engine is configured by the following ENV variables:
 
 You might want to use [dotenv-rails](https://github.com/bkeepers/dotenv)
 to make ENV variables management easy.
+
+Furthermore gem provides hooks to let you ensure displayed data will be up to date.
+
+### Rentals
+By default `BookingsyncPortal.rental_model` synchronization is performed inline using synced gem. You may want to customize this behaviour by specifying some callable. This can be useful if you have larger accounts and would like to synchronize rentals asynchronously, eg.:
+
+```ruby
+BookingsyncPortal.setup do |config|
+  config.rentals_synchronizer = ->(account) { AsyncRentalsSynchronizer.perform_async(account.id) }
+end
+```
 
 Rack::Lock is not recommended with message_bus gem, causing deadlock problems. You might want to add this line to your app `development.rb` file:
 
