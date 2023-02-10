@@ -60,6 +60,7 @@ module BookingsyncPortal
   # message bus channel scope
   mattr_accessor :message_bus_channel_scope
 
+  # Define if/how to pre-synchronize rentals before rendering index page. Default is inline sync using synced gem
   mattr_accessor :rentals_synchronizer
   @@rentals_synchronizer = ->(account) { BookingsyncPortal.rental_model.constantize.synchronize(scope: account) }
 
