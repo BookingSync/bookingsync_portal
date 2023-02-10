@@ -98,6 +98,13 @@ describe BookingsyncPortal::Admin::RentalsController do
     end
 
     context "when there is rentals_search query" do
+
+      before do
+        allow(Rental).to receive(:synchronize).with(scope: account) do
+          rental
+        end
+      end
+
       context "and it's empty string" do
         let(:rentals_search_query) { "" }
 
@@ -163,6 +170,12 @@ describe BookingsyncPortal::Admin::RentalsController do
     end
 
     context "when there is remote_rentals_search query" do
+      before do
+        allow(Rental).to receive(:synchronize).with(scope: account) do
+          rental
+        end
+      end
+
       context "and it's empty string" do
         let(:remote_rentals_search_query) { "" }
 
@@ -238,6 +251,9 @@ describe BookingsyncPortal::Admin::RentalsController do
       end
 
       before do
+        allow(Rental).to receive(:synchronize).with(scope: account) do
+          rental
+        end
         BookingsyncPortal.before_rentals_index_action_filter = rentals_index_action_extention
       end
 
@@ -263,6 +279,9 @@ describe BookingsyncPortal::Admin::RentalsController do
       end
 
       before do
+        allow(Rental).to receive(:synchronize).with(scope: account) do
+          rental
+        end
         BookingsyncPortal.after_rentals_index_action_filter = rentals_index_action_extention
       end
 
@@ -296,6 +315,9 @@ describe BookingsyncPortal::Admin::RentalsController do
       let!(:remote_rental_33) { create(:remote_rental, remote_account: remote_account3) }
 
       before do
+        allow(Rental).to receive(:synchronize).with(scope: account) do
+          rental
+        end
         allow(BookingsyncPortal).to receive(:items_per_page).and_return(4)
       end
 

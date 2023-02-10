@@ -8,6 +8,7 @@ describe "admin/rentals", type: :request do
     subject(:get_rentals) { get "/admin/rentals", headers: { "HTTPS" => "on" } }
 
     before do
+      allow(Rental).to receive(:synchronize).with(scope: account)
       allow_any_instance_of(BookingsyncPortal::Admin::RentalsController).to receive(:current_account).and_return(account)
     end
 
