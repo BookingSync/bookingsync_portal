@@ -363,5 +363,16 @@ describe BookingsyncPortal::Admin::RentalsController do
         end
       end
     end
+
+    context "when rentals_search or remote_rentals_search query is not used" do
+      let(:params) { {} }
+
+      it "calls only filters strategies for remote account" do
+        expect(BookingsyncPortal::Searcher).to receive(:call).with(query: "", records: [remote_account_empty], search_settings: {:numeric=>["uid"]}).and_call_original
+        expect(BookingsyncPortal::Searcher).not_to receive(:call)
+
+        index_with_search
+      end
+    end
   end
 end

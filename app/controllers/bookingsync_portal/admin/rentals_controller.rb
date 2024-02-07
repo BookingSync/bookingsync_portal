@@ -101,17 +101,24 @@ module BookingsyncPortal
       end
 
       def apply_search
-        BookingsyncPortal.filter_strategies.each do |strategy|
-          @action_variables.not_connected_rentals = strategy.constantize.call(
-            account: current_account, 
-            records: @action_variables.not_connected_rentals, 
-            search_filter: search_filter
-          )
-          @action_variables.remote_rentals = strategy.constantize.call(
-            account: current_account,
-            records: @action_variables.remote_rentals, 
-            search_filter: search_filter
-          )
+        if search_by_rentals?
+          BookingsyncPortal.filter_strategies.each do |strategy|
+            @action_variables.not_connected_rentals = strategy.constantize.call(
+              account: current_account,
+              records: @action_variables.not_connected_rentals,
+              search_filter: search_filter
+            )
+          end
+        end
+
+        if search_by_remote_rentals?
+          BookingsyncPortal.filter_strategies.each do |strategy|
+            @action_variables.remote_rentals = strategy.constantize.call(
+              account: current_account,
+              records: @action_variables.remote_rentals,
+              search_filter: search_filter
+            )
+          end
         end
       end
 
