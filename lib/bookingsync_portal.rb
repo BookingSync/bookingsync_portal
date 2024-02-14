@@ -106,6 +106,10 @@ module BookingsyncPortal
   mattr_accessor :rentals_synchronizer
   @@rentals_synchronizer = ->(account) { BookingsyncPortal.rental_model.constantize.synchronize(scope: account) }
 
+  # Enable controlling display of blank remote accounts
+  mattr_accessor :ignore_blank_remote_accounts_for_account
+  @@ignore_blank_remote_accounts_for_account = ->(account) { false }
+
   # fetch remote rentals
   def self.fetch_remote_rentals(account)
     # return false if remote account is not present or not valid

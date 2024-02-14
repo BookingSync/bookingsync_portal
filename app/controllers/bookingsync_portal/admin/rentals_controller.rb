@@ -34,7 +34,9 @@ module BookingsyncPortal
       end
 
       def ignore_blank_remote_accounts?
-        search_filter.remote_rentals_query.blank? && search_filter.remote_rentals_page > 1
+        return false if search_filter.remote_rentals_query.present?
+
+        search_filter.remote_rentals_page > 1 || BookingsyncPortal.ignore_blank_remote_accounts_for_account.call(current_account)
       end
 
       def action_variables
