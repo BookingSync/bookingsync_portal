@@ -98,12 +98,21 @@ describe BookingsyncPortal::Admin::RentalsController do
     end
 
     context "when there is large amount of blank remote accounts" do
-      let!(:blank_remote_accounts) { create_list(:remote_account, 23, account: account) }
+      let!(:blank_remote_account) { create(:remote_account, account: account) }
+      let(:blank_remote_accounts_for_display) { [blank_remote_account, remote_account_empty] }
 
       context "when configuration is set to not ignore blank remote accounts" do
-        it "assigns all remote accounts" do
+        # NOTE: In order to avoid creating larger number of blank remote accounts
+        around do |example|
+          BookingsyncPortal.items_per_page = 1
+          example.run
+          BookingsyncPortal.items_per_page = 25
+        end
+
+        it "displays all blank remote accounts and paginated non blank remote accounts" do
           index_with_search
-          expect(assigns(:remote_accounts)).to include(*blank_remote_accounts)
+          expect(assigns(:remote_accounts)).to include(*blank_remote_accounts_for_display)
+          expect([assigns(:remote_accounts) - blank_remote_accounts_for_display].count).to eq(1)
         end
       end
 
@@ -116,16 +125,15 @@ describe BookingsyncPortal::Admin::RentalsController do
 
         it "ignores blank remote accounts on first page" do
           index_with_search
-          expect(assigns(:remote_accounts)).not_to include(*blank_remote_accounts)
+          expect(assigns(:remote_accounts)).not_to include(*blank_remote_accounts_for_display)
         end
 
         context "when there is a search query" do
-          let!(:blank_remote_account_to_search) { blank_remote_accounts.first }
-          let(:remote_rentals_search_query) { blank_remote_account_to_search.uid.to_s }
+          let(:remote_rentals_search_query) { blank_remote_account.uid.to_s }
 
           it "displays searched remote account" do
             index_with_search
-            expect(assigns(:remote_accounts)).to contain_exactly(blank_remote_account_to_search)
+            expect(assigns(:remote_accounts)).to contain_exactly(blank_remote_account)
           end
         end
       end
