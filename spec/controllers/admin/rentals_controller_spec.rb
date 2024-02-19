@@ -103,7 +103,7 @@ describe BookingsyncPortal::Admin::RentalsController do
       context "when configuration is set to not ignore blank remote accounts" do
         it "assigns all remote accounts" do
           index_with_search
-          expect(assigns(:remote_accounts).count).to include(*blank_remote_accounts)
+          expect(assigns(:remote_accounts)).to include(*blank_remote_accounts)
         end
       end
 
