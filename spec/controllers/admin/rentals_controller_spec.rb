@@ -97,6 +97,48 @@ describe BookingsyncPortal::Admin::RentalsController do
       end
     end
 
+    context "when there is large amount of blank remote accounts" do
+      let!(:blank_remote_account) { create(:remote_account, account: account) }
+      let(:blank_remote_accounts_for_display) { [blank_remote_account, remote_account_empty] }
+
+      context "when configuration is set to not ignore blank remote accounts" do
+        # NOTE: In order to avoid creating larger number of blank remote accounts
+        around do |example|
+          BookingsyncPortal.items_per_page = 1
+          example.run
+          BookingsyncPortal.items_per_page = 25
+        end
+
+        it "displays all blank remote accounts and paginated non blank remote accounts" do
+          index_with_search
+          expect(assigns(:remote_accounts)).to include(*blank_remote_accounts_for_display)
+          expect([assigns(:remote_accounts) - blank_remote_accounts_for_display].count).to eq(1)
+        end
+      end
+
+      context "when configuration is set to ignore blank remote accounts" do
+        around do |example|
+          BookingsyncPortal.ignore_blank_remote_accounts_for_account = ->(_) { true }
+          example.run
+          BookingsyncPortal.ignore_blank_remote_accounts_for_account = ->(_) { false }
+        end
+
+        it "ignores blank remote accounts on first page" do
+          index_with_search
+          expect(assigns(:remote_accounts)).not_to include(*blank_remote_accounts_for_display)
+        end
+
+        context "when there is a search query" do
+          let(:remote_rentals_search_query) { blank_remote_account.uid.to_s }
+
+          it "displays searched remote account" do
+            index_with_search
+            expect(assigns(:remote_accounts)).to contain_exactly(blank_remote_account)
+          end
+        end
+      end
+    end
+
     context "when there is rentals_search query" do
 
       before do
