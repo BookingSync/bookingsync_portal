@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "ostruct"
 
 RSpec.describe Account do
   describe 'included_modules' do
@@ -17,7 +18,7 @@ RSpec.describe Account do
     let!(:account) { create(:account) }
 
     it { is_expected.to be_instance_of BookingSync::Engine::APIClient }
-    it { expect(subject.logger).to be_instance_of ActiveSupport::Logger }
+    it { expect(subject.logger).to be_instance_of ActiveSupport::BroadcastLogger }
   end
 
   describe "#self.api" do
@@ -27,6 +28,6 @@ RSpec.describe Account do
     before { expect(BookingSync::Engine).to receive(:application_token).and_return(token) }
 
     it { is_expected.to be_instance_of BookingSync::API::Client }
-    it { expect(subject.logger).to be_instance_of ActiveSupport::Logger }
+    it { expect(subject.logger).to be_instance_of ActiveSupport::BroadcastLogger }
   end
 end

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :photo, class: BookingsyncPortal.photo_model do
     rental
     sequence(:synced_id) { |n| n }

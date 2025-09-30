@@ -1,6 +1,6 @@
 ### master
-
-* [BREAKING CHANGE] Drop support for rails prior to 6.0
+* [BREAKING CHANGE] RemoteRental no longer encourages to use `text` column for storing legit JSON. If you want to maintain original behavior, make sure to use `serialize` method and specify `BookingsyncPortal::MashSerializer` there.
+* [BREAKING CHANGE] Drop support for rails prior to 7.2
 * [BREAKING CHANGE] Drop support for ruby prior to 2.7
 * Allow to inject custom rentals synchronizer that is executed before RentalsController#index action
 

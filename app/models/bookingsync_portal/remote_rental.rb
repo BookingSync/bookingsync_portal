@@ -8,8 +8,6 @@ class BookingsyncPortal::RemoteRental < ActiveRecord::Base
   has_one :connection, class_name: BookingsyncPortal.connection_model, dependent: :destroy
   has_one :rental, class_name: BookingsyncPortal.rental_model, through: :connection
 
-  serialize :remote_data, BookingsyncPortal::MashSerializer
-
   validates :uid, uniqueness: { allow_nil: true }
   validates :remote_account, presence: true
 
