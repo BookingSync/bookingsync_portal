@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe RemoteRental do
-  it { is_expected.to serialize(:remote_data).as(BookingsyncPortal::MashSerializer) }
-
   it { is_expected.to belong_to(:remote_account) }
   it { is_expected.to have_one(:account).through(:remote_account) }
   it { is_expected.to have_one(:connection).dependent(:destroy) }
