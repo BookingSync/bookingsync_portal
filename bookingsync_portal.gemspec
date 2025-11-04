@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = 'bookingsync_portal'
   s.version     = BookingsyncPortal::VERSION
   s.authors     = ['Piotr Marciniak', 'Sebastien Grosjean', 'Artur Krzeminski Freda']
-  s.email       = ['mandaryyyn@gmail.com', 'dev@bookingsync.com', 'artur@bookingsync.com']
+  s.email       = ['dev@bookingsync.com']
   s.homepage    = 'https://github.com/BookingSync/bookingsync_portal'
   s.summary     = 'A common base for creating BookingSync portal applications.'
   s.description = 'A common base for creating BookingSync portal applications.'
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  s.add_dependency 'rails', '>= 6.0'
+  s.add_dependency 'rails', '>= 7.2'
   s.add_dependency 'sprockets-rails'
   s.add_dependency 'sprockets', '>= 4'
   s.add_dependency 'responders'
@@ -43,10 +43,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'appraisal'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'shoulda-matchers', '>= 4'
-  s.add_development_dependency 'factory_girl_rails'
+  s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency 'vcr'
   s.add_development_dependency 'webmock'
-  s.add_development_dependency 'sqlite3', '~> 1.4'
+  s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'rubocop'
   s.add_development_dependency 'pry-rails'
   s.add_development_dependency 'rails-controller-testing'
